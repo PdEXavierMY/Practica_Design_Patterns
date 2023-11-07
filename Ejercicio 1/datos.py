@@ -78,19 +78,19 @@ if __name__ == "__main__":
     print("Vista de la columna TIPO:\n")
     datos.vista_columna("TIPO")
     #ahora rellenar los pocos valores nulos
-    datos.rellenar_nulos("DIAS-SEMANA", "S, D")
+    datos.rellenar_nulos("DIAS-SEMANA", "S,D")
     datos.rellenar_nulos("TITULO-ACTIVIDAD", "Actividad sin nombre")
     datos.rellenar_nulos("URL-ACTIVIDAD", "Sin URL")
     datos.rellenar_nulos("TIPO", "Sin tipo")
     print("Vista del dataset tras rellenar valores nulos:\n")
     datos.vista_inicial()
     #añadir una columna con un precio aleatorio de 0 a 15 para cada evento
-    precios = []
-    for i in range(len(datos.data)):
-        precios.append(random.randint(0, 15))
+    # Crear una lista de precios aleatorios entre 0 y 15 como valores de punto flotante
+    precios = [round(random.uniform(0, 15), 2) for _ in range(len(datos.data))]
+    # Agregar una nueva columna "PRECIO" con los precios aleatorios
     datos.data["PRECIO"] = precios
-    #si la columna GRATUITO es 1, el precio es 0
-    datos.data.loc[datos.data["GRATUITO"] == 1, "PRECIO"] = 0
+    # Si la columna "GRATUITO" es 1, establecer el precio como 0.0
+    datos.data.loc[datos.data["GRATUITO"] == 1, "PRECIO"] = 0.0
     print("Vista del dataset tras añadir la columna PRECIO:\n")
     datos.vista_inicial()
     #guardar el dataset
