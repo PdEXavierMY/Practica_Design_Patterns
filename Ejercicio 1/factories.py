@@ -2,41 +2,39 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from analisis import Analisis, Media, Mediana, Moda
 from visualizacion import Visualizacion, Histograma, Barras, Gcirculo
-
-
-class AbstractFactory(ABC):
-
+    
+# Fábrica para crear objetos de visualización
+class VisualizacionFactory(ABC):
     @abstractmethod
-    def create_analisis(self) -> Analisis:
+    def crear_visualizacion(self) -> Visualizacion:
         pass
 
-    @abstractmethod
-    def create_visualizacion(self) -> Visualizacion:
-        pass
-
-
-class Estudio_inicial(AbstractFactory):
-
-    def create_analisis(self) -> Analisis:
-        return Media()
-
-    def create_visualizacion(self) -> Visualizacion:
+class HistogramaFactory(VisualizacionFactory):
+    def crear_visualizacion(self) -> Visualizacion:
         return Histograma()
 
+class BarrasFactory(VisualizacionFactory):
+    def crear_visualizacion(self) -> Visualizacion:
+        return Barras()
 
-class Estudio2(AbstractFactory):
+class GcirculoFactory(VisualizacionFactory):
+    def crear_visualizacion(self) -> Visualizacion:
+        return Gcirculo()
 
-    def create_analisis(self) -> Analisis:
+# Fábrica para crear objetos de análisis de datos
+class AnalisisFactory(ABC):
+    @abstractmethod
+    def crear_analisis(self) -> Analisis:
+        pass
+
+class MediaFactory(AnalisisFactory):
+    def crear_analisis(self) -> Analisis:
+        return Media()
+
+class MedianaFactory(AnalisisFactory):
+    def crear_analisis(self) -> Analisis:
         return Mediana()
 
-    def create_visualizacion(self) -> Visualizacion:
-        return Barras()
-    
-    
-class Estudio_final(AbstractFactory):
-
-    def create_analisis(self) -> Analisis:
+class ModaFactory(AnalisisFactory):
+    def crear_analisis(self) -> Analisis:
         return Moda()
-
-    def create_visualizacion(self) -> Visualizacion:
-        return Gcirculo()

@@ -89,7 +89,9 @@ if __name__ == "__main__":
     for i in range(len(datos.data)):
         precios.append(random.randint(0, 15))
     datos.data["PRECIO"] = precios
+    #si la columna GRATUITO es 1, el precio es 0
+    datos.data.loc[datos.data["GRATUITO"] == 1, "PRECIO"] = 0
     print("Vista del dataset tras añadir la columna PRECIO:\n")
     datos.vista_inicial()
     #guardar el dataset
-    datos.data.to_csv("Ejercicio 1/datos_limpio.csv", sep=';', encoding='UTF-8', index=False)
+    datos.data.to_csv("datos_limpio.csv", sep=';', encoding='UTF-8', index=False)

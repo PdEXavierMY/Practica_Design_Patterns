@@ -2,11 +2,17 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 import matplotlib.pyplot as plt
 
+#producto abstracto
 class Visualizacion(ABC):
     @abstractmethod
     def generar_visualizacion(self, dataset):
         pass
 
+    def mostrar_datos(self, dataset):
+        print(dataset)
+
+
+#productos concreto
 class Histograma(Visualizacion):
     def generar_visualizacion(self, dataset):
         # Generar un histograma a partir del dataset
@@ -32,13 +38,3 @@ class Gcirculo(Visualizacion):
         plt.axis('equal')
         plt.title('Gráfico Circular')
         plt.show()
-
-'''# Ejemplo de uso:
-datos = [10, 20, 30, 40, 50]
-histograma_visualizacion = Histograma()
-barras_visualizacion = Barras()
-gcirculo_visualizacion = Gcirculo()
-
-histograma_visualizacion.generar_visualizacion(datos)
-barras_visualizacion.generar_visualizacion(datos)
-gcirculo_visualizacion.generar_visualizacion(datos)'''
