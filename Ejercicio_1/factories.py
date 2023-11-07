@@ -1,7 +1,7 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from Ejercicio_1.analisis import Analisis, Media, Mediana, Moda
-from Ejercicio_1.visualizacion import Visualizacion, Histograma, Barras, Gcirculo
+from analisis import Analisis, Media, Mediana, Moda
+from visualizacion import Visualizacion, Histograma, Barras, Gcirculo
     
 # Fábrica para crear objetos de visualización
 class VisualizacionFactory(ABC):

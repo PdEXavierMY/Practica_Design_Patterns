@@ -1,8 +1,8 @@
 import pandas as pd
-from Ejercicio_1.datos import *
-from Ejercicio_1.visualizacion import *
-from Ejercicio_1.analisis import *
-from Ejercicio_1.factories import *
+from datos import *
+from visualizacion import *
+from analisis import *
+from factories import *
 
 if __name__ == "__main__":
     # Leer el archivo CSV "datos_limpio.csv"
