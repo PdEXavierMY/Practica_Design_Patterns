@@ -24,11 +24,22 @@ class Histograma(Visualizacion):
 
 class Barras(Visualizacion):
     def generar_visualizacion(self, dataset):
-        # Generar un gráfico de barras a partir del dataset
-        plt.bar(range(len(dataset)), dataset, color='green')
-        plt.xlabel('Categorías')
-        plt.ylabel('Valores')
+        # Contar el número de repeticiones de cada valor
+        valores_unicos = list(set(dataset))
+        conteo_valores = [dataset.count(valor) for valor in valores_unicos]
+
+        # Ubicación de las barras en el eje x
+        ubicacion_barras = range(len(valores_unicos))
+
+        # Generar un gráfico de barras con etiquetas en el eje x y conteo en el eje y
+        plt.bar(ubicacion_barras, conteo_valores, color='green')
+        plt.xlabel('Valores')
+        plt.ylabel('Número de Repeticiones')
         plt.title('Gráfico de Barras')
+
+        # Establecer las etiquetas en el eje x
+        plt.xticks(ubicacion_barras, valores_unicos)
+
         plt.show()
 
 class Gcirculo(Visualizacion):
