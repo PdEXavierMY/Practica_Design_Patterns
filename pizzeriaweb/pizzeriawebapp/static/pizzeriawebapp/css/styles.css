@@ -1,0 +1,117 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    margin-left: 20px;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin: 0 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Sección Hero */
+#hero {
+    text-align: center;
+    padding: 100px 0;
+    background-image: url('pizza-hero.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+#hero h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.boton {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #ff5733;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* Sección Menú */
+#menu {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.menu-item {
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.menu-item img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.menu-item h3 {
+    font-size: 24px;
+}
+
+.menu-item p {
+    font-size: 16px;
+}
+
+.precio {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff5733;
+}
+
+/* Sección Sobre Nosotros */
+#sobre-nosotros {
+    background-color: #fff;
+    padding: 50px 0;
+    text-align: center;
+}
+
+/* Sección Contacto */
+#contacto {
+    text-align: center;
+    padding: 50px 0;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #333;
+    color: #fff;
+}
