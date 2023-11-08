@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea tu Propia Pizza - Pizzería Delizioso</title>
+    <link rel="stylesheet" href="estilos.css">
+    <!-- Boostrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="{% static 'pizzeriawebapp/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1 class="logo">Pizzería Delizioso</h1>
+    </header>
+
+    <main>
+        <h2>Crea tu Propia Pizza</h2>
+        <form action="procesar_pizza.php" method="POST">
+            <label for="masa">Masa:</label>
+            <select id="masa" name="masa" required>
+                <option value="delgada">Delgada</option>
+                <option value="gruesa">Gruesa</option>
+                <option value="integral">Integral</option>
+            </select>
+
+            <label for="salsa">Salsa:</label>
+            <select id="salsa" name="salsa" required>
+                <option value="tomate">Tomate</option>
+                <option value="pesto">Pesto</option>
+                <option value="blanca">Blanca</option>
+            </select>
+
+            <label for="ingredientes">Ingredientes:</label>
+            <select id="ingredientes" name="ingredientes[]" multiple required>
+                <option value="queso">Queso</option>
+                <option value="pepperoni">Pepperoni</option>
+                <option value="champiñones">Champiñones</option>
+                <option value="pimientos">Pimientos</option>
+                <option value="aceitunas">Aceitunas</option>
+            </select>
+
+            <label for="tecnica-coccion">Técnica de Cocción:</label>
+            <input type="radio" id="horno" name="tecnica-coccion" value="horno" required>
+            <label for="horno">Horno</label>
+            <input type="radio" id="parrilla" name="tecnica-coccion" value="parrilla" required>
+            <label for="parrilla">Parrilla</label>
+            
+            <label for="presentacion">Presentación:</label>
+            <input type="radio" id="corte-tradicional" name="presentacion" value="corte-tradicional" required>
+            <label for="corte-tradicional">Corte Tradicional</label>
+            <input type="radio" id="pizza-entera" name="presentacion" value="pizza-entera" required>
+            <label for="pizza-entera">Pizza Entera</label>
+            
+            <label for="maridaje">Maridaje:</label>
+            <input type="text" id="maridaje" name="maridaje" required>
+            
+            <label for="extra">Extras:</label>
+            <select id="extra" name="extra[]" multiple>
+                <option value="salsa-picante">Salsa Picante</option>
+                <option value="ajo-asado">Ajo Asado</option>
+                <option value="queso-azul">Queso Azul</option>
+            </select>
+
+            <button type="submit">Crear Pizza</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Pizzería Delizioso</p>
+    </footer>
+</body>
+</html>
