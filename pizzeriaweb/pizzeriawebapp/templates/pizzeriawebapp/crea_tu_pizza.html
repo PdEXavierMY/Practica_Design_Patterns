@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="estilos.css">
     <!-- Boostrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
     <link rel="stylesheet" href="{% static 'pizzeriawebapp/css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'pizzeriawebapp/css/pizza.css' %}">
 </head>
 <body>
     <header>
-        <h1 class="logo">Pizzería Delizioso</h1>
+        <div class="header-left">
+            <h1 class="logo">Pizzería Delizioso</h1>
+        </div>
     </header>
 
     <main>
@@ -26,6 +28,13 @@
                 <option value="delgada">Delgada</option>
                 <option value="gruesa">Gruesa</option>
                 <option value="integral">Integral</option>
+                <option value="pan">Pan</option>
+                <option value="crujiente">Crujiente</option>
+                <option value="fina">Fina</option>
+                <option value="sin-gluten">Sin Gluten</option>
+                <option value="maíz">Masa de Maíz</option>
+                <option value="california">Masa California</option>
+                <option value="francesa">Masa Francesa</option>
             </select>
 
             <label for="salsa">Salsa:</label>
@@ -33,38 +42,122 @@
                 <option value="tomate">Tomate</option>
                 <option value="pesto">Pesto</option>
                 <option value="blanca">Blanca</option>
+                <option value="barbacoa">Barbacoa</option>
+                <option value="crema-de-ajo">Crema de Ajo</option>
+                <option value="cebolla-caramelizada">Cebolla Caramelizada</option>
+                <option value="salsa-de-queso">Salsa de Queso</option>
+                <option value="salsa-alfredo">Salsa Alfredo</option>
+                <option value="salsa-de-champiñones">Salsa de Champiñones</option>
+                <option value="salsa-de-mostaza">Salsa de Mostaza</option>
             </select>
 
             <label for="ingredientes">Ingredientes:</label>
-            <select id="ingredientes" name="ingredientes[]" multiple required>
-                <option value="queso">Queso</option>
-                <option value="pepperoni">Pepperoni</option>
-                <option value="champiñones">Champiñones</option>
-                <option value="pimientos">Pimientos</option>
-                <option value="aceitunas">Aceitunas</option>
-            </select>
+            <div class="checkbox-list">
+                <input type="checkbox" id="queso" name="ingredientes[]" value="queso">
+                <label for="queso">Queso</label>
+                
+                <input type="checkbox" id="pepperoni" name="ingredientes[]" value="pepperoni">
+                <label for="pepperoni">Pepperoni</label>
+                
+                <input type="checkbox" id="champiñones" name="ingredientes[]" value="champiñones">
+                <label for="champiñones">Champiñones</label>
+                
+                <input type="checkbox" id="pimientos" name="ingredientes[]" value="pimientos">
+                <label for="pimientos">Pimientos</label>
+                
+                <input type="checkbox" id="aceitunas" name="ingredientes[]" value="aceitunas">
+                <label for="aceitunas">Aceitunas</label>
+                
+                <input type="checkbox" id="pollo" name="ingredientes[]" value="pollo">
+                <label for="pollo">Pollo</label>
+                
+                <input type="checkbox" id="jamón" name="ingredientes[]" value="jamón">
+                <label for="jamón">Jamón</label>
+                
+                <input type="checkbox" id="anchoas" name="ingredientes[]" value="anchoas">
+                <label for="anchoas">Anchoas</label>
+                
+                <input type="checkbox" id="atún" name="ingredientes[]" value="atún">
+                <label for="atún">Atún</label>
+                
+                <input type="checkbox" id="tomate-cherry" name="ingredientes[]" value="tomate-cherry">
+                <label for="tomate-cherry">Tomate Cherry</label>
+            </div>
 
             <label for="tecnica-coccion">Técnica de Cocción:</label>
-            <input type="radio" id="horno" name="tecnica-coccion" value="horno" required>
-            <label for="horno">Horno</label>
-            <input type="radio" id="parrilla" name="tecnica-coccion" value="parrilla" required>
-            <label for="parrilla">Parrilla</label>
+            <select id="tecnica-coccion" name="tecnica-coccion" required>
+                <option value="horno">Horno</option>
+                <option value="parrilla">Parrilla</option>
+                <option value="microondas">Microondas</option>
+                <option value="freidora">Freidora</option>
+                <option value="ahumado">Ahumado</option>
+                <option value="cocina-lenta">Cocina Lenta</option>
+                <option value="asado">Asado</option>
+                <option value="plancha">Plancha</option>
+                <option value="fuego-abierto">Fuego Abierto</option>
+                <option value="sous-vide">Sous Vide</option>
+            </select>
             
             <label for="presentacion">Presentación:</label>
-            <input type="radio" id="corte-tradicional" name="presentacion" value="corte-tradicional" required>
-            <label for="corte-tradicional">Corte Tradicional</label>
-            <input type="radio" id="pizza-entera" name="presentacion" value="pizza-entera" required>
-            <label for="pizza-entera">Pizza Entera</label>
+            <select id="presentacion" name="presentacion" required>
+                <option value="corte-tradicional">Corte Tradicional</option>
+                <option value="pizza-entera">Pizza Entera</option>
+                <option value="porciones-individuales">Porciones Individuales</option>
+                <option value="pizza-calzone">Pizza Calzone</option>
+                <option value="pizza-roll">Pizza Roll</option>
+                <option value="pizza-familiar">Pizza Familiar</option>
+                <option value="pizza-mediana">Pizza Mediana</option>
+                <option value="pizza-mini">Pizza Mini</option>
+                <option value="pizza-maxi">Pizza Maxi</option>
+                <option value="pizza-gigante">Pizza Gigante</option>
+            </select>
             
             <label for="maridaje">Maridaje:</label>
-            <input type="text" id="maridaje" name="maridaje" required>
+            <select id="maridaje" name="maridaje" required>
+                <option value="vino-tinto">Vino Tinto</option>
+                <option value="vino-blanco">Vino Blanco</option>
+                <option value="cerveza">Cerveza</option>
+                <option value="agua-mineral">Agua Mineral</option>
+                <option value="refresco">Refresco</option>
+                <option value="limonada">Limonada</option>
+                <option value="té">Té</option>
+                <option value="sidra">Sidra</option>
+                <option value="whisky">Whisky</option>
+                <option value="coctel">Cóctel</option>
+            </select>
             
             <label for="extra">Extras:</label>
-            <select id="extra" name="extra[]" multiple>
-                <option value="salsa-picante">Salsa Picante</option>
-                <option value="ajo-asado">Ajo Asado</option>
-                <option value="queso-azul">Queso Azul</option>
-            </select>
+            <div class="checkbox-list">
+                <input type="checkbox" id="salsa-picante" name="extra[]" value="salsa-picante">
+                <label for="salsa-picante">Salsa Picante</label>
+                
+                <input type="checkbox" id="ajo-asado" name="extra[]" value="ajo-asado">
+                <label for="ajo-asado">Ajo Asado</label>
+                
+                <input type="checkbox" id="queso-azul" name="extra[]" value="queso-azul">
+                <label for="queso-azul">Queso Azul</label>
+                
+                <input type="checkbox" id="aceite-de-trufa" name="extra[]" value="aceite-de-trufa">
+                <label for="aceite-de-trufa">Aceite de Trufa</label>
+                
+                <input type="checkbox" id="huevo" name="extra[]" value="huevo">
+                <label for="huevo">Huevo</label>
+                
+                <input type="checkbox" id="piña" name="extra[]" value="piña">
+                <label for="piña">Piña</label>
+                
+                <input type="checkbox" id="chiles-rojos" name="extra[]" value="chiles-rojos">
+                <label for="chiles-rojos">Chiles Rojos</label>
+                
+                <input type="checkbox" id="nueces" name="extra[]" value="nueces">
+                <label for="nueces">Nueces</label>
+                
+                <input type="checkbox" id="jalapeños" name="extra[]" value="jalapeños">
+                <label for="jalapeños">Jalapeños</label>
+                
+                <input type="checkbox" id="tomate-secado-al-sol" name="extra[]" value="tomate-secado-al-sol">
+                <label for="tomate-secado-al-sol">Tomate Secado al Sol</label>
+            </div>
 
             <button type="submit">Crear Pizza</button>
         </form>

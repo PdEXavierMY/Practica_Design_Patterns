@@ -1,5 +1,5 @@
 from director import Director
-from pizzeria import PizzaBuilder
+from builder import PizzaBuilder
 
 if __name__ == "__main__":
     """

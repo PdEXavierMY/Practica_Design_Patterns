@@ -1,0 +1,56 @@
+main {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px; /* Añade espacio alrededor del formulario */
+    box-sizing: border-box;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    max-width: 400px; /* Ancho máximo del formulario (ajustado según tus preferencias) */
+    width: 100%;
+    padding: 20px; /* Añade espacio interno al formulario */
+    background-color: #fff; /* Añade un fondo blanco al formulario */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+label {
+    font-weight: bold;
+}
+
+select, input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+select[multiple] {
+    height: 100px;
+}
+
+input[type="radio"] {
+    margin: 0 5px;
+    transform: scale(1.5);
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
