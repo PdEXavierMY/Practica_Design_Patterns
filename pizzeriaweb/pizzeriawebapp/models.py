@@ -75,20 +75,29 @@ class PizzaBuilder(Builder):
     def agregarExtra(self, extra):
         self._product.add(extra)
 
-class Pizza():
-    """
-    Podríamos hacer muchas cosas con los ingredientes y características definidas,
-    por eso creamos una clase producto concreto que es la pizza.
-    """
+class Pizza(models.Model):
+    masa = models.CharField(max_length=50)
+    salsa = models.CharField(max_length=50)
+    ingredientes = models.ManyToManyField('Ingrediente')
+    tecnica_coccion = models.CharField(max_length=50)
+    presentacion = models.CharField(max_length=50)
+    maridaje = models.CharField(max_length=50)
+    extras = models.ManyToManyField('Extra')
 
-    def __init__(self) -> None:
-        self.parts = []
+    def __str__(self):
+        return f"Pizza con {', '.join(self.ingredientes.values_list('nombre', flat=True))}"
 
-    def add(self, part: Any) -> None:
-        self.parts.append(part)
+class Ingrediente(models.Model):
+    nombre = models.CharField(max_length=50)
 
-    def list_parts(self) -> None:
-        print(f"Partes de la pizza: {', '.join(self.parts)}", end="")
+    def __str__(self):
+        return self.nombre
+
+class Extra(models.Model):
+    nombre = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nombre
 
 
 class Director:
