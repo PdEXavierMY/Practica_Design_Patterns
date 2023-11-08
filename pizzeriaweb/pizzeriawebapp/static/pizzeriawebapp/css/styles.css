@@ -1,34 +1,63 @@
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9;
-}
-
+/* Estilos para el header */
 header {
     background-color: #333;
     color: #fff;
-    padding: 10px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 20px; /* Aumenta el padding en todas las direcciones */
+    width: 100%;
+    font-size: 24px; /* Aumenta el tamaño de fuente */
+    height: 100px; /* Aumenta la altura del header */
+    padding-left: 50px; /* Aumenta el padding izquierdo */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.header-right {
+    margin-left: auto;
 }
 
 .logo {
-    font-size: 24px;
-    margin-left: 20px;
+    font-size: 36px;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+    padding-left: 50px;
+}
+
+.login-button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff5733;
+    padding: 10px 20px; /* Reduzca el padding para hacer el botón más pequeño */
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px; /* Reduzca el tamaño de fuente del botón */
+}
+
+/* Estilos para el menú de navegación */
+nav {
+    background-color: #333;
+    text-align: center;
+    width: 100%;
+    font-size: 24px; /* Aumenta el tamaño de fuente */
+    height: auto;
 }
 
 nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
 }
 
 nav li {
-    margin: 0 10px;
+    display: inline-block;
+    margin: 0 30px;
 }
 
 nav a {
@@ -36,14 +65,23 @@ nav a {
     color: #fff;
 }
 
+/* Estilos para el contenido principal */
+.main-content {
+    margin-top: 200px; /* Aumenta el margen superior para evitar superposiciones */
+}
+
+
+
+
 /* Sección Hero */
 #hero {
+    margin-top: auto;
     text-align: center;
     padding: 100px 0;
     background-image: url('pizza-hero.jpg');
     background-size: cover;
     background-position: center;
-    color: #fff;
+    color: #101010;
 }
 
 #hero h2 {
@@ -60,7 +98,6 @@ nav a {
     border-radius: 5px;
     font-weight: bold;
 }
-
 /* Sección Menú */
 #menu {
     text-align: center;
@@ -74,10 +111,11 @@ nav a {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center; /* Centra el contenido horizontalmente */
 }
 
 .menu-item img {
-    max-width: 100%;
+    max-width: 150px; /* Ajusta el ancho máximo para hacer las imágenes más pequeñas */
     border-radius: 5px;
 }
 
@@ -94,6 +132,22 @@ nav a {
     font-weight: bold;
     color: #ff5733;
 }
+
+.button-container {
+    text-align: center; /* Centra el botón horizontalmente */
+    margin-top: 20px; /* Añade margen superior para separarlo del párrafo */
+}
+
+.btn-haz-tu-pizza {
+    text-decoration: none;
+    color: #fff;
+    background-color: #ff5733;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block; /* Asegura que el botón sea un bloque en línea */
+}
+
 
 /* Sección Sobre Nosotros */
 #sobre-nosotros {

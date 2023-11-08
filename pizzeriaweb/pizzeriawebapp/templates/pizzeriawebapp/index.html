@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-
     {% load static %}
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizzería Delizioso</title>
-    <!-- Boostrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'pizzeriawebapp/css/styles.css' %}">
 </head>
 <body>
     <header>
-        <h1 class="logo">Pizzería Delizioso</h1>
-        <nav>
-            <ul>
-                <li><a href="#menu">Menú</a></li>
-                <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
+        <div class="header-left">
+            <h1 class="logo">Pizzería Delizioso</h1>
+        </div>
+        <div class="header-right">
+            <a href="{% url 'Login' %}" class="login-button">Login</a>
+        </div>
     </header>
+
+    <nav>
+        <ul>
+            <li><a href="#menu">Menú</a></li>
+            <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
 
     <section id="hero">
         <h2>Bienvenido a Pizzería Delizioso</h2>
@@ -31,26 +33,74 @@
     </section>
 
     <section id="menu">
-        <h2>Nuestro Menú</h2>
+        <h2>Nuestras Mejores Pizzas</h2>
         <div class="menu-item">
-            <img src="pizza1.jpg" alt="Pizza Margarita">
+            <img src="{% static 'pizzeriawebapp/images/pizza-margarita.jpg' %}" alt="Pizza Margarita">
             <h3>Pizza Margarita</h3>
             <p>Tomate, mozzarella fresca, albahaca.</p>
             <span class="precio">$10.99</span>
         </div>
         <div class="menu-item">
-            <img src="pizza2.jpg" alt="Pizza Pepperoni">
+            <img src="{% static 'pizzeriawebapp/images/pepperoni.jpg' %}" alt="Pizza Pepperoni">
             <h3>Pizza Pepperoni</h3>
             <p>Tomate, mozzarella, pepperoni.</p>
             <span class="precio">$12.99</span>
         </div>
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/hawaiana.jpg' %}" alt="Pizza Hawaiana">
+            <h3>Pizza Hawaiana</h3>
+            <p>Tomate, mozzarella, jamón, piña.</p>
+            <span class="precio">$13.99</span>
+        </div>
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/veg.jpg' %}" alt="Pizza Vegetariana">
+            <h3>Pizza Vegetariana</h3>
+            <p>Tomate, mozzarella, champiñones, pimientos, cebolla, aceitunas.</p>
+            <span class="precio">$11.99</span>
+        </div>
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/BBQ.jpg' %}" alt="Pizza BBQ">
+            <h3>Pizza BBQ</h3>
+            <p>Salsa BBQ, mozzarella, pollo a la parrilla, cebolla roja.</p>
+            <span class="precio">$14.99</span>
+        </div>
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/supreme.jpg' %}" alt="Pizza Supreme">
+            <h3>Pizza Supreme</h3>
+            <p>Tomate, mozzarella, pepperoni, salchichas, champiñones, pimientos.</p>
+            <span class="precio">$15.99</span>
+        </div>
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/pesto.jpg' %}" alt="Pizza de Pesto">
+            <h3>Pizza de Pesto</h3>
+            <p>Salsa de pesto, mozzarella, tomate cherry, albahaca fresca.</p>
+            <span class="precio">$12.99</span>
+        </div>
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/pollo_champi.jpg' %}" alt="Pizza de Pollo y Champiñones">
+            <h3>Pizza de Pollo y Champiñones</h3>
+            <p>Tomate, mozzarella, pollo, champiñones, cebolla, ajo.</p>
+            <span class="precio">$13.99</span>
+        </div>
+    
         <!-- Agrega más elementos del menú aquí -->
+        
     </section>
+
+    <div class="button-container">
+        <a href="{% url 'Crear Pizza' %}" class="btn-haz-tu-pizza">¡HAZ TU PIZZA!</a>
+    </div>
+
 
     <section id="sobre-nosotros">
         <h2>Sobre Nosotros</h2>
-        <p>Somos una pizzería familiar que ha estado sirviendo pizzas auténticas y deliciosas durante más de 20 años. Nuestro compromiso con la calidad y el sabor nos distingue.</p>
-    </section>
+        <p>Somos una pizzería familiar que ha estado sirviendo pizzas auténticas y deliciosas durante más de 20 años. Nuestra historia está llena de momentos especiales compartidos alrededor de la mesa, donde familias y amigos disfrutan de nuestras creaciones culinarias. En nuestra pizzería, llevamos dos décadas compartiendo la pasión por la pizza auténtica y deliciosa. Desde nuestros inicios, nos hemos dedicado a crear cada pizza con amor y cuidado, seleccionando los ingredientes más frescos y sabrosos. La tradición, la calidad y el sabor excepcional son los pilares de nuestra pizzería, y estamos emocionados de seguir sirviendo la mejor pizza a nuestros clientes, como lo hemos hecho durante más de dos décadas.</p>
+    </section>    
 
     <section id="contacto">
         <h2>Contacto</h2>
