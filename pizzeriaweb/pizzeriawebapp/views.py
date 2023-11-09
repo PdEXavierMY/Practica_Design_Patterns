@@ -25,7 +25,7 @@ def crear_pizza(request):
         if form.is_valid():
             campos = ['masa', 'salsa', 'tecnica', 'presentacion', 'maridaje']
             pizza = []
-            ingredientes_generales = ['Queso', 'Pepperoni', 'Champiñones', 'Pimientos', 'Aceitunas', 'Pollo', 'Jamón', 'Anchoas', 'Atún', 'Tomate Cherry', 'Mozzarrella', 'Albahaca', 'Piña', 'Cebolla', 'Salchichas']
+            ingredientes_generales = ['Queso', 'Pepperoni', 'Champiñones', 'Pimientos', 'Aceitunas', 'Pollo', 'Jamón', 'Anchoas', 'Atún', 'Tomate Cherry', 'Mozzarrella', 'Albahaca', 'Cebolla', 'Salchichas']
             extras_generales = ['Salsa_Picante', 'Ajo_Asado', 'Queso_Azul', 'Aceite_de_Trufa', 'Huevo', 'Piña', 'Chiles_Rojos', 'Nueces', 'Jalapeños', 'Tomate_Secado_al_Sol']
             ingredientes = []
             extras = []
@@ -92,7 +92,6 @@ def login(request):
                     usuario.to_csv()[0].split(';')[0] == fila[0].split(';')[0]
                     and fila[0].split(';')[4] == usuario.to_csv()[0].split(';')[1]
                 ):
-                    messages.success(request, "El usuario ha iniciado sesión correctamente")
                     return redirect('Home')
 
             messages.error(request, "El usuario no existe o la contraseña es incorrecta")

@@ -93,7 +93,7 @@
         <a href="{% url 'Crear Pizza' %}" class="btn-haz-tu-pizza">¡HAZ TU PIZZA!</a>
     </div>
 
-    <section id="elecciones" style="margin: auto;">
+    <section id="elecciones" style="margin: auto; text-align: center;">
         <h2>Tus elecciones pasadas</h2>
         {% for pizza in pizzas %}
             {% if not forloop.first %}
@@ -103,7 +103,7 @@
                 </div>
             {% endif %}
         {% endfor %}
-    </section>
+    </section>    
 
     <section id="sobre-nosotros">
         <h2>Sobre Nosotros</h2>

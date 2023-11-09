@@ -92,7 +92,6 @@ INGREDIENTES_CHOICES = [
     ('Tomate Cherry', 'Tomate Cherry'),
     ('Mozzarrella', 'Mozzarrella'),
     ('Albahaca', 'Albahaca'),
-    ('Piña', 'Piña'),
     ('Cebolla', 'Cebolla'),
     ('Salchichas', 'Salchichas'),
 ]

@@ -1,5 +1,33 @@
+/* Estilos para el header */
 header {
-    padding-left: 0px;
+    background-color: #333;
+    color: #fff;
+    align-items: center;
+    width: 100%;
+    font-size: 24px; /* Aumenta el tamaño de fuente */
+    height: 100px; /* Aumenta la altura del header */
+    margin-bottom: 30px;
+}
+
+.header-left {
+    display: flex; /* Utiliza flexbox para centrar vertical y horizontalmente */
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Asegura que el texto esté centrado */
+    height: 100%; /* Ocupa la altura completa del contenedor padre */
+}
+
+.logo {
+    margin: 0; /* Elimina el margen predeterminado del h1 */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background-color: #333;
+    color: #fff;
+    margin-top: 30px;
 }
 
 main {
@@ -8,7 +36,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh; /* Cambiado a min-height para garantizar que el contenido ocupe al menos toda la altura visible de la pantalla */
 }
 
 form {
@@ -16,8 +44,12 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    margin-top: 20px; /* Separación entre el título y el formulario */
+    margin: 20px; /* Añadido margen para separar el formulario de otros elementos */
+    padding: 20px; /* Añadido espacio interno al formulario */
+    border: 1px solid #ccc; /* Añadido borde al formulario */
+    border-radius: 10px; /* Bordes redondeados */
     width: 300px; /* Ancho del formulario */
+    background-color: #fff; /* Fondo blanco */
 }
 
 label {
@@ -43,8 +75,4 @@ button:hover {
 
 p {
     margin-top: 10px;
-}
-
-header {
-    padding-left: 0;
 }
