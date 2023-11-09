@@ -13,5 +13,5 @@ class Pizza():
     def add(self, part: Any) -> None:
         self.parts.append(part)
 
-    def list_parts(self) -> None:
+    def list_parts(self):
         print(f"Partes de la pizza: {', '.join(self.parts)}", end="")

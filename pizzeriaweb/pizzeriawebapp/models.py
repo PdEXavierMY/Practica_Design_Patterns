@@ -75,32 +75,31 @@ class PizzaBuilder(Builder):
     def agregarExtra(self, extra):
         self._product.add(extra)
 
-class Pizza(models.Model):
-    masa = models.CharField(max_length=50)
-    salsa = models.CharField(max_length=50)
-    ingredientes = models.ManyToManyField('Ingrediente')
-    tecnica_coccion = models.CharField(max_length=50)
-    presentacion = models.CharField(max_length=50)
-    maridaje = models.CharField(max_length=50)
-    extras = models.ManyToManyField('Extra')
+class Pizza():
+    """
+    Podríamos hacer muchas cosas con los ingredientes y características definidas,
+    por eso creamos una clase producto concreto que es la pizza.
+    """
 
-    def __str__(self):
-        return f"Pizza con {', '.join(self.ingredientes.values_list('nombre', flat=True))}"
+    def __init__(self) -> None:
+        self.parts = []
 
-class Ingrediente(models.Model):
-    nombre = models.CharField(max_length=50)
+    def add(self, part: Any) -> None:
+        self.parts.append(part)
 
-    def __str__(self):
-        return self.nombre
+    def list_parts(self):
+        print(f"Partes de la pizza: {', '.join(self.parts)}", end="")
 
-class Extra(models.Model):
-    nombre = models.CharField(max_length=50)
+    def get_parts(self):
+        #devuelve la lista con las partes de la pizza
+        return self.parts
 
-    def __str__(self):
-        return self.nombre
-
-
-class Director:
+class Director():
+    """
+    El director solo es responsable de ejecutar los pasos de construcción en una
+    secuencia particular. Es útil cuando se producen objetos de acuerdo con un
+    orden o configuración específicos. En este caso, se trata de una pizza.
+    """
 
     def __init__(self) -> None:
         self._builder = None
@@ -111,7 +110,17 @@ class Director:
 
     @builder.setter
     def builder(self, builder: Builder) -> None:
+        """
+        El director funciona con cualquier instancia de constructor que el código
+        del cliente le pase. De esta manera, el código del cliente puede cambiar
+        el tipo final del producto recién ensamblado.
+        """
         self._builder = builder
+
+    """
+    El director puede construir varias configuraciones de productos utilizando
+    las mismas etapas de construcción.
+    """
 
     def construir_pizza_completa(self, diccionario) -> None:
         self.builder.setMasa(diccionario["masa"])
