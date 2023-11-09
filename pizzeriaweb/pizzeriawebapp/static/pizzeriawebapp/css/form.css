@@ -1,3 +1,7 @@
+header {
+    padding-left: 0px;
+}
+
 main {
     text-align: center;
     display: flex;

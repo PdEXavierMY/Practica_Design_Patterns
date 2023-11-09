@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import redirect
 from .forms import PizzaCreationForm, UsuarioForms, LoginForms
+from .models import Usuario
+from .csv_controller import CSV
 # Create your views here.
 
 def index(request):
@@ -39,7 +41,25 @@ def register(request):
     if request.method == 'POST':
         form = UsuarioForms(request.POST)
         if form.is_valid():
-            return redirect('Home')
+            usuario = Usuario(
+                usuario = form.cleaned_data['usuario'],
+                contraseña = form.cleaned_data['contraseña'],
+                email = form.cleaned_data['email'],
+                nombre = form.cleaned_data['nombre'],
+                apellidos = form.cleaned_data['apellidos'],
+            )
+            filas = CSV().leer_usuarios()
+            campos_usuario = usuario.to_csv()
+            print(filas)
+            print(usuario.to_csv())
+            print(usuario.to_csv() in filas)
+            if campos_usuario in filas == True:
+                print("El usuario ya existe")
+                return redirect('Login')
+            else:
+                CSV().guardar_usuarios(usuario)
+                print("El usuario se ha registrado correctamente")
+                return redirect('Home')
         else:
             pass
     else:

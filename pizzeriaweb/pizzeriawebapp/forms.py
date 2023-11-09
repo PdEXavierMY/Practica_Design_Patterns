@@ -116,6 +116,16 @@ class UsuarioForms(forms.Form):
     nombre = forms.CharField(max_length=100)
     apellidos = forms.CharField(max_length=100)
 
+    def clean_confirmar_contraseña(self):
+        super().clean()
+        contraseña = self.cleaned_data.get("contraseña", "")
+        confirmar_contraseña = self.cleaned_data["confirmar_contraseña"]
+        
+        if contraseña != confirmar_contraseña:
+            raise forms.ValidationError("Las contraseñas no coinciden")
+        
+        return confirmar_contraseña
+
 class LoginForms(forms.Form):
     
     usuario = forms.CharField(max_length=100)

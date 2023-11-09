@@ -1,3 +1,7 @@
+header {
+    padding-left: 0px;
+}
+
 main {
     text-align: center;
     display: flex;
@@ -5,8 +9,17 @@ main {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 20px; /* Añade espacio alrededor del formulario */
+    padding: 20px;
     box-sizing: border-box;
+}
+
+.custom-form {
+    max-width: 600px; /* Ajusta el ancho máximo según tus preferencias */
+}
+
+.checkbox-grid {
+    display: inline-block; /* Muestra los elementos en línea */
+    margin-right: 10px; /* Añade un margen a la derecha para separar los elementos */
 }
 
 form {
@@ -14,19 +27,19 @@ form {
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    max-width: 400px; /* Ancho máximo del formulario (ajustado según tus preferencias) */
     width: 100%;
-    padding: 20px; /* Añade espacio interno al formulario */
-    background-color: #fff; /* Añade un fondo blanco al formulario */
+    padding: 20px;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
 
 label {
     font-weight: bold;
+    margin-bottom: 5px; /* Añadimos un pequeño espacio entre la etiqueta y el input */
 }
 
-select, input[type="text"] {
+select, input[type="text"], input[type="checkbox"] {
     padding: 10px;
     width: 100%;
     border: 1px solid #ccc;
@@ -37,9 +50,10 @@ select[multiple] {
     height: 100px;
 }
 
-input[type="radio"] {
-    margin: 0 5px;
-    transform: scale(1.5);
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Organizamos los checkboxes en una cuadrícula */
+    gap: 10px;
 }
 
 button {

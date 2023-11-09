@@ -130,3 +130,15 @@ class Director():
         self.builder.agregarMaridaje(diccionario["maridaje"])
         self.builder.agregarExtra(diccionario["extra"])
         self.builder.agregarIngrediente(diccionario["ingredientes"])
+
+
+class Usuario():
+    def __init__(self, usuario, nombre, apellidos, email, contraseña):
+        self.usuario = usuario
+        self.nombre = nombre
+        self.apellidos = apellidos
+        self.email = email
+        self.contraseña = contraseña
+
+    def to_csv(self):
+        return [self.usuario+";"+self.nombre+";"+self.apellidos+";"+self.email+";"+self.contraseña]
