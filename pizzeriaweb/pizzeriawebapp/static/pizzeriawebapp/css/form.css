@@ -76,3 +76,21 @@ button:hover {
 p {
     margin-top: 10px;
 }
+
+/* Estilos para el formulario */
+form.custom-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas para los checkboxes */
+    gap: 10px; /* Espacio entre los elementos */
+}
+
+/* Estilos para cada opción (p) dentro del formulario */
+form.custom-form p {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilos para los labels */
+form.custom-form label {
+    margin-right: 10px;
+}
