@@ -55,6 +55,7 @@ Lo primero que hay que hacer cuando se inicia el Django es iniciar sesión. La e
 De necesitar registrarse hay otro formulario registro que comprueba que la contraseña metida sea correcta y además te devuelve a login si el ususario que se intenta crear ya se encuentra registrado.
 
 ![9](https://github.com/Xavitheforce/Patrones_Creacionales/assets/91721699/e48f3812-435a-43fc-b4f8-0d4d25882811)
+
 ![10](https://github.com/Xavitheforce/Patrones_Creacionales/assets/91721699/90be49ca-3890-4143-85d5-1d5dfc51c313)
 
 Unas imagenes de como este formulario genera usuarios:
