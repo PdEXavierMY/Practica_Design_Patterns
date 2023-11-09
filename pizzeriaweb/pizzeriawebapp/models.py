@@ -81,11 +81,11 @@ class Pizza():
     por eso creamos una clase producto concreto que es la pizza.
     """
 
-    def __init__(self) -> None:
-        self.parts = []
+    def __init__(self, pizza) -> None:
+        self.pizza = pizza
 
     def add(self, part: Any) -> None:
-        self.parts.append(part)
+        self.pizza
 
     def list_parts(self):
         print(f"Partes de la pizza: {', '.join(self.parts)}", end="")
@@ -142,3 +142,11 @@ class Usuario():
 
     def to_csv(self):
         return [self.usuario+";"+self.nombre+";"+self.apellidos+";"+self.email+";"+self.contraseña]
+    
+class UsuarioLogin():
+    def __init__(self, usuario, contraseña):
+        self.usuario = usuario
+        self.contraseña = contraseña
+
+    def to_csv(self):
+        return [self.usuario+";"+self.contraseña]

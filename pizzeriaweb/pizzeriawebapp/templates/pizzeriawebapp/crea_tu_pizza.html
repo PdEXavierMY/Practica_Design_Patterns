@@ -22,7 +22,8 @@
     <main>
         <h2>Crea tu Propia Pizza</h2>
         <form action="{% url 'Crear Pizza' %}" method="POST" class="custom-form">
-            {{form}}
+            {% csrf_token %}
+            {{form.as_p}}
             <button type="submit">Crear Pizza</button>
         </form>
     </main>

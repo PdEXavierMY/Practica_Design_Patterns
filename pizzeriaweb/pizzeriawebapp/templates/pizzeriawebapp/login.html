@@ -22,7 +22,8 @@
     <main>
         <h2>Iniciar Sesión</h2>
         <form action="{% url 'Login' %}" method="POST">
-            {{form}}
+            {% csrf_token %}
+            {{form.as_p}}
             <button type="submit">Iniciar Sesión</button>
         </form>
         <p>¿Aún no tienes una cuenta? <a href="{% url 'Registro' %}">Regístrate aquí</a></p>
