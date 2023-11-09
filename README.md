@@ -56,6 +56,8 @@ De necesitar registrarse hay otro formulario registro que comprueba que la contr
 
 ![9](https://github.com/Xavitheforce/Patrones_Creacionales/assets/91721699/e48f3812-435a-43fc-b4f8-0d4d25882811)
 
+El mensaje si el usuario ya existe:
+
 ![10](https://github.com/Xavitheforce/Patrones_Creacionales/assets/91721699/90be49ca-3890-4143-85d5-1d5dfc51c313)
 
 Unas imagenes de como este formulario genera usuarios:
