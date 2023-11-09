@@ -90,6 +90,11 @@ INGREDIENTES_CHOICES = [
     ('Anchoas', 'Anchoas'),
     ('Atún', 'Atún'),
     ('Tomate Cherry', 'Tomate Cherry'),
+    ('Mozzarrella', 'Mozzarrella'),
+    ('Albahaca', 'Albahaca'),
+    ('Piña', 'Piña'),
+    ('Cebolla', 'Cebolla'),
+    ('Salchichas', 'Salchichas'),
 ]
 
 

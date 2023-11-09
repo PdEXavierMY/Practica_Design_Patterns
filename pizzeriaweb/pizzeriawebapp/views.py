@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import redirect
+from django.contrib import messages
 from .forms import PizzaCreationForm, UsuarioForms, LoginForms
-from .models import Usuario, UsuarioLogin
+from .models import Usuario, UsuarioLogin, PizzaBuilder, Director
 from .csv_controller import CSV
 # Create your views here.
 
 def index(request):
-    return render(request, 'pizzeriawebapp/index.html')
+    pizzas = CSV().leer_pizzas()
+    return render(request, 'pizzeriawebapp/index.html', {'pizzas':pizzas})
 
 def login(request):
     return render(request, 'pizzeriawebapp/login.html')
@@ -23,7 +25,7 @@ def crear_pizza(request):
         if form.is_valid():
             campos = ['masa', 'salsa', 'tecnica', 'presentacion', 'maridaje']
             pizza = []
-            ingredientes_generales = ['Queso', 'Pepperoni', 'Champiñones', 'Pimientos', 'Aceitunas', 'Pollo', 'Jamón', 'Anchoas', 'Atún', 'Tomate Cherry']
+            ingredientes_generales = ['Queso', 'Pepperoni', 'Champiñones', 'Pimientos', 'Aceitunas', 'Pollo', 'Jamón', 'Anchoas', 'Atún', 'Tomate Cherry', 'Mozzarrella', 'Albahaca', 'Piña', 'Cebolla', 'Salchichas']
             extras_generales = ['Salsa_Picante', 'Ajo_Asado', 'Queso_Azul', 'Aceite_de_Trufa', 'Huevo', 'Piña', 'Chiles_Rojos', 'Nueces', 'Jalapeños', 'Tomate_Secado_al_Sol']
             ingredientes = []
             extras = []
@@ -36,6 +38,13 @@ def crear_pizza(request):
                 if extra in request.POST:
                     extras.append(extra)
             pizza.append(ingredientes); pizza.append(extras)
+            director = Director()
+            builder = PizzaBuilder()
+            director.builder = builder
+            director.construir_pizza_completa(pizza)
+            pizza_completa = builder.product
+            CSV().guardar_pizzas(pizza_completa)
+
             return redirect('Home')
         else:
             pass
@@ -57,12 +66,11 @@ def register(request):
             )
             filas = CSV().leer_usuarios()
             campos_usuario = usuario.to_csv()
-            if campos_usuario in filas == True:
-                print("El usuario ya existe")
+            if campos_usuario in filas:
+                messages.error(request, "El usuario ya existe")
                 return redirect('Login')
             else:
                 CSV().guardar_usuarios(usuario)
-                print("El usuario se ha registrado correctamente")
                 return redirect('Home')
         else:
             pass
@@ -75,18 +83,21 @@ def login(request):
         form = LoginForms(request.POST)
         if form.is_valid():
             usuario = UsuarioLogin(
-                usuario = form.cleaned_data['usuario'],
-                contraseña = form.cleaned_data['contraseña'],
+                usuario=form.cleaned_data['usuario'],
+                contraseña=form.cleaned_data['contraseña'],
             )
             filas = CSV().leer_usuarios()
-            if usuario.to_csv() in filas == True:
-                print("El usuario ha iniciado sesión correctamente")
-                return redirect('Home')
-            else:
-                print("El usuario no existe")
-                return redirect('Registro')
-        else:
-            pass
+            for fila in filas:
+                if (
+                    usuario.to_csv()[0].split(';')[0] == fila[0].split(';')[0]
+                    and fila[0].split(';')[4] == usuario.to_csv()[0].split(';')[1]
+                ):
+                    messages.success(request, "El usuario ha iniciado sesión correctamente")
+                    return redirect('Home')
+
+            messages.error(request, "El usuario no existe o la contraseña es incorrecta")
+            return redirect('Login')
     else:
-        form = LoginForms() # aquí iniciamos un formulario vacío para que lo pinte cuando request.method sea distinto de POST
-    return render(request, 'pizzeriawebapp/login.html', {'form':form})
+        form = LoginForms()
+
+    return render(request, 'pizzeriawebapp/login.html', {'form': form})

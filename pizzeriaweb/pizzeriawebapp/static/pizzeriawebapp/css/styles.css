@@ -2,42 +2,10 @@
 header {
     background-color: #333;
     color: #fff;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px; /* Aumenta el padding en todas las direcciones */
     width: 100%;
     font-size: 24px; /* Aumenta el tamaño de fuente */
     height: 100px; /* Aumenta la altura del header */
-    padding-left: 50px; /* Aumenta el padding izquierdo */
-}
-
-.header-left {
-    display: flex;
-    align-items: center;
-    flex: 1;
-}
-
-.header-right {
-    margin-left: auto;
-}
-
-.logo {
-    font-size: 36px;
-    margin: 0;
-    text-align: center;
-    flex: 1;
-    padding-left: 50px;
-}
-
-.login-button {
-    text-decoration: none;
-    color: #fff;
-    background-color: #ff5733;
-    padding: 10px 20px; /* Reduzca el padding para hacer el botón más pequeño */
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 18px; /* Reduzca el tamaño de fuente del botón */
 }
 
 /* Estilos para el menú de navegación */

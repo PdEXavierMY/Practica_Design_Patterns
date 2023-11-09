@@ -13,9 +13,6 @@
         <div class="header-left">
             <h1 class="logo">Pizzería Delizioso</h1>
         </div>
-        <div class="header-right">
-            <a href="{% url 'Login' %}" class="login-button">Login</a>
-        </div>
     </header>
     
     <nav>
@@ -96,6 +93,17 @@
         <a href="{% url 'Crear Pizza' %}" class="btn-haz-tu-pizza">¡HAZ TU PIZZA!</a>
     </div>
 
+    <section id="elecciones" style="margin: auto;">
+        <h2>Tus elecciones pasadas</h2>
+        {% for pizza in pizzas %}
+            {% if not forloop.first %}
+                <div class="menu-item">
+                    <img src="{% static 'pizzeriawebapp/images/default-pizza.jpg' %}" alt="{{ pizza.nombre }}">
+                    <h3>{{ pizza }}</h3>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </section>
 
     <section id="sobre-nosotros">
         <h2>Sobre Nosotros</h2>

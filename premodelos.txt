@@ -177,3 +177,23 @@
                     'ingredientes': ', '.join(pizza.get_parts()[5]),
                     'extras': ', '.join(pizza.get_parts()[6]),
                 })
+
+
+
+campos = ['masa', 'salsa', 'tecnica', 'presentacion', 'maridaje']
+            pizza_builder = PizzaBuilder()
+
+            for campo in campos:
+                pizza_builder.__getattribute__(f'set{campo.capitalize()}')(form.cleaned_data[campo])
+
+            ingredientes_generales = ['Queso', 'Pepperoni', 'Champiñones', 'Pimientos', 'Aceitunas', 'Pollo', 'Jamón', 'Anchoas', 'Atún', 'Tomate Cherry']
+            extras_generales = ['Salsa_Picante', 'Ajo_Asado', 'Queso_Azul', 'Aceite_de_Trufa', 'Huevo', 'Piña', 'Chiles_Rojos', 'Nueces', 'Jalapeños', 'Tomate_Secado_al_Sol']
+            
+            ingredientes = [ingrediente for ingrediente in ingredientes_generales if ingrediente in request.POST]
+            extras = [extra for extra in extras_generales if extra in request.POST]
+
+            pizza_builder.agregarIngrediente(ingredientes)
+            pizza_builder.agregarExtra(extras)
+
+            pizza = pizza_builder.product
+            print(pizza.get_parts())

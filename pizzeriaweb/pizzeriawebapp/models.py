@@ -55,44 +55,38 @@ class PizzaBuilder(Builder):
         return product
 
     def setMasa(self, masa):
-        self._product.add(masa)
+        self._product.masa = masa
 
     def setSalsa(self, salsa):
-        self._product.add(salsa)
+        self._product.salsa = salsa
 
     def agregarIngrediente(self, ingrediente):
-        self._product.add(ingrediente)
+        self._product.ingredientes = ingrediente
 
     def setTecnicaDeCoccion(self, tecnica):
-        self._product.add(tecnica)
+        self._product.tecnica = tecnica
 
     def setPresentacion(self, presentacion):
-        self._product.add(presentacion)
+        self._product.presentacion = presentacion
 
     def agregarMaridaje(self, maridaje):
-        self._product.add(maridaje)
+        self._product.maridaje = maridaje
 
     def agregarExtra(self, extra):
-        self._product.add(extra)
+        self._product.extras = extra
 
-class Pizza():
-    """
-    Podríamos hacer muchas cosas con los ingredientes y características definidas,
-    por eso creamos una clase producto concreto que es la pizza.
-    """
-
-    def __init__(self, pizza) -> None:
-        self.pizza = pizza
-
-    def add(self, part: Any) -> None:
-        self.pizza
-
-    def list_parts(self):
-        print(f"Partes de la pizza: {', '.join(self.parts)}", end="")
-
-    def get_parts(self):
-        #devuelve la lista con las partes de la pizza
-        return self.parts
+class Pizza:
+    def __init__(self):
+        self.masa = None
+        self.salsa = None
+        self.ingredientes = None
+        self.tecnica = None
+        self.presentacion = None
+        self.maridaje = None
+        self.extras = None
+    
+    def to_csv(self):
+        return [str(self.masa)+";"+str(self.salsa)+";"+str(self.ingredientes)+";"+str(self.tecnica)+";"+str(self.presentacion)+";"+str(self.maridaje)+";"+str(self.extras)]
 
 class Director():
     """
@@ -122,14 +116,14 @@ class Director():
     las mismas etapas de construcción.
     """
 
-    def construir_pizza_completa(self, diccionario) -> None:
-        self.builder.setMasa(diccionario["masa"])
-        self.builder.setSalsa(diccionario["salsa"])
-        self.builder.setTecnicaDeCoccion(diccionario["tecnica"])
-        self.builder.setPresentacion(diccionario["presentacion"])
-        self.builder.agregarMaridaje(diccionario["maridaje"])
-        self.builder.agregarExtra(diccionario["extra"])
-        self.builder.agregarIngrediente(diccionario["ingredientes"])
+    def construir_pizza_completa(self, partes) -> None:
+        self.builder.setMasa(partes[0])
+        self.builder.setSalsa(partes[1])
+        self.builder.agregarIngrediente(partes[2])
+        self.builder.setTecnicaDeCoccion(partes[3])
+        self.builder.setPresentacion(partes[4])
+        self.builder.agregarMaridaje(partes[5])
+        self.builder.agregarExtra(partes[6])
 
 
 class Usuario():
