@@ -2,7 +2,7 @@
 
 Pincha [aquí](https://github.com/Xavitheforce/Patrones_Creacionales/) para dirigirte a mi repositorio.
 
-Ejercicio 1: Análisis Modular de las Activaciones del SAMUR-Protección Civil en Madrid con Abstract Factory
+<h1>Ejercicio 1: Análisis Modular de las Activaciones del SAMUR-Protección Civil en Madrid con Abstract Factory</h1>
 
 Contexto:
 
@@ -30,7 +30,7 @@ Y el output:
 
 Ha sido beneficioso utilizar este patrón aqui debido a la amplia adaptabilidad que tiene considerando que existen mil y una formas de hacer gráficas y sacar estadísticas. Con el patrón se pueden implementar de forma sencilla sin que lleguen a afectar al código o ejecución.
 
-Ejercicio: Sistema Integral de Creación y Gestión de Pizzas Gourmet con Almacenamiento en CSV utilizando el Patrón Builder
+<h1>Ejercicio: Sistema Integral de Creación y Gestión de Pizzas Gourmet con Almacenamiento en CSV utilizando el Patrón Builder</h1>
 
 La reconocida cadena de pizzerías gourmet "Delizioso" ha decidido lanzar una plataforma digital para permitir a sus clientes diseñar y personalizar sus pizzas al máximo detalle. Esta pizzería es conocida por su meticulosidad y su vasto menú de ingredientes, técnicas de cocción y presentaciones. Además de la personalización, "Delizioso" busca almacenar cada pizza diseñada por sus clientes en un archivo CSV para análisis posterior, recomendaciones personalizadas y marketing dirigido.
 
