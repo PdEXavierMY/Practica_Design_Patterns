@@ -106,7 +106,6 @@ class PizzaCreationForm(forms.Form):
     ingredientes = forms.MultipleChoiceField(choices=INGREDIENTES_CHOICES, widget=forms.CheckboxSelectMultiple)
     tecnica = forms.ChoiceField(choices=TECNICA_CHOICES)
     presentacion = forms.ChoiceField(choices=PRESENTACION_CHOICES)
-    maridaje = forms.ChoiceField(choices=MARIDAJE_CHOICES)
     extras = forms.MultipleChoiceField(choices=EXTRA_CHOICES, widget=forms.CheckboxSelectMultiple, required=False)
 
 

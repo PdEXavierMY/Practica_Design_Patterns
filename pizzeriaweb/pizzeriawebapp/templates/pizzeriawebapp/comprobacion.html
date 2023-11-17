@@ -15,6 +15,26 @@
         </div>
     </header>
 
+    <!-- Aquí va la tabla -->
+    <table class="table">
+        <thead>
+            <tr>
+                {% for encabezado in encabezados %}
+                    <th>{{ encabezado }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for fila in filas %}
+                <tr>
+                    {% for campo in fila %}
+                        <td>{{ campo }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
     <footer>
         <p>&copy; 2023 Pizzería Delizioso</p>
     </footer>

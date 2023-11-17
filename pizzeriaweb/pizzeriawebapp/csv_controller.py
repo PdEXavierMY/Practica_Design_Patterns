@@ -32,12 +32,6 @@ class CSV():
             csvfile.close()
         return filas
 
-    '''def guardar_pizzas(self, pizza, id_usuario):
-        csv_path = 'pizzas.csv'
-        with open(csv_path, mode='a', newline='', encoding='utf-8') as csvfile:
-            csvwriter = csv.writer(csvfile)
-            csvwriter.writerow([str(pizza.to_csv()[0] + ';' + id_usuario)])'''
-
     def guardar_pizzas(self, pizza, id_usuario):
         csv_path = 'pizzas.csv'
 

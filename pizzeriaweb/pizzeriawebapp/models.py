@@ -29,10 +29,6 @@ class Builder(ABC):
         pass
 
     @abstractmethod
-    def agregarMaridaje(self, maridaje):
-        pass
-
-    @abstractmethod
     def agregarExtra(self, extra):
         pass
 
@@ -72,9 +68,6 @@ class PizzaBuilder(Builder):
     def setPresentacion(self, presentacion):
         self._product.presentacion = presentacion
 
-    def agregarMaridaje(self, maridaje):
-        self._product.maridaje = maridaje
-
     def agregarExtra(self, extra):
         self._product.extras = extra
 
@@ -86,11 +79,10 @@ class Pizza:
         self.ingredientes = None
         self.tecnica = None
         self.presentacion = None
-        self.maridaje = None
         self.extras = None
     
     def to_csv(self):
-        return [str(self.nombre)+";"+str(self.masa)+";"+str(self.salsa)+";"+str(self.ingredientes)+";"+str(self.tecnica)+";"+str(self.presentacion)+";"+str(self.maridaje)+";"+str(self.extras)]
+        return [str(self.nombre)+";"+str(self.masa)+";"+str(self.salsa)+";"+str(self.ingredientes)+";"+str(self.tecnica)+";"+str(self.presentacion)+";"+str(self.extras)]
 
 class Director():
     """
@@ -127,8 +119,7 @@ class Director():
         self.builder.agregarIngrediente(partes[3])
         self.builder.setTecnicaDeCoccion(partes[4])
         self.builder.setPresentacion(partes[5])
-        self.builder.agregarMaridaje(partes[6])
-        self.builder.agregarExtra(partes[7])
+        self.builder.agregarExtra(partes[6])
 
 
 class Usuario():

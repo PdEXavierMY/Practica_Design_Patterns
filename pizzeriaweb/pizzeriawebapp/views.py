@@ -4,7 +4,6 @@ from django.contrib import messages
 from .forms import PizzaCreationForm, UsuarioForms, LoginForms
 from .models import Usuario, UsuarioLogin, PizzaBuilder, Director
 from .csv_controller import CSV
-import pandas as pd
 # Create your views here.
 
 def index(request):
@@ -27,7 +26,7 @@ def crear_pizza(request):
     if request.method == 'POST':
         form = PizzaCreationForm(request.POST)
         if form.is_valid():
-            campos = ['nombre', 'masa', 'salsa', 'ingredientes', 'tecnica', 'presentacion', 'maridaje', 'extras']
+            campos = ['nombre', 'masa', 'salsa', 'ingredientes', 'tecnica', 'presentacion', 'extras']
             pizza = []
             for campo in campos:
                 pizza.append(form.cleaned_data[campo])
@@ -47,6 +46,21 @@ def crear_pizza(request):
     else:
         form = PizzaCreationForm() # aquí iniciamos un formulario vacío para que lo pinte cuando request.method sea distinto de POST
     return render(request, 'pizzeriawebapp/crea_tu_pizza.html', {'form':form})
+
+def comprobacion(request):
+    # Lee los datos del archivo CSV
+    filas = CSV().leer_pizzas()
+
+     # Obtén los encabezados y la última fila
+    ultima_fila = filas[-1]
+
+    # Pasa los datos a la plantilla
+    context = {
+        'ultima_fila': ultima_fila,
+        'filas': filas,  # Puedes pasar todas las filas si lo deseas
+    }
+
+    return render(request, 'pizzeriawebapp/comprobacion.html', context)
 
 
 def register(request):
