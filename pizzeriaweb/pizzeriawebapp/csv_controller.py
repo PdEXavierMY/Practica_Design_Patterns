@@ -1,17 +1,4 @@
 import csv
-import ast  # Módulo ast para evaluar la cadena como una lista literal de Python
-
-def expandir_lista(items):
-            nuevos_items = []
-            for item in items:
-                if item.startswith('[') and item.endswith(']'):
-                    # Si es una cadena que representa una lista, evaluarla y agregar sus elementos
-                    lista_evaluada = ast.literal_eval(item)
-                    nuevos_items.extend(lista_evaluada)
-                else:
-                    # Si no es una cadena que representa una lista, agregar el elemento tal cual
-                    nuevos_items.append(item)
-            return nuevos_items
 
 class CSV():
 
@@ -38,17 +25,27 @@ class CSV():
         # Leer precios del CSV
         precios = self.leer_precios()
         # Obtener los ítems de la pizza
-        items_pizza = expandir_lista(pizza.to_csv()[0].split(';')[1:])  # Excluir el nombre
+        items_pizza = pizza.to_csv()[0].split(';')[1:]  # Excluir el nombre
+        items_pizza = [item.strip("[]' ") for item in items_pizza]
+        # Nueva lista para almacenar los elementos después de dividirlos por "/"
+        nuevo_items_pizza = []
+        # Iterar sobre los elementos y dividirlos si contienen "/"
+        for elemento in items_pizza:
+            if '/' in elemento:
+                nuevo_items_pizza.extend(elemento.split('/'))
+            else:
+                nuevo_items_pizza.append(elemento)
 
         # Calcular el precio total
-        precio_total = sum(precios[item] for item in items_pizza)
+        precio_total = sum(precios[item] for item in nuevo_items_pizza)
 
         # Añadir el precio total a la lista de la pizza
-        pizza_lista = pizza.to_csv() + [f';{precio_total:.2f};{id_usuario}']
+        pizza_lista = pizza.to_csv() + [f'{precio_total:.2f}', str(id_usuario)]
+        pizza_str = ';'.join(pizza_lista)
 
         with open(csv_path, mode='a', newline='', encoding='utf-8') as csvfile:
             csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_NONE, escapechar=' ')
-            csvwriter.writerow(pizza_lista)
+            csvwriter.writerow([pizza_str])
 
     def leer_pizzas(self):
         csv_path = 'pizzas.csv'

@@ -29,7 +29,14 @@ def crear_pizza(request):
             campos = ['nombre', 'masa', 'salsa', 'ingredientes', 'tecnica', 'presentacion', 'extras']
             pizza = []
             for campo in campos:
-                pizza.append(form.cleaned_data[campo])
+                if campo == 'ingredientes' or campo == 'extras':
+                    # Convierte la lista a cadena y reemplaza las comas por barras inclinadas
+                    lista_cambiada = '/'.join(map(str, form.cleaned_data[campo]))
+                    
+                    # Agrega la cadena modificada a la lista final
+                    pizza.append([lista_cambiada])
+                else:
+                    pizza.append(form.cleaned_data[campo])
             director = Director()
             builder = PizzaBuilder()
             director.builder = builder
@@ -51,17 +58,16 @@ def comprobacion(request):
     # Lee los datos del archivo CSV
     filas = CSV().leer_pizzas()
 
-     # Obtén los encabezados y la última fila
+    # Obtén los encabezados y la última fila
     ultima_fila = filas[-1]
 
     # Pasa los datos a la plantilla
     context = {
         'ultima_fila': ultima_fila,
-        'filas': filas,  # Puedes pasar todas las filas si lo deseas
+        'filas': filas,
     }
 
     return render(request, 'pizzeriawebapp/comprobacion.html', context)
-
 
 def register(request):
     if request.method == 'POST':
