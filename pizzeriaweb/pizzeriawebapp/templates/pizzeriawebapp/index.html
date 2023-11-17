@@ -26,7 +26,7 @@
     <section id="hero">
         <h2>Bienvenido a Pizzería Delizioso</h2>
         <p>Donde la pasión por la pizza se encuentra con los ingredientes más frescos y la tradición italiana.</p>
-        <a href="#menu" class="boton">Ver Menú</a>
+        <a href="#menu" class="boton">Ver Menús</a>
     </section>
 
     <section id="menu">
@@ -89,21 +89,9 @@
         
     </section>
 
-    <div class="button-container">
+    <div class="button-container" style="margin-bottom: 30px;">
         <a href="{% url 'Crear Pizza' %}" class="btn-haz-tu-pizza">¡HAZ TU PIZZA!</a>
-    </div>
-
-    <section id="elecciones" style="margin: auto; text-align: center;">
-        <h2>Tus elecciones pasadas</h2>
-        {% for pizza in pizzas %}
-            {% if not forloop.first %}
-                <div class="menu-item">
-                    <img src="{% static 'pizzeriawebapp/images/default-pizza.jpg' %}" alt="{{ pizza.nombre }}">
-                    <h3>{{ pizza }}</h3>
-                </div>
-            {% endif %}
-        {% endfor %}
-    </section>    
+    </div>  
 
     <section id="sobre-nosotros">
         <h2>Sobre Nosotros</h2>

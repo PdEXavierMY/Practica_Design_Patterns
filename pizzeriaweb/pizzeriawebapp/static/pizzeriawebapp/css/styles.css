@@ -159,3 +159,16 @@ footer {
     margin-top: 20px; /* Ajusta según sea necesario */
     margin-bottom: 20px; /* Ajusta según sea necesario */
 }
+
+.form_pizza {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 20px; /* Añadido margen para separar el formulario de otros elementos */
+    padding: 20px; /* Añadido espacio interno al formulario */
+    border: 1px solid #ccc; /* Añadido borde al formulario */
+    border-radius: 10px; /* Bordes redondeados */
+    width: 300px; /* Ancho del formulario */
+    background-color: #fff; /* Fondo blanco */
+}

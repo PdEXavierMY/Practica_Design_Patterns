@@ -100,15 +100,14 @@ INGREDIENTES_CHOICES = [
 
 class PizzaCreationForm(forms.Form):
 
+    nombre = forms.CharField(max_length=100)
     masa = forms.ChoiceField(choices=MASA_CHOICES)
     salsa = forms.ChoiceField(choices=SALSA_CHOICES)
-    for elemento in INGREDIENTES_CHOICES:
-        locals()[elemento[0]] = forms.BooleanField(required=False)
+    ingredientes = forms.MultipleChoiceField(choices=INGREDIENTES_CHOICES, widget=forms.CheckboxSelectMultiple)
     tecnica = forms.ChoiceField(choices=TECNICA_CHOICES)
     presentacion = forms.ChoiceField(choices=PRESENTACION_CHOICES)
     maridaje = forms.ChoiceField(choices=MARIDAJE_CHOICES)
-    for elemento in EXTRA_CHOICES:
-        locals()[elemento[0]] = forms.BooleanField(required=False)
+    extras = forms.MultipleChoiceField(choices=EXTRA_CHOICES, widget=forms.CheckboxSelectMultiple, required=False)
 
 
 class UsuarioForms(forms.Form):
