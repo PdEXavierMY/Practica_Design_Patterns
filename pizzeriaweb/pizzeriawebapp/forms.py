@@ -67,16 +67,16 @@ MARIDAJE_CHOICES = [
 ]
 
 EXTRA_CHOICES = [
-    ('Salsa_Picante', 'Salsa Picante'),
-    ('Ajo_Asado', 'Ajo Asado'),
-    ('Queso_Azul', 'Queso Azul'),
-    ('Aceite_de_Trufa', 'Aceite de Trufa'),
+    ('Salsa Picante', 'Salsa Picante'),
+    ('Ajo Asado', 'Ajo Asado'),
+    ('Queso Azul', 'Queso Azul'),
+    ('Aceite de Trufa', 'Aceite de Trufa'),
     ('Huevo', 'Huevo'),
     ('Piña', 'Piña'),
-    ('Chiles_Rojos', 'Chiles Rojos'),
+    ('Chiles Rojos', 'Chiles Rojos'),
     ('Nueces', 'Nueces'),
     ('Jalapeños', 'Jalapeños'),
-    ('Tomate_Secado_al_Sol', 'Tomate Secado al Sol'),
+    ('Tomate Secado al Sol', 'Tomate Secado al Sol'),
 ]
 
 INGREDIENTES_CHOICES = [
@@ -90,7 +90,7 @@ INGREDIENTES_CHOICES = [
     ('Anchoas', 'Anchoas'),
     ('Atún', 'Atún'),
     ('Tomate Cherry', 'Tomate Cherry'),
-    ('Mozzarrella', 'Mozzarrella'),
+    ('Mozzarella', 'Mozzarella'),
     ('Albahaca', 'Albahaca'),
     ('Cebolla', 'Cebolla'),
     ('Salchichas', 'Salchichas'),

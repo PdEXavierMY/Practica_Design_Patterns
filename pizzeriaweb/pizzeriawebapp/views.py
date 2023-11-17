@@ -77,7 +77,6 @@ def register(request):
             else:
                 # Obtener el último ID y determinar el próximo ID único
                 if filas:
-                    print(filas[-1][0].split(';')[0])
                     ultimo_id = int(filas[-1][0].split(';')[0])
                     nuevo_id = ultimo_id + 1
                 else:

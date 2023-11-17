@@ -53,6 +53,9 @@ class PizzaBuilder(Builder):
         product = self._product
         self.reset()
         return product
+    
+    def setNombre(self, nombre):
+        self._product.nombre = nombre
 
     def setMasa(self, masa):
         self._product.masa = masa
@@ -77,6 +80,7 @@ class PizzaBuilder(Builder):
 
 class Pizza:
     def __init__(self):
+        self.nombre = None
         self.masa = None
         self.salsa = None
         self.ingredientes = None
@@ -86,7 +90,7 @@ class Pizza:
         self.extras = None
     
     def to_csv(self):
-        return [str(self.masa)+";"+str(self.salsa)+";"+str(self.ingredientes)+";"+str(self.tecnica)+";"+str(self.presentacion)+";"+str(self.maridaje)+";"+str(self.extras)]
+        return [str(self.nombre)+";"+str(self.masa)+";"+str(self.salsa)+";"+str(self.ingredientes)+";"+str(self.tecnica)+";"+str(self.presentacion)+";"+str(self.maridaje)+";"+str(self.extras)]
 
 class Director():
     """
@@ -117,13 +121,14 @@ class Director():
     """
 
     def construir_pizza_completa(self, partes) -> None:
-        self.builder.setMasa(partes[0])
-        self.builder.setSalsa(partes[1])
-        self.builder.agregarIngrediente(partes[2])
-        self.builder.setTecnicaDeCoccion(partes[3])
-        self.builder.setPresentacion(partes[4])
-        self.builder.agregarMaridaje(partes[5])
-        self.builder.agregarExtra(partes[6])
+        self.builder.setNombre(partes[0])
+        self.builder.setMasa(partes[1])
+        self.builder.setSalsa(partes[2])
+        self.builder.agregarIngrediente(partes[3])
+        self.builder.setTecnicaDeCoccion(partes[4])
+        self.builder.setPresentacion(partes[5])
+        self.builder.agregarMaridaje(partes[6])
+        self.builder.agregarExtra(partes[7])
 
 
 class Usuario():
