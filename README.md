@@ -1,4 +1,4 @@
-# Patrones_Creacionales
+# Patrones_de_Diseño
 
 Pincha [aquí](https://github.com/Xavitheforce/Patrones_Creacionales/) para dirigirte a mi repositorio.
 
