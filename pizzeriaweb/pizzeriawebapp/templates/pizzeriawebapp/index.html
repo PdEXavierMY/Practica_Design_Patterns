@@ -31,6 +31,7 @@
 
     <section id="menu">
         <h2>Nuestras Mejores Pizzas</h2>
+        <div class="menu-container">
         <div class="menu-item">
             <img src="{% static 'pizzeriawebapp/images/pizza-margarita.jpg' %}" alt="Pizza Margarita">
             <h3>Pizza Margarita</h3>
@@ -86,11 +87,51 @@
         </div>
     
         <!-- Agrega más elementos del menú aquí -->
-        
+    </div>
     </section>
 
     <div class="button-container" style="margin-bottom: 30px;">
         <a href="{% url 'Crear Pizza' %}" class="btn-haz-tu-pizza">¡HAZ TU PIZZA!</a>
+    </div> 
+
+    <section id="menus">
+        <h2>Nuestros Menús</h2>
+        <div class="menu-container">
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/menu_individual.jpg' %}" alt="Menú Individual">
+            <h3>Menú Individual</h3>
+            <p>1 Pizza<br>1 Bebida<br>1 Postre</p>
+        </div>
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/menu_doble.jpg' %}" alt="Menú Doble">
+            <h3>Menú Doble</h3>
+            <p>2 Pizzas<br>2 Bebidas<br>2 Postres</p>
+        </div>
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/menu_triple.jpg' %}" alt="Menú Triple">
+            <h3>Menú Triple</h3>
+            <p>3 Pizzas<br>3 Bebidas<br>3 Postres</p>
+        </div>
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/menu_familiar.jpg' %}" alt="Menú Familiar">
+            <h3>Menú Familiar</h3>
+            <p>3 Pizzas<br>4 Bebidas<br>4 Postres</p>
+        </div>
+        
+        <div class="menu-item">
+            <img src="{% static 'pizzeriawebapp/images/menu_infantil.png' %}" alt="Menú Infantil">
+            <h3>Menú Infantil</h3>
+            <p>1 Pizza<br>1 Bebida<br>1 Postre<br>Regalo</p>
+        </div>
+        </div>
+    </section>    
+
+    <div class="button-container" style="margin-bottom: 30px;">
+        <a href="{% url 'Crear Pizza' %}" class="btn-haz-tu-pizza">¡ELIGE TU MENU!</a>
     </div> 
 
     <section id="sobre-nosotros">
