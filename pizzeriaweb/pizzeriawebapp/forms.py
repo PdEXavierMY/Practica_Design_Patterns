@@ -7,7 +7,6 @@ MASA_CHOICES = [
     ('Masa integral', 'Masa integral'),
     ('Masa pan', 'Masa pan'),
     ('Masa crujiente', 'Masa crujiente'),
-    ('Masa fina', 'Masa fina'),
     ('Masa sin-gluten', 'Masa sin-gluten'),
     ('Masa maíz', 'Masa maíz'),
     ('Masa california', 'Masa california'),

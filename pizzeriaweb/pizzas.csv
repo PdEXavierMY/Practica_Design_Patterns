@@ -1,4 +1,11 @@
 Nombre;Masa;Salsa;Técnica de Cocción;Presentación;Ingredientes;Extras;Precio;ID_Usuario
 Prueba;Masa  gruesa;Salsa  de  Queso;['Queso/Pepperoni/Champiñones/Pimientos/Aceitunas/Pollo/Jamón/Anchoas/Atún/Tomate  Cherry/Mozzarella/Albahaca/Cebolla/Salchichas'];Ahumado;Pizza  Roll;['Salsa  Picante/Ajo  Asado/Queso  Azul/Aceite  de  Trufa/Huevo/Piña/Chiles  Rojos/Nueces/Jalapeños/Tomate  Secado  al  Sol'];46.70;1
 Pizza  Alevín;Masa  maíz;Crema  de  Ajo;['Pollo/Albahaca'];Freidora;Pizza  Gigante;['Nueces'];18.30;1
-Margarita;Masa  fina;Tomate;['Queso/Mozzarella/Albahaca'];Horno;Corte  Tradicional;[''];12.40;1
+Margarita;Masa  fina;Tomate;['Queso/Mozzarella/Albahaca'];Horno;Corte  Tradicional;[''];12.40;0
+Pepperoni;Masa  fina;Tomate;['Pepperoni/Mozzarella'];Horno;Corte  Tradicional;[''];11.60;0
+Hawaiana;Masa  fina;Tomate;['Jamón/Mozzarella'];Horno;Corte  Tradicional;['Piña'];13.10;0
+Vegetariana;Masa  fina;Tomate;['Champiñones/Pimientos/Aceitunas/Mozzarella/Cebolla'];Horno;Corte  Tradicional;[''];13.60;0
+BBQ;Masa  gruesa;Barbacoa;['Pollo/Mozzarella/Cebolla'];Horno;Corte  Tradicional;[''];13.90;0
+Supreme;Masa  sin-gluten;Tomate;['Pepperoni/Champiñones/Pimientos/Mozzarella/Salchichas'];Horno;Corte  Tradicional;[''];17.60;0
+Pesto;Masa  integral;Pesto;['Tomate  Cherry/Mozzarella/Albahaca'];Horno;Corte  Tradicional;[''];13.40;0
+Pollo  y  Champiñones;Masa  pan;Tomate;['Champiñones/Pollo/Mozzarella/Cebolla'];Horno;Corte  Tradicional;['Ajo  Asado'];16.10;0
