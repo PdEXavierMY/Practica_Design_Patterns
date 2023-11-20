@@ -33,9 +33,11 @@ class CSV():
         for elemento in items_pizza:
             if '/' in elemento:
                 nuevo_items_pizza.extend(elemento.split('/'))
+            elif elemento == '':
+                pass
             else:
                 nuevo_items_pizza.append(elemento)
-
+    
         # Calcular el precio total
         precio_total = sum(precios[item] for item in nuevo_items_pizza)
 
@@ -56,6 +58,18 @@ class CSV():
                 filas.append(row)
             csvfile.close()
         return filas
+    
+    def borrar_ultima_pizza(self):
+        csv_path = 'pizzas.csv'
+
+        # Lee todas las líneas del archivo CSV
+        with open(csv_path, 'r', newline='', encoding='utf-8') as csvfile:
+            filas = list(csv.reader(csvfile))
+
+        # Borra la última línea del archivo CSV
+        with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerows(filas[:-1])
     
     def leer_precios(self):
         precios_path = 'precios.csv'

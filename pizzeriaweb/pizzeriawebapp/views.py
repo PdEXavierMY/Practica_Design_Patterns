@@ -59,15 +59,27 @@ def comprobacion(request):
     filas = CSV().leer_pizzas()
 
     # Obtén los encabezados y la última fila
-    ultima_fila = filas[-1]
+    encabezados = filas[0][0].split(';')[:-2]
+    ultima_fila = filas[-1][0].split(';')[:-2]
+    for elemento in ultima_fila:
+        if '[' in elemento:
+            ultima_fila[ultima_fila.index(elemento)] = elemento.strip("[]' ")
+    print(ultima_fila)
 
     # Pasa los datos a la plantilla
     context = {
-        'ultima_fila': ultima_fila,
-        'filas': filas,
+        'Encabezados': encabezados,
+        'Pizza': ultima_fila,
     }
 
     return render(request, 'pizzeriawebapp/comprobacion.html', context)
+
+def borrar_ultima_pizza(request):
+    # Lógica para borrar la última línea del archivo CSV
+    CSV().borrar_ultima_pizza()
+
+    # Redirige a la página de inicio u otra página que desees después de borrar la línea
+    return redirect('Crear Pizza')
 
 def register(request):
     if request.method == 'POST':

@@ -1,2 +1,4 @@
-Nombre;Masa;Salsa;Técnica de Cocción;Presentación;Ingredientes;Extras;ID_Usuario;Precio
+Nombre;Masa;Salsa;Técnica de Cocción;Presentación;Ingredientes;Extras;Precio;ID_Usuario
 Prueba;Masa  gruesa;Salsa  de  Queso;['Queso/Pepperoni/Champiñones/Pimientos/Aceitunas/Pollo/Jamón/Anchoas/Atún/Tomate  Cherry/Mozzarella/Albahaca/Cebolla/Salchichas'];Ahumado;Pizza  Roll;['Salsa  Picante/Ajo  Asado/Queso  Azul/Aceite  de  Trufa/Huevo/Piña/Chiles  Rojos/Nueces/Jalapeños/Tomate  Secado  al  Sol'];46.70;1
+Pizza  Alevín;Masa  maíz;Crema  de  Ajo;['Pollo/Albahaca'];Freidora;Pizza  Gigante;['Nueces'];18.30;1
+Margarita;Masa  fina;Tomate;['Queso/Mozzarella/Albahaca'];Horno;Corte  Tradicional;[''];12.40;1

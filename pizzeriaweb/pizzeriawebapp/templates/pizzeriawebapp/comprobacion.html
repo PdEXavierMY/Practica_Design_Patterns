@@ -15,25 +15,32 @@
         </div>
     </header>
 
+    <h1 style="align-items: center; text-align: center; margin: auto;">Tu Pizza:</h1>
+
     <!-- Aquí va la tabla -->
-    <table class="table">
+    <table class="table" style="border: 2px solid black; margin-top: 30px;">
         <thead>
             <tr>
-                {% for encabezado in encabezados %}
+                {% for encabezado in Encabezados %}
                     <th>{{ encabezado }}</th>
                 {% endfor %}
             </tr>
         </thead>
         <tbody>
-            {% for fila in filas %}
-                <tr>
-                    {% for campo in fila %}
-                        <td>{{ campo }}</td>
-                    {% endfor %}
-                </tr>
-            {% endfor %}
+            <tr>
+                {% for elem in Pizza %}
+                    <td>
+                        {{ elem }}                        
+                    </td>
+                {% endfor %}
+            </tr>
         </tbody>
     </table>
+
+    <div class="botones_decision" style="align-items: center; text-align: center; margin: auto;">
+        <a href="{% url 'Home' %}" class="boton" style="margin: 30px;">Aceptar</a>
+        <a href="{% url 'borrar_ultima_pizza' %}" class="boton" style="margin: 30px;">Modificar</a>
+    </div>
 
     <footer>
         <p>&copy; 2023 Pizzería Delizioso</p>
