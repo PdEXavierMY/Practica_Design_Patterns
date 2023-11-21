@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import redirect
 from django.contrib import messages
-from .forms import PizzaCreationForm, UsuarioForms, LoginForms
+from .forms import PizzaCreationForm, UsuarioForms, LoginForms, MenuForms
 from .models import Usuario, UsuarioLogin, PizzaBuilder, Director
 from .csv_controller import CSV
 # Create your views here.
@@ -18,6 +18,9 @@ def register(request):
 
 def crear_pizza(request):
     return render(request, 'pizzeriawebapp/crea_tu_pizza.html')
+
+def menu(request):
+    return render(request, 'pizzeriawebapp/crear_menu.html')
 
 def comprobacion(request):
     return render(request, 'pizzeriawebapp/comprobacion.html')
@@ -80,6 +83,16 @@ def borrar_ultima_pizza(request):
 
     # Redirige a la página de inicio u otra página que desees después de borrar la línea
     return redirect('Crear Pizza')
+
+def menu(request):
+    if request.method == 'POST':
+        form = MenuForms(request.POST)
+        if form.is_valid():
+           pass
+    else:
+        form = MenuForms()
+
+    return render(request, 'pizzeriawebapp/crear_menu.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
