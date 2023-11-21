@@ -95,6 +95,31 @@ INGREDIENTES_CHOICES = [
     ('Salchichas', 'Salchichas'),
 ]
 
+ENTRANTES_CHOICES = [
+    ('Ensalada', 'Ensalada'),
+    ('Patatas Bravas', 'Patatas Bravas'),
+    ('Croquetas', 'Croquetas'),
+    ('Calamares a la Romana', 'Calamares a la Romana'),
+    ('Queso Fundido', 'Queso Fundido'),
+    ('Nachos con Guacamole', 'Nachos con Guacamole'),
+]
+
+POSTRES_CHOICES = [
+    ('Tiramisú', 'Tiramisú'),
+    ('Helado', 'Helado'),
+    ('Brownie con Helado', 'Brownie con Helado'),
+    ('Frutas de Temporada', 'Frutas de Temporada'),
+    ('Coulant de Chocolate', 'Coulant de Chocolate'),
+    ('Cheesecake', 'Cheesecake'),
+]
+
+MENU_CHOICES = [
+    ('Individual', 'Individual'),
+    ('Doble', 'Doble'),
+    ('Triple', 'Triple'),
+    ('Familiar', 'Familiar'),
+    ('Infantil', 'Infantil'),
+]
 
 
 class PizzaCreationForm(forms.Form):
@@ -131,3 +156,21 @@ class LoginForms(forms.Form):
     
     usuario = forms.CharField(max_length=100)
     contraseña = forms.CharField(max_length=100, widget=forms.PasswordInput)
+
+class MenuForms(forms.Form):
+    tipo_menu = forms.ChoiceField(choices=MENU_CHOICES)
+    entrante1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    entrante2 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    entrante3 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    entrante4 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    pizza1 = forms.ChoiceField(choices=MASA_CHOICES)
+    pizza2 = forms.ChoiceField(choices=MASA_CHOICES)
+    pizza3 = forms.ChoiceField(choices=MASA_CHOICES)
+    maridaje1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    maridaje2 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    maridaje3 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    maridaje4 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    postre1 = forms.ChoiceField(choices=POSTRES_CHOICES)
+    postre2 = forms.ChoiceField(choices=POSTRES_CHOICES)
+    postre3 = forms.ChoiceField(choices=POSTRES_CHOICES)
+    postre4 = forms.ChoiceField(choices=POSTRES_CHOICES)
