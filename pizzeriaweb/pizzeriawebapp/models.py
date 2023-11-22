@@ -184,18 +184,8 @@ class Component(ABC):
 
         return False
 
-    @abstractmethod
-    def operation(self) -> str:
-        """
-        The base Component may implement some default behavior or leave it to
-        concrete classes (by declaring the method containing the behavior as
-        "abstract").
-        """
 
-        pass
-
-
-class Bebida(Component):
+class Maridaje(Component):
     def __init__(self, nombre, precio):
         self.nombre = nombre
         self.precio = precio
@@ -240,3 +230,9 @@ class Menu(Component):
 
     def is_composite(self) -> bool:
         return True
+    
+    def precio_total(self):
+        precio_total = 0
+        for child in self._children:
+            precio_total += child.precio
+        return precio_total

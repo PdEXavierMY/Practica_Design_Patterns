@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import redirect
 from django.contrib import messages
 from .forms import PizzaCreationForm, UsuarioForms, LoginForms, MenuForms1, MenuForms2, MenuForms3, MenuForms4, MenuForms5
-from .models import Usuario, UsuarioLogin, PizzaBuilder, Director
+from .models import Usuario, UsuarioLogin, PizzaBuilder, Director, PizzaMenu, Entrante, Postre, Maridaje
 from .csv_controller import CSV
 import pandas as pd
 # Create your views here.
@@ -108,7 +108,25 @@ def menu1(request):
     if request.method == 'POST':
         form = MenuForms1(request.POST)
         if form.is_valid():
-           pass
+            tipo_menu = 'Individual'
+            precios = CSV().leer_precios()
+            df = pd.read_csv('pizzas.csv', delimiter=';')  # Especifica el delimitador utilizado en tu archivo CSV
+            entrante_1 = Entrante(
+                nombre=form.cleaned_data['Entrante_1'],
+                precio=float(precios[form.cleaned_data['Entrante_1']])
+            )
+            pizza_1 = PizzaMenu(
+                nombre=form.cleaned_data['Pizza_1'],
+                precio=df.loc[df['Nombre'] == form.cleaned_data['Pizza_1'], 'Precio'].values[0]
+            )
+            maridaje_1 = Maridaje(
+                nombre=form.cleaned_data['Maridaje_1'],
+                precio=float(precios[form.cleaned_data['Maridaje_1']])
+            )
+            postre_1 = Postre(
+                nombre=form.cleaned_data['Postre_1'],
+                precio=float(precios[form.cleaned_data['Postre_1']])
+            )
     else:
         form = MenuForms1()
 
