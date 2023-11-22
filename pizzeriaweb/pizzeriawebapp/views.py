@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import redirect
 from django.contrib import messages
-from .forms import PizzaCreationForm, UsuarioForms, LoginForms, MenuForms
+from .forms import PizzaCreationForm, UsuarioForms, LoginForms, MenuForms1, MenuForms2, MenuForms3, MenuForms4, MenuForms5
 from .models import Usuario, UsuarioLogin, PizzaBuilder, Director
 from .csv_controller import CSV
 # Create your views here.
@@ -19,8 +19,20 @@ def register(request):
 def crear_pizza(request):
     return render(request, 'pizzeriawebapp/crea_tu_pizza.html')
 
-def menu(request):
+def menu1(request):
     return render(request, 'pizzeriawebapp/menu_individual.html')
+
+def menu2(request):
+    return render(request, 'pizzeriawebapp/menu_doble.html')
+
+def menu3(request):
+    return render(request, 'pizzeriawebapp/menu_triple.html')
+
+def menu4(request):
+    return render(request, 'pizzeriawebapp/menu_familiar.html')
+
+def menu5(request):
+    return render(request, 'pizzeriawebapp/menu_infantil.html')
 
 def comprobacion(request):
     return render(request, 'pizzeriawebapp/comprobacion.html')
@@ -84,15 +96,55 @@ def borrar_ultima_pizza(request):
     # Redirige a la página de inicio u otra página que desees después de borrar la línea
     return redirect('Crear Pizza')
 
-def menu(request):
+def menu1(request):
     if request.method == 'POST':
-        form = MenuForms(request.POST)
+        form = MenuForms1(request.POST)
         if form.is_valid():
            pass
     else:
-        form = MenuForms()
+        form = MenuForms1()
 
     return render(request, 'pizzeriawebapp/menu_individual.html', {'form': form})
+
+def menu2(request):
+    if request.method == 'POST':
+        form = MenuForms2(request.POST)
+        if form.is_valid():
+           pass
+    else:
+        form = MenuForms2()
+
+    return render(request, 'pizzeriawebapp/menu_doble.html', {'form': form})
+
+def menu3(request):
+    if request.method == 'POST':
+        form = MenuForms3(request.POST)
+        if form.is_valid():
+           pass
+    else:
+        form = MenuForms3()
+
+    return render(request, 'pizzeriawebapp/menu_triple.html', {'form': form})
+
+def menu4(request):
+    if request.method == 'POST':
+        form = MenuForms4(request.POST)
+        if form.is_valid():
+           pass
+    else:
+        form = MenuForms4()
+
+    return render(request, 'pizzeriawebapp/menu_familiar.html', {'form': form})
+
+def menu5(request):
+    if request.method == 'POST':
+        form = MenuForms5(request.POST)
+        if form.is_valid():
+           pass
+    else:
+        form = MenuForms5()
+
+    return render(request, 'pizzeriawebapp/menu_infantil.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':

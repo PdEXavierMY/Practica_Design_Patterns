@@ -113,14 +113,6 @@ POSTRES_CHOICES = [
     ('Cheesecake', 'Cheesecake'),
 ]
 
-MENU_CHOICES = [
-    ('Individual', 'Individual'),
-    ('Doble', 'Doble'),
-    ('Triple', 'Triple'),
-    ('Familiar', 'Familiar'),
-    ('Infantil', 'Infantil'),
-]
-
 
 class PizzaCreationForm(forms.Form):
 
@@ -157,8 +149,37 @@ class LoginForms(forms.Form):
     usuario = forms.CharField(max_length=100)
     contraseña = forms.CharField(max_length=100, widget=forms.PasswordInput)
 
-class MenuForms(forms.Form):
-    Tipo_Menú = forms.ChoiceField(choices=MENU_CHOICES)
+class MenuForms1(forms.Form):
+    Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    Pizza_1 = forms.ChoiceField(choices=MASA_CHOICES)
+    Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    Postre_1 = forms.ChoiceField(choices=POSTRES_CHOICES)
+
+class MenuForms2(forms.Form):
+    Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    Entrante_2 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    Pizza_1 = forms.ChoiceField(choices=MASA_CHOICES)
+    Pizza_2 = forms.ChoiceField(choices=MASA_CHOICES)
+    Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    Maridaje_2 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    Postre_1 = forms.ChoiceField(choices=POSTRES_CHOICES)
+    Postre_2 = forms.ChoiceField(choices=POSTRES_CHOICES)
+
+class MenuForms3(forms.Form):
+    Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    Entrante_2 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    Entrante_3 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    Pizza_1 = forms.ChoiceField(choices=MASA_CHOICES)
+    Pizza_2 = forms.ChoiceField(choices=MASA_CHOICES)
+    Pizza_3 = forms.ChoiceField(choices=MASA_CHOICES)
+    Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    Maridaje_2 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    Maridaje_3 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    Postre_1 = forms.ChoiceField(choices=POSTRES_CHOICES)
+    Postre_2 = forms.ChoiceField(choices=POSTRES_CHOICES)
+    Postre_3 = forms.ChoiceField(choices=POSTRES_CHOICES)
+
+class MenuForms4(forms.Form):
     Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
     Entrante_2 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
     Entrante_3 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
@@ -174,3 +195,9 @@ class MenuForms(forms.Form):
     Postre_2 = forms.ChoiceField(choices=POSTRES_CHOICES)
     Postre_3 = forms.ChoiceField(choices=POSTRES_CHOICES)
     Postre_4 = forms.ChoiceField(choices=POSTRES_CHOICES)
+
+class MenuForms5(forms.Form):
+    Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
+    Pizza_1 = forms.ChoiceField(choices=MASA_CHOICES)
+    Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    Postre_1 = forms.ChoiceField(choices=POSTRES_CHOICES)
