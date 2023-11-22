@@ -4,6 +4,7 @@ from django.contrib import messages
 from .forms import PizzaCreationForm, UsuarioForms, LoginForms, MenuForms1, MenuForms2, MenuForms3, MenuForms4, MenuForms5
 from .models import Usuario, UsuarioLogin, PizzaBuilder, Director
 from .csv_controller import CSV
+import pandas as pd
 # Create your views here.
 
 def index(request):
@@ -41,17 +42,24 @@ def crear_pizza(request):
     if request.method == 'POST':
         form = PizzaCreationForm(request.POST)
         if form.is_valid():
+            # Lee el archivo CSV con pandas
+            df = pd.read_csv('pizzas.csv', delimiter=';')  # Especifica el delimitador utilizado en tu archivo CSV
+            nombres_pizza = list(df['Nombre'])
             campos = ['nombre', 'masa', 'salsa', 'ingredientes', 'tecnica', 'presentacion', 'extras']
             pizza = []
             for campo in campos:
-                if campo == 'ingredientes' or campo == 'extras':
-                    # Convierte la lista a cadena y reemplaza las comas por barras inclinadas
-                    lista_cambiada = '/'.join(map(str, form.cleaned_data[campo]))
-                    
-                    # Agrega la cadena modificada a la lista final
-                    pizza.append([lista_cambiada])
+                if form.cleaned_data['nombre'] in nombres_pizza:
+                    messages.error(request, f"Los nombres deben ser únicos. Ese nombre ya existe")
+                    return redirect('Crear Pizza')
                 else:
-                    pizza.append(form.cleaned_data[campo])
+                    if campo == 'ingredientes' or campo == 'extras':
+                        # Convierte la lista a cadena y reemplaza las comas por barras inclinadas
+                        lista_cambiada = '/'.join(map(str, form.cleaned_data[campo]))
+                        
+                        # Agrega la cadena modificada a la lista final
+                        pizza.append([lista_cambiada])
+                    else:
+                        pizza.append(form.cleaned_data[campo])
             director = Director()
             builder = PizzaBuilder()
             director.builder = builder

@@ -63,6 +63,15 @@
     </header>
 
     <main>
+        {% if messages %}
+        <div class="messages-container" style="background-color: #f0f0f0;border: 1px solid #ccc;padding: 10px;margin: 0 auto;max-width: 600px;">
+            <ul class="messages" style="list-style-type: none;padding: 0; ">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}" style="text-align: center;font-size: 20px;" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         <h2>¡Crea tu Propia Pizza!</h2>
         <form action="{% url 'Crear Pizza' %}" method="POST" class="form_pizza">
             {% csrf_token %}
