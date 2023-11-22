@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+import pandas as pd
 
 MASA_CHOICES = [
     ('Masa fina', 'Masa fina'),
@@ -113,6 +114,25 @@ POSTRES_CHOICES = [
     ('Cheesecake', 'Cheesecake'),
 ]
 
+# Lee el archivo CSV con pandas
+df = pd.read_csv('pizzas.csv', delimiter=';')  # Especifica el delimitador utilizado en tu archivo CSV
+
+# Lee el ID de usuario desde el archivo logs.txt
+with open('logs.txt', 'r') as logs_file:
+    id_usuario = logs_file.read()
+
+# Convierte el ID de usuario a entero
+id_usuario = int(id_usuario)
+
+# Filtra las filas según la condición (ID_Usuario igual a 0 o igual al id de usuario)
+filtered_df = df[(df['ID_Usuario'] == 0) | (df['ID_Usuario'] == id_usuario)]
+
+# Ahora, puedes utilizar 'filtered_df' que contiene las filas filtradas según la condición
+# por ejemplo, para obtener las opciones de pizza
+nombres_pizza = list(filtered_df['Nombre'])  # 'Nombre' es la columna que contiene las opciones de pizza
+# Convierte la lista de nombres de pizza a la estructura deseada
+PIZZA_CHOICES = [(nombre, nombre) for nombre in nombres_pizza]
+
 
 class PizzaCreationForm(forms.Form):
 
@@ -151,15 +171,15 @@ class LoginForms(forms.Form):
 
 class MenuForms1(forms.Form):
     Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
-    Pizza_1 = forms.ChoiceField(choices=MASA_CHOICES)
+    Pizza_1 = forms.ChoiceField(choices=PIZZA_CHOICES)
     Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
     Postre_1 = forms.ChoiceField(choices=POSTRES_CHOICES)
 
 class MenuForms2(forms.Form):
     Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
     Entrante_2 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
-    Pizza_1 = forms.ChoiceField(choices=MASA_CHOICES)
-    Pizza_2 = forms.ChoiceField(choices=MASA_CHOICES)
+    Pizza_1 = forms.ChoiceField(choices=PIZZA_CHOICES)
+    Pizza_2 = forms.ChoiceField(choices=PIZZA_CHOICES)
     Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
     Maridaje_2 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
     Postre_1 = forms.ChoiceField(choices=POSTRES_CHOICES)
@@ -169,9 +189,9 @@ class MenuForms3(forms.Form):
     Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
     Entrante_2 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
     Entrante_3 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
-    Pizza_1 = forms.ChoiceField(choices=MASA_CHOICES)
-    Pizza_2 = forms.ChoiceField(choices=MASA_CHOICES)
-    Pizza_3 = forms.ChoiceField(choices=MASA_CHOICES)
+    Pizza_1 = forms.ChoiceField(choices=PIZZA_CHOICES)
+    Pizza_2 = forms.ChoiceField(choices=PIZZA_CHOICES)
+    Pizza_3 = forms.ChoiceField(choices=PIZZA_CHOICES)
     Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
     Maridaje_2 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
     Maridaje_3 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
@@ -184,9 +204,9 @@ class MenuForms4(forms.Form):
     Entrante_2 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
     Entrante_3 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
     Entrante_4 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
-    Pizza_1 = forms.ChoiceField(choices=MASA_CHOICES)
-    Pizza_2 = forms.ChoiceField(choices=MASA_CHOICES)
-    Pizza_3 = forms.ChoiceField(choices=MASA_CHOICES)
+    Pizza_1 = forms.ChoiceField(choices=PIZZA_CHOICES)
+    Pizza_2 = forms.ChoiceField(choices=PIZZA_CHOICES)
+    Pizza_3 = forms.ChoiceField(choices=PIZZA_CHOICES)
     Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
     Maridaje_2 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
     Maridaje_3 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
@@ -198,6 +218,6 @@ class MenuForms4(forms.Form):
 
 class MenuForms5(forms.Form):
     Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
-    Pizza_1 = forms.ChoiceField(choices=MASA_CHOICES)
+    Pizza_1 = forms.ChoiceField(choices=PIZZA_CHOICES)
     Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
     Postre_1 = forms.ChoiceField(choices=POSTRES_CHOICES)
