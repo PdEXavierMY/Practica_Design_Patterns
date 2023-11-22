@@ -99,9 +99,11 @@
         <div class="menu-container">
         
         <div class="menu-item">
+            <a href="{% url 'Menu1' %}">
             <img src="{% static 'pizzeriawebapp/images/menu_individual.jpg' %}" alt="Menú Individual">
             <h3>Menú Individual</h3>
             <p>1 Pizza<br>1 Bebida<br>1 Postre</p>
+            </a>
         </div>
         
         <div class="menu-item">
@@ -128,11 +130,7 @@
             <p>1 Pizza<br>1 Bebida<br>1 Postre<br>Regalo</p>
         </div>
         </div>
-    </section>    
-
-    <div class="button-container" style="margin-bottom: 30px;">
-        <a href="{% url 'Menu' %}" class="btn-haz-tu-pizza">¡ELIGE TU MENU!</a>
-    </div> 
+    </section>
 
     <section id="sobre-nosotros">
         <h2>Sobre Nosotros</h2>

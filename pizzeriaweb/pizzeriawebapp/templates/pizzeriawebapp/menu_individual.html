@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea tu Propia Pizza - Pizzería Delizioso</title>
+    <link rel="stylesheet" href="{% static 'pizzeriawebapp/css/styles.css' %}">
+    <style>
+        /* Estilos adicionales específicos para esta página */
+        main {
+            text-align: center;
+            margin: 30px;
+        }
+
+        h2 {
+            font-size: 30px;
+        }
+
+        .form_pizza {
+            border: 1px solid black;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .form_pizza label {
+            font-size: 20px; /* Ajusta el tamaño de la etiqueta según sea necesario */
+        }
+
+        .form_pizza input[type=text] {
+            width: 100%; /* Ajusta el ancho del campo según sea necesario */
+            height: 30px;
+            margin-top: 10px;
+        }
+
+        .form_pizza select {
+            width: 100%; /* Ajusta el ancho del campo según sea necesario */
+            padding: 10px; /* Ajusta el relleno según sea necesario */
+            margin-bottom: 15px; /* Espaciado inferior entre campos */
+            font-size: 16px; /* Tamaño de fuente del campo */
+        }
+
+        .form_pizza button {
+            background-color: greenyellow;
+            border: 1px solid black;
+            width: 200px;
+            height: 50px;
+            border-radius: 5%;
+            font-size: 20px;
+        }
+
+        .form_pizza button:hover {
+            background-color: green;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1 class="logo">Pizzería Delizioso</h1>
+        </div>
+    </header>
+
+    <main>
+        <h2>¡Crea tu Menú!</h2>
+        <form action="{% url 'Menu1' %}" method="POST" class="form_pizza" id="menuForm">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit">Crear Menú</button>
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Pizzería Delizioso</p>
+    </footer>
+
+</body>
+</html>

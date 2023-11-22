@@ -20,7 +20,7 @@ def crear_pizza(request):
     return render(request, 'pizzeriawebapp/crea_tu_pizza.html')
 
 def menu(request):
-    return render(request, 'pizzeriawebapp/crear_menu.html')
+    return render(request, 'pizzeriawebapp/menu_individual.html')
 
 def comprobacion(request):
     return render(request, 'pizzeriawebapp/comprobacion.html')
@@ -92,7 +92,7 @@ def menu(request):
     else:
         form = MenuForms()
 
-    return render(request, 'pizzeriawebapp/crear_menu.html', {'form': form})
+    return render(request, 'pizzeriawebapp/menu_individual.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':

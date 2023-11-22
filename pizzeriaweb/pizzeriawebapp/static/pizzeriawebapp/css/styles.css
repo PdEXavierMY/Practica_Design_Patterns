@@ -196,3 +196,8 @@ footer {
     width: 300px; /* Ancho del formulario */
     background-color: #fff; /* Fondo blanco */
 }
+
+div a {
+    text-decoration: none;
+    color: #000000;
+}
