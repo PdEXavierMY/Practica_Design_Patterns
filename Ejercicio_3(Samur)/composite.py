@@ -1,3 +1,7 @@
+from __future__ import annotations
+from abc import ABC, abstractmethod
+from typing import List
+
 class Component(ABC):
     """
     The base Component class declares common operations for both simple and

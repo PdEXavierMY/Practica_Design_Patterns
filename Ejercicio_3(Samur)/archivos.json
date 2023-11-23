@@ -17,33 +17,33 @@
             "nombre": "configLink",
             "tipo": "Enlace",
             "tamano": "0.005 KB",
-            "hipervinculo": "/ruta/a/otra/carpeta"
+            "hipervinculo": "/ConfigGeneral/settings.txt"
           }
         ]
       },
       {
-        "nombre": "user",
+        "nombre": "userconfig",
         "carpetas": [
           {
-            "nombre": "uni",
+            "nombre": "escritorio",
             "documentos": [
               {
-                "nombre": "algebra.pdf",
+                "nombre": "terms.pdf",
                 "tipo": "PDF",
                 "tamano": "30 KB"
               },
               {
-                "nombre": "algebraLink",
+                "nombre": "termsLink",
                 "tipo": "Enlace",
                 "tamano": "0.005 KB",
-                "hipervinculo": "/ruta/a/documento1"
+                "hipervinculo": "/userconfig/escritorio/terms.pdf"
               }
             ]
           }
         ],
         "documentos": [
           {
-            "nombre": "cálculo.txt",
+            "nombre": "rules.txt",
             "tipo": "Texto",
             "tamano": "15 KB"
           }
