@@ -85,3 +85,33 @@ class CSV():
                 precios[item] = precio
 
         return precios
+
+    def leer_menus(self):
+        csv_path = 'menus.csv'
+        with open(csv_path, mode='r', encoding='utf-8') as csvfile:
+            csvreader = csv.reader(csvfile)
+            filas = []
+            for row in csvreader:
+                filas.append(row)
+            csvfile.close()
+        return filas
+    
+    def guardar_menus(self, menu, id_usuario, codigo):
+        csv_path = 'menus.csv'
+        string_a_guardar = menu.to_csv() + [";"+str(id_usuario)+";"+str(codigo)]
+        string_a_guardar = ''.join(string_a_guardar)
+        with open(csv_path, mode='a', newline='', encoding='utf-8') as csvfile:
+            csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_NONE, escapechar=' ')
+            csvwriter.writerow([string_a_guardar])
+
+    def borrar_ultimo_menu(self):
+        csv_path = 'menus.csv'
+
+        # Lee todas las líneas del archivo CSV
+        with open(csv_path, 'r', newline='', encoding='utf-8') as csvfile:
+            filas = list(csv.reader(csvfile))
+
+        # Borra la última línea del archivo CSV
+        with open(csv_path, 'w', newline='', encoding='utf-8') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerows(filas[:-1])

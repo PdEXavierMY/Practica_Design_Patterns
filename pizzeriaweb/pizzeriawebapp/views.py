@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import redirect
 from django.contrib import messages
 from .forms import PizzaCreationForm, UsuarioForms, LoginForms, MenuForms1, MenuForms2, MenuForms3, MenuForms4, MenuForms5
-from .models import Usuario, UsuarioLogin, PizzaBuilder, Director, PizzaMenu, Entrante, Postre, Maridaje
+from .models import Usuario, UsuarioLogin, PizzaBuilder, Director, PizzaMenu, Entrante, Postre, Maridaje, Component, Menu
 from .csv_controller import CSV
 import pandas as pd
 # Create your views here.
@@ -37,6 +37,9 @@ def menu5(request):
 
 def comprobacion(request):
     return render(request, 'pizzeriawebapp/comprobacion.html')
+
+def comprobacion_menu(request):
+    return render(request, 'pizzeriawebapp/comprobacion_menu.html')
 
 def crear_pizza(request):
     if request.method == 'POST':
@@ -127,6 +130,26 @@ def menu1(request):
                 nombre=form.cleaned_data['Postre_1'],
                 precio=float(precios[form.cleaned_data['Postre_1']])
             )
+
+            menu = Menu(
+                tipo=tipo_menu
+            )
+            menu.add(entrante_1); menu.add(pizza_1); menu.add(maridaje_1); menu.add(postre_1)
+            id_usuario = None
+            with open('logs.txt', 'r') as logs_file:
+                id_usuario = logs_file.read()
+            menus = CSV().leer_menus()
+            if menus:
+                #si solo hay un elemento en la lista, el código es 1
+                if len(menus) == 1:
+                    codigo = 1
+                else:
+                    #si hay más de un elemento, el código es el último código + 1
+                    ultimo_codigo = int(menus[-1][0].split(';')[0])
+                    codigo = ultimo_codigo + 1
+            CSV().guardar_menus(menu, id_usuario, codigo)
+            return redirect('Comprobacion Menu')
+
     else:
         form = MenuForms1()
 
@@ -171,6 +194,33 @@ def menu5(request):
         form = MenuForms5()
 
     return render(request, 'pizzeriawebapp/menu_infantil.html', {'form': form})
+
+def comprobacion_menu(request):
+    # Lee los datos del archivo CSV
+    filas = CSV().leer_menus()
+
+    # Obtén los encabezados y la última fila
+    encabezados = filas[0][0].split(';')[:-2]
+    ultima_fila = filas[-1][0].split(';')[:-2]
+    for elemento in ultima_fila:
+        if '[' in elemento:
+            ultima_fila[ultima_fila.index(elemento)] = elemento.strip("[]' ")
+    print(ultima_fila)
+
+    # Pasa los datos a la plantilla
+    context = {
+        'Encabezados': encabezados,
+        'Menu': ultima_fila,
+    }
+
+    return render(request, 'pizzeriawebapp/comprobacion_menu.html', context)
+
+def borrar_ultimo_menu(request):
+    # Lógica para borrar la última línea del archivo CSV
+    CSV().borrar_ultimo_menu()
+
+    # Redirige a la página de inicio u otra página que desees después de borrar la línea
+    return redirect('Home')
 
 def register(request):
     if request.method == 'POST':

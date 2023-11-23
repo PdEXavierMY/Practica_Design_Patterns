@@ -212,8 +212,9 @@ class Menu(Component):
     children and then "sum-up" the result.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, tipo:str) -> None:
         self._children: List[Component] = []
+        self.tipo = tipo
 
     """
     A composite object can add or remove other components (both simple or
@@ -236,3 +237,21 @@ class Menu(Component):
         for child in self._children:
             precio_total += child.precio
         return precio_total
+
+    def to_csv(self):
+        str_entrantes = ""
+        str_pizzas = ""
+        str_maridajes = ""
+        str_postres = ""
+
+        for child in self._children:
+            if isinstance(child, Entrante):
+                str_entrantes += child.nombre + "/"
+            elif isinstance(child, PizzaMenu):
+                str_pizzas += child.nombre + "/"
+            elif isinstance(child, Maridaje):
+                str_maridajes += child.nombre + "/"
+            elif isinstance(child, Postre):
+                str_postres += child.nombre + "/"
+
+        return [str(self.tipo)+";"+str_entrantes+";"+str_pizzas+";"+str_maridajes+";"+str_postres+";"+str(self.precio_total())]
