@@ -478,3 +478,222 @@ Se han añadido id autogenerativos a los usuarios y las pizzas ahora registran u
 Se ha eliminado la seccion "Tus pizzas" en la página inicial de la pizzeria y se ha implementado un comprobador para confirmar el guardado de la pizza:
 
 <img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/comprobacion_pizzas.png">
+
+<h1>Ejercicio: Expansión del Sistema Integral de Pizzería "Delizioso" con Menús Personalizados y Almacenamiento en CSV utilizando los Patrones Builder y Composite
+</h1>
+
+Contexto:
+
+Tras el éxito inicial de su plataforma digital de creación y gestión de pizzas gourmet personalizadas, la cadena "Delizioso" desea llevar su propuesta al siguiente nivel. Ahora, aparte de permitir la personalización individual de pizzas, quiere ofrecer a sus clientes la posibilidad de combinar sus creaciones en menús personalizados, que podrían incluir entradas, bebidas, pizzas y postres. Estos menús pueden ser creados tanto por el cliente como por el equipo culinario de "Delizioso", con opciones preestablecidas que representan la esencia de la marca.
+
+Objetivos:
+
+Desarrollo de Menús Personalizados:
+Introducir la noción de un "menú", que puede contener varios elementos: entradas, bebidas, pizzas (que ya han sido definidas previamente con su sistema de creación de pizzas) y postres.
+Un "menú" puede ser simple (contener elementos básicos) o compuesto (incluir otros menús más pequeños, como un "Combo Pareja" que incluye dos menús individuales).
+Cada "menú" tendrá un código único y un precio, que se determina como la suma de los precios de sus elementos, con un descuento según la promoción aplicada.
+Patrones de Diseño:
+Implementar el patrón Composite para modelar la relación entre los elementos y menús, facilitando la creación, modificación y cálculo de precios de menús compuestos.
+Continuar utilizando el patrón Builder para la creación detallada de las pizzas.
+Interacción con CSV:
+Ampliar el sistema de almacenamiento en CSV para incluir los menús personalizados, de forma que se pueda registrar y recuperar la información de menús individuales y compuestos.
+Permitir que, a partir de un menú almacenado, se pueda reconstruir toda la estructura del menú con sus elementos individuales y precios.
+Restricciones:
+Las librerías estándar de Python para la interacción con archivos CSV están permitidas.
+Se espera un diseño modular y orientado a objetos, con una clara separación de responsabilidades.
+La implementación del cálculo del precio de un "menú" debe hacerse en tiempo de ejecución y ser eficiente.
+
+<h2>Nota: Los UML de todos los ejercicios se encuentran en la carpeta UML</h2>
+
+En este ejercicio de ampliación de la pizzeria he desarrollado 5 tipos de menu en la página inicial del negocio que llevan a un formulario que permite, dentro de la estrucutra del menú, personalizar el pedido:
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/menus.png">
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/menu_form.png">
+
+Cabe destacar que se ha añadido a las pizzas un nombre (debe ser único y está controlado por mensajes de error) para poder elegir que tipo de pizza quiere el ususario dentro de la seleccion de la propia pizzeria o de sus pedidos pasados (todo esto está controlado con el id del usuario):
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/seleccion_personal.png">
+
+Como adicional, al menú infantil se le ha añadido una lista de bebidas adaptadas.
+El guardado de los menús queda como se ve en las siguientes imágenes:
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/menu_csv.png">
+
+El precio del menu se calcula primero sumando los precios asociados al nuevo csv precios con todos los precios de cada item, y después se le aplica el descuento mostrado en la descripción de este en la página principal. Esto puede verse en la página de comprobación en la columna precio:
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/precios_csv.png">
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/comprobacion_menu.png">
+
+El código patrón utilizado es:
+```py
+class Component(ABC):
+    """
+    The base Component class declares common operations for both simple and
+    complex objects of a composition.
+    """
+
+    @property
+    def parent(self) -> Component:
+        return self._parent
+
+    @parent.setter
+    def parent(self, parent: Component):
+        """
+        Optionally, the base Component can declare an interface for setting and
+        accessing a parent of the component in a tree structure. It can also
+        provide some default implementation for these methods.
+        """
+
+        self._parent = parent
+
+    """
+    In some cases, it would be beneficial to define the child-management
+    operations right in the base Component class. This way, you won't need to
+    expose any concrete component classes to the client code, even during the
+    object tree assembly. The downside is that these methods will be empty for
+    the leaf-level components.
+    """
+
+    def add(self, component: Component) -> None:
+        pass
+
+    def remove(self, component: Component) -> None:
+        pass
+
+    def is_composite(self) -> bool:
+        """
+        You can provide a method that lets the client code figure out whether a
+        component can bear children.
+        """
+
+        return False
+
+
+class Maridaje(Component):
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+
+class PizzaMenu(Component):
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+
+class Entrante(Component):
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+
+class Postre(Component):
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+
+class Menu(Component):
+    """
+    The Composite class represents the complex components that may have
+    children. Usually, the Composite objects delegate the actual work to their
+    children and then "sum-up" the result.
+    """
+
+    def __init__(self, tipo:str) -> None:
+        self._children: List[Component] = []
+        self.tipo = tipo
+
+    """
+    A composite object can add or remove other components (both simple or
+    complex) to or from its child list.
+    """
+
+    def add(self, component: Component) -> None:
+        self._children.append(component)
+        component.parent = self
+
+    def remove(self, component: Component) -> None:
+        self._children.remove(component)
+        component.parent = None
+
+    def is_composite(self) -> bool:
+        return True
+    
+    def precio_total(self):
+        precio_total = 0
+        for child in self._children:
+            precio_total += child.precio
+        if self.tipo == "Doble":
+            precio_total = precio_total * 0.9
+        elif self.tipo == "Triple":
+            precio_total = precio_total * 0.8
+        elif self.tipo == "Familiar":
+            precio_total = precio_total * 0.7
+        elif self.tipo == "Infantil":
+            precio_total = precio_total * 0.5
+        return round(precio_total, 2)
+
+    def to_csv(self):
+        str_entrantes = ""
+        str_pizzas = ""
+        str_maridajes = ""
+        str_postres = ""
+
+        for child in self._children:
+            if isinstance(child, Entrante):
+                str_entrantes += child.nombre + "/"
+            elif isinstance(child, PizzaMenu):
+                str_pizzas += child.nombre + "/"
+            elif isinstance(child, Maridaje):
+                str_maridajes += child.nombre + "/"
+            elif isinstance(child, Postre):
+                str_postres += child.nombre + "/"
+
+        return [str(self.tipo)+";"+str_entrantes+";"+str_pizzas+";"+str_maridajes+";"+str_postres+";"+str(self.precio_total())]
+```
+
+Y su implementación es una variación de:
+
+```py
+tipo_menu = 'Individual'
+            precios = CSV().leer_precios()
+            df = pd.read_csv('pizzas.csv', delimiter=';')  # Especifica el delimitador utilizado en tu archivo CSV
+            entrante_1 = Entrante(
+                nombre=form.cleaned_data['Entrante_1'],
+                precio=float(precios[form.cleaned_data['Entrante_1']])
+            )
+            pizza_1 = PizzaMenu(
+                nombre=form.cleaned_data['Pizza_1'],
+                precio=df.loc[df['Nombre'] == form.cleaned_data['Pizza_1'], 'Precio'].values[0]
+            )
+            maridaje_1 = Maridaje(
+                nombre=form.cleaned_data['Maridaje_1'],
+                precio=float(precios[form.cleaned_data['Maridaje_1']])
+            )
+            postre_1 = Postre(
+                nombre=form.cleaned_data['Postre_1'],
+                precio=float(precios[form.cleaned_data['Postre_1']])
+            )
+
+            menu = Menu(
+                tipo=tipo_menu
+            )
+            menu.add(entrante_1); menu.add(pizza_1); menu.add(maridaje_1); menu.add(postre_1)
+            id_usuario = None
+            with open('logs.txt', 'r') as logs_file:
+                id_usuario = logs_file.read()
+            menus = CSV().leer_menus()
+            if menus:
+                #si solo hay un elemento en la lista, el código es 1
+                if len(menus) == 1:
+                    codigo = 1
+                else:
+                    #si hay más de un elemento, el código es el último código + 1
+                    ultimo_codigo = int(menus[-1][0].split(';')[-1])
+                    codigo = ultimo_codigo + 1
+            CSV().guardar_menus(menu, id_usuario, codigo)
+            return redirect('Comprobacion Menu')
+```
+
+El patrón Composite es adecuado para la creación de menús en la pizzería debido a su capacidad para representar tanto los elementos individuales del menú, como las composiciones complejas de esos elementos. En un menú, tenemos diferentes categorías como entrantes, pizzas, maridajes y postres, y cada una de estas categorías puede contener elementos individuales o incluso otras composiciones. El Composite permite organizar estos elementos en una estructura de árbol, donde cada componente (elemento o composición) comparte una interfaz común. Esto facilita la manipulación uniforme de elementos individuales y compuestos, lo que es esencial al construir y gestionar menús complejos.
+
+Además, el patrón Composite proporciona flexibilidad al permitir que los clientes seleccionen elementos individuales o combinaciones de elementos como parte de su pedido. La capacidad para calcular el precio total del menú en función de los elementos seleccionados también se beneficia de la estructura jerárquica del Composite. En última instancia, el patrón Composite simplifica la gestión y expansión del menú, ya que nuevos elementos o categorías pueden agregarse sin afectar la lógica existente, brindando así una solución eficiente y escalable para la pizzería.
