@@ -1,5 +1,7 @@
 Tipo;Entrante;Pizza;Maridaje;Postre;Precio;ID_Usuario;Código
 Individual;Patatas  Bravas/;Supreme/;Limonada/;Brownie  con  Helado/;27.6;1;1
 Individual;Calamares  a  la  Romana/;Pepperoni/;Té/;Brownie  con  Helado/;24.4;1;2
-Doble;Calamares  a  la  Romana/Queso  Fundido/;Pepperoni/Prueba2/;Refresco/Sidra/;Frutas  de  Temporada/Helado/;41.6;1;3
-Triple;Queso  Fundido/Patatas  Bravas/Nachos  con  Guacamole/;Supreme/Vegetariana/Vegetariana/;Cerveza/Té/Vino  Blanco/;Tiramisú/Tiramisú/Tiramisú/;82.7;1;4
+Doble;Ensalada/Croquetas/;Pizza    Alevín/Pollo    y    Champiñones/;Vino  Tinto/Vino  Tinto/;Brownie  con  Helado/Coulant  de  Chocolate/;62.46;1;3
+Triple;Nachos  con  Guacamole/Ensalada/Croquetas/;Pesto/Pepperoni/Prueba/;Limonada/Agua  Mineral/Agua  Mineral/;Cheesecake/Tiramisú/Brownie  con  Helado/;83.2;1;4
+Infantil;Queso  Fundido/;Vegetariana/;Té/;Tiramisú/;11.7;1;5
+Familiar;Ensalada/Ensalada/Ensalada/Ensalada/;BBQ/Hawaiana/Margarita/;Vino  Tinto/Vino  Tinto/Vino  Tinto/Vino  Tinto/;Tiramisú/Tiramisú/Tiramisú/Tiramisú/;71.82;1;6

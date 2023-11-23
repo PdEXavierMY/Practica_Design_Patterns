@@ -66,6 +66,17 @@ MARIDAJE_CHOICES = [
     ('Cóctel', 'Cóctel'),
 ]
 
+MARIDAJE_INFANTIL_CHOICES = [
+    ('Agua Mineral', 'Agua Mineral'),
+    ('Refresco', 'Refresco'),
+    ('Limonada', 'Limonada'),
+    ('Té', 'Té'),
+    ('Zumo', 'Zumo'),
+    ('Leche', 'Leche'),
+    ('Batido', 'Batido'),
+    ('Granizado', 'Granizado'),
+]
+
 EXTRA_CHOICES = [
     ('Salsa Picante', 'Salsa Picante'),
     ('Ajo Asado', 'Ajo Asado'),
@@ -219,5 +230,5 @@ class MenuForms4(forms.Form):
 class MenuForms5(forms.Form):
     Entrante_1 = forms.ChoiceField(choices=ENTRANTES_CHOICES)
     Pizza_1 = forms.ChoiceField(choices=PIZZA_CHOICES)
-    Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_CHOICES)
+    Maridaje_1 = forms.ChoiceField(choices=MARIDAJE_INFANTIL_CHOICES)
     Postre_1 = forms.ChoiceField(choices=POSTRES_CHOICES)

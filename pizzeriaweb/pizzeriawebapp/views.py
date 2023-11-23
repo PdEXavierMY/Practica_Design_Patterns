@@ -391,7 +391,44 @@ def menu5(request):
     if request.method == 'POST':
         form = MenuForms5(request.POST)
         if form.is_valid():
-           pass
+            tipo_menu = 'Infantil'
+            precios = CSV().leer_precios()
+            df = pd.read_csv('pizzas.csv', delimiter=';')  # Especifica el delimitador utilizado en tu archivo CSV
+            entrante_1 = Entrante(
+                nombre=form.cleaned_data['Entrante_1'],
+                precio=float(precios[form.cleaned_data['Entrante_1']])
+            )
+            pizza_1 = PizzaMenu(
+                nombre=form.cleaned_data['Pizza_1'],
+                precio=df.loc[df['Nombre'] == form.cleaned_data['Pizza_1'], 'Precio'].values[0]
+            )
+            maridaje_1 = Maridaje(
+                nombre=form.cleaned_data['Maridaje_1'],
+                precio=float(precios[form.cleaned_data['Maridaje_1']])
+            )
+            postre_1 = Postre(
+                nombre=form.cleaned_data['Postre_1'],
+                precio=float(precios[form.cleaned_data['Postre_1']])
+            )
+
+            menu = Menu(
+                tipo=tipo_menu
+            )
+            menu.add(entrante_1); menu.add(pizza_1); menu.add(maridaje_1); menu.add(postre_1)
+            id_usuario = None
+            with open('logs.txt', 'r') as logs_file:
+                id_usuario = logs_file.read()
+            menus = CSV().leer_menus()
+            if menus:
+                #si solo hay un elemento en la lista, el código es 1
+                if len(menus) == 1:
+                    codigo = 1
+                else:
+                    #si hay más de un elemento, el código es el último código + 1
+                    ultimo_codigo = int(menus[-1][0].split(';')[-1])
+                    codigo = ultimo_codigo + 1
+            CSV().guardar_menus(menu, id_usuario, codigo)
+            return redirect('Comprobacion Menu')
     else:
         form = MenuForms5()
 

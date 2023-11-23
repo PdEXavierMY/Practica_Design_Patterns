@@ -236,6 +236,14 @@ class Menu(Component):
         precio_total = 0
         for child in self._children:
             precio_total += child.precio
+        if self.tipo == "Doble":
+            precio_total = precio_total * 0.9
+        elif self.tipo == "Triple":
+            precio_total = precio_total * 0.8
+        elif self.tipo == "Familiar":
+            precio_total = precio_total * 0.7
+        elif self.tipo == "Infantil":
+            precio_total = precio_total * 0.5
         return round(precio_total, 2)
 
     def to_csv(self):
