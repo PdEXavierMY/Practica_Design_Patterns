@@ -22,6 +22,7 @@ def login():
     #escribir en logs.txt el inicio de sesión
     logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
     logs.write(f"El usuario {nombre} con id {id} ha iniciado sesión\n")
+    logs.close()
 
 def registrarse():
     print("Registro de usuario:\n")
@@ -81,6 +82,7 @@ def registrarse():
     #escribir en logs.txt el inicio de sesión
     logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
     logs.write(f"El usuario {nombre} con id {identificador} se ha registrado\n")
+    logs.close()
     
 
 def login_usuario():
@@ -102,6 +104,7 @@ def login_usuario():
     #escribir en logs.txt el inicio de sesión
     logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
     logs.write(f"El administrador {nombre} con id {id} ha iniciado sesión\n")
+    logs.close()
 
 def gestor():
     print("1. Login")
