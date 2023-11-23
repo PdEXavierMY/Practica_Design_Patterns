@@ -90,7 +90,6 @@ def comprobacion(request):
     for elemento in ultima_fila:
         if '[' in elemento:
             ultima_fila[ultima_fila.index(elemento)] = elemento.strip("[]' ")
-    print(ultima_fila)
 
     # Pasa los datos a la plantilla
     context = {
@@ -145,7 +144,7 @@ def menu1(request):
                     codigo = 1
                 else:
                     #si hay más de un elemento, el código es el último código + 1
-                    ultimo_codigo = int(menus[-1][0].split(';')[0])
+                    ultimo_codigo = int(menus[-1][0].split(';')[-1])
                     codigo = ultimo_codigo + 1
             CSV().guardar_menus(menu, id_usuario, codigo)
             return redirect('Comprobacion Menu')
@@ -205,7 +204,6 @@ def comprobacion_menu(request):
     for elemento in ultima_fila:
         if '[' in elemento:
             ultima_fila[ultima_fila.index(elemento)] = elemento.strip("[]' ")
-    print(ultima_fila)
 
     # Pasa los datos a la plantilla
     context = {

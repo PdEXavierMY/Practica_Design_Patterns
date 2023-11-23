@@ -236,7 +236,7 @@ class Menu(Component):
         precio_total = 0
         for child in self._children:
             precio_total += child.precio
-        return precio_total
+        return round(precio_total, 2)
 
     def to_csv(self):
         str_entrantes = ""
