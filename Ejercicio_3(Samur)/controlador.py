@@ -18,6 +18,10 @@ def login():
     else:
         print("Nombre de usuario incorrecto")
         login()
+    id = usuarios.loc[usuarios['Usuario'] == nombre, 'ID'].values[0]
+    #escribir en logs.txt el inicio de sesión
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    logs.write(f"El usuario {nombre} con id {id} ha iniciado sesión\n")
 
 def registrarse():
     print("Registro de usuario:\n")
@@ -74,6 +78,10 @@ def registrarse():
     else:
         print("Las contraseñas no coinciden. Vuelve a intentarlo.")
         registrarse()
+    #escribir en logs.txt el inicio de sesión
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    logs.write(f"El usuario {nombre} con id {identificador} se ha registrado\n")
+    
 
 def login_usuario():
     nombre = input("Ingrese su nombre de usuario: ")
@@ -90,6 +98,10 @@ def login_usuario():
     else:
         print("Nombre de usuario incorrecto")
         login_usuario()
+    id = usuarios.loc[usuarios['Usuario'] == nombre, 'ID'].values[0]
+    #escribir en logs.txt el inicio de sesión
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    logs.write(f"El administrador {nombre} con id {id} ha iniciado sesión\n")
 
 def gestor():
     print("1. Login")
