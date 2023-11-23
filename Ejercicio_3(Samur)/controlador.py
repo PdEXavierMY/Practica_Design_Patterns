@@ -80,16 +80,16 @@ def login_usuario():
     print('\n')
     contraseña = input("Ingrese su contraseña: ")
     print('\n')
-    usuarios = pd.read_csv('admin.csv', sep=';')
+    usuarios = pd.read_csv('Ejercicio_3(Samur)/admin.csv', sep=';')
     if nombre in usuarios['Usuario'].values:
         if contraseña in usuarios['Contraseña'].values:
             print(f"¡Bienvenido administrador {nombre}!")
         else:
             print("Contraseña incorrecta")
-            login()
+            login_usuario()
     else:
         print("Nombre de usuario incorrecto")
-        login()
+        login_usuario()
 
 def gestor():
     print("1. Login")
