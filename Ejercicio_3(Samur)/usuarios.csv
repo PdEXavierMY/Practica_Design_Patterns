@@ -2,3 +2,4 @@ ID;Usuario;Nombre;Apellidos;Email;Contraseña;
 1;Prueba;Prueba;Prueba1 Prueba2;prueba@gmail.com;1234
 2;Prueba2;Prueba;Prueba1 Prueba2;prueba@gmail.com;123
 3;prueba_id;Prueba;Prueba1 Prueba2;prueba@gmail.com;id
+4;Asterisk;Pedro;García Llorant;p.a.p@ol.com;contraseña

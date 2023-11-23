@@ -8,7 +8,7 @@ def login():
     print('\n')
     contraseña = input("Ingrese su contraseña: ")
     print('\n')
-    usuarios = pd.read_csv('usuarios.csv', sep=';')
+    usuarios = pd.read_csv('Ejercicio_3(Samur)/usuarios.csv', sep=';')
     if nombre in usuarios['Usuario'].values:
         if contraseña in usuarios['Contraseña'].values:
             print("¡Bienvenido!")
@@ -22,29 +22,55 @@ def login():
 def registrarse():
     print("Registro de usuario:\n")
     usuario = input("Usuario: ")
+    #el nombre de usuario no puede estar vacío ni tener espacios
+    while usuario == "" or " " in usuario:
+        print("El nombre de usuario no puede estar vacío ni tener espacios")
+        usuario = input("Usuario: ")
     print('\n')
     nombre = input("Nombre: ")
+    #el nombre no puede estar vacío
+    while nombre == "":
+        print("El nombre no puede estar vacío!")
+        nombre = input("Nombre: ")
     print('\n')
     apellidos = input("Apellidos: ")
     print('\n')
     correo = input("Correo: ")
+    #el correo no puede estar vacío, no debe tener espacios y debe tener formato de correo
+    while correo == "" or "@" not in correo or ".com" not in correo or ".es" not in correo or " " in correo or correo.count("@") > 1 or correo.count(".com") > 1 or correo.count(".es") > 1:
+        print("El correo no puede estar vacío y debe tener formato de correo (solo se admiten .com y .es)")
+        correo = input("Correo: ")
     print('\n')
     contraseña = input("Contraseña: ")
+    #la contraseña no puede estar vacía
+    while contraseña == "":
+        print("La contraseña no puede estar vacía!")
+        contraseña = input("Contraseña: ")
     print('\n')
     confirmar_contraseña = input("Confirmar Contraseña: ")
+    #la contraseña no puede estar vacía
+    while confirmar_contraseña == "":
+        print("La contraseña no puede estar vacía!")
+        confirmar_contraseña = input("Confirmar Contraseña: ")
 
     if contraseña == confirmar_contraseña:
-        usuarios = pd.read_csv('usuarios.csv', sep=';')
+        usuarios = pd.read_csv('Ejercicio_3(Samur)/usuarios.csv', sep=';')
         ids_registrados = usuarios['ID'].values
 
-        if len(ids_registrados) == 0:
-            identificador = 1
+        #si el usuario y la contraseña ya existen volver atrás
+        if nombre in usuarios['Usuario'].values:
+            if contraseña in usuarios['Contraseña'].values:
+                print("El usuario ya existe.")
+                gestor()
         else:
-            identificador = max(ids_registrados) + 1
+            if len(ids_registrados) == 0:
+                identificador = 1
+            else:
+                identificador = max(ids_registrados) + 1
 
-        nuevo_usuario = pd.DataFrame({'ID': [identificador], 'Usuario': [usuario], 'Nombre': [nombre], 'Apellidos': [apellidos], 'Email': [correo], 'Contraseña': [contraseña]})
-        nuevo_usuario.to_csv('usuarios.csv', sep=';', mode='a', header=False, index=False)
-        print("¡Registro exitoso!")
+            nuevo_usuario = pd.DataFrame({'ID': [identificador], 'Usuario': [usuario], 'Nombre': [nombre], 'Apellidos': [apellidos], 'Email': [correo], 'Contraseña': [contraseña]})
+            nuevo_usuario.to_csv('Ejercicio_3(Samur)/usuarios.csv', sep=';', mode='a', header=False, index=False)
+            print("¡Registro exitoso!")
     else:
         print("Las contraseñas no coinciden. Vuelve a intentarlo.")
         registrarse()
@@ -83,5 +109,5 @@ def gestor():
         login_usuario()
         return True
     else:
-        print("Opción incorrecta")
+        print("\nOpción incorrecta\n")
         gestor()
