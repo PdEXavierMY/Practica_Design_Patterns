@@ -55,7 +55,19 @@ class Component(ABC):
         pass
 
 
-class Leaf(Component):
+class Archivo(Component):
+    """
+    The Leaf class represents the end objects of a composition. A leaf can't
+    have any children.
+
+    Usually, it's the Leaf objects that do the actual work, whereas Composite
+    objects only delegate to their sub-components.
+    """
+
+    def operation(self) -> str:
+        return "Leaf"
+    
+class Enlaces(Component):
     """
     The Leaf class represents the end objects of a composition. A leaf can't
     have any children.
@@ -67,8 +79,7 @@ class Leaf(Component):
     def operation(self) -> str:
         return "Leaf"
 
-
-class Composite(Component):
+class Carpeta(Component):
     """
     The Composite class represents the complex components that may have
     children. Usually, the Composite objects delegate the actual work to their
@@ -108,27 +119,7 @@ class Composite(Component):
         return f"Branch({'+'.join(results)})"
 
 
-def client_code(component: Component) -> None:
-    """
-    The client code works with all of the components via the base interface.
-    """
-
-    print(f"RESULT: {component.operation()}", end="")
-
-
-def client_code2(component1: Component, component2: Component) -> None:
-    """
-    Thanks to the fact that the child-management operations are declared in the
-    base Component class, the client code can work with any component, simple or
-    complex, without depending on their concrete classes.
-    """
-
-    if component1.is_composite():
-        component1.add(component2)
-
-    print(f"RESULT: {component1.operation()}", end="")
-
-
+'''
 if __name__ == "__main__":
     # This way the client code can support the simple leaf components...
     simple = Leaf()
@@ -154,4 +145,4 @@ if __name__ == "__main__":
     print("\n")
 
     print("Client: I don't need to check the components classes even when managing the tree:")
-    client_code2(tree, simple)
+    client_code2(tree, simple)'''
