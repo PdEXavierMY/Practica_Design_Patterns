@@ -214,11 +214,48 @@ def buscar_documento(diccionario, fragmento_nombre):
     else:
         print(f"No se encontraron documentos que contengan '{fragmento_nombre}'.")
 
+def crear_documento(diccionario):
+    nombre_documento = input("Introduzca el nombre del documento: ")
+    print('\n')
+    contenido_documento = input("Introduzca el contenido del documento: ")
+    print('\n')
+    nombre_carpeta = input("Introduzca el nombre de la carpeta donde desea crear el documento: ")
+    print('\n')
+    ruta_carpeta = input("Introduzca la ruta de la carpeta donde desea crear el documento: ")
+    print('\n')
+    #si la ruta de la carpeta no existe volver atrás
+    if ruta_carpeta != "config":
+        if ruta_carpeta not in diccionario['config']:
+            print("La ruta de la carpeta no existe.")
+            gestor_documentos()
+    #si la carpeta no existe volver atrás
+    if nombre_carpeta not in diccionario['config']:
+        print("La carpeta no existe.")
+        gestor_documentos()
+    #si el documento ya existe volver atrás
+    for documento in diccionario['config'][ruta_carpeta]['documentos']:
+        if nombre_documento == documento['nombre']:
+            print("El documento ya existe.")
+            gestor_documentos()
+    #crear el documento
+    nuevo_documento = {'nombre': nombre_documento, 'contenido': contenido_documento}
+    diccionario['config'][ruta_carpeta]['documentos'].append(nuevo_documento)
+    #guardar el documento en el archivo json
+    with open('Ejercicio_3(Samur)/archivos.json', 'w') as archivo:
+        json.dump(diccionario, archivo, indent=4)
+    print("Documento creado con éxito.")
+    #escribir en logs.txt el inicio de sesión
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    logs.write(f"Se ha creado el documento {nombre_documento} en la carpeta {nombre_carpeta}\n")
+    logs.close()
 
+
+
+'''
 # Nombre del archivo JSON
 archivo_json = "Ejercicio_3(Samur)/archivos.json"
 
 # Abrir y cargar el contenido del archivo JSON en un diccionario
 with open(archivo_json, "r") as archivo:
     diccionario = json.load(archivo)
-buscar_documento(diccionario, "ter")
+buscar_documento(diccionario, "ter")'''
