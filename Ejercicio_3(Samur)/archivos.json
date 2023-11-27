@@ -49,5 +49,17 @@
           }
         ]
       }
+    ],
+    "escritorio": [
+      {
+        "nombre": "foto1.png",
+        "tipo": "Foto",
+        "tamano": "40 KB"
+      },
+      {
+        "nombre": "Foto2.png",
+        "tipo": "Foto",
+        "tamano": "50 KB"
+      }
     ]
   }  

@@ -56,6 +56,10 @@ class Component(ABC):
 
 
 class Archivo(Component):
+    def __init__(self, nombre, tipo, tamano):
+        self.nombre = nombre
+        self.tipo = tipo
+        self.tamaño = tamano
     """
     The Leaf class represents the end objects of a composition. A leaf can't
     have any children.
@@ -65,9 +69,14 @@ class Archivo(Component):
     """
 
     def operation(self) -> str:
-        return "Leaf"
+        return "Archivo"
     
 class Enlaces(Component):
+    def __init__(self, nombre, tipo, tamano, hipervinculo):
+        self.nombre = nombre
+        self.tipo = tipo
+        self.tamaño = tamano
+        self.hipervinculo = hipervinculo
     """
     The Leaf class represents the end objects of a composition. A leaf can't
     have any children.
@@ -77,7 +86,7 @@ class Enlaces(Component):
     """
 
     def operation(self) -> str:
-        return "Leaf"
+        return "Enlace"
 
 class Carpeta(Component):
     """
@@ -86,7 +95,8 @@ class Carpeta(Component):
     children and then "sum-up" the result.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, nombre) -> None:
+        self.nombre = nombre
         self._children: List[Component] = []
 
     """
@@ -117,6 +127,11 @@ class Carpeta(Component):
         for child in self._children:
             results.append(child.operation())
         return f"Branch({'+'.join(results)})"
+
+    def visualizar(self):
+        print("Carpeta: " + self.nombre)
+        for child in self._children:
+            print("  " + child.operation())
 
 
 '''

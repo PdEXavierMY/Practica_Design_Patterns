@@ -1,5 +1,17 @@
 import pandas as pd
 import json
+import re
+from composite import Component, Archivo, Enlaces, Carpeta
+
+def extraer_usuario():
+    ruta_archivo_logs = 'Ejercicio_3(Samur)/logs.txt'
+    with open(ruta_archivo_logs, 'r', encoding='utf-8') as archivo_logs:
+        primera_linea = archivo_logs.readline()
+        match = re.search(r'El usuario [\w\s]+ con id \d+', primera_linea)
+        if match:
+            return match.group(0)
+        else:
+            return None
 
 def separador():
     print("--------------------------------------------------")
@@ -142,7 +154,7 @@ def gestor_documentos():
         diccionario = json.load(archivo)
     print("¿Qué desea hacer?")
     print("1. Visualizar los documentos")
-    print("2. Buscar un documentos")
+    print("2. Buscar un documento")
     print("3. Crear un documento")
     print("4. Editar un documento")
     print("5. Borrar un documento")
@@ -184,6 +196,10 @@ def visualizar_documentos(diccionario):
     try:
         # Imprimir de manera estructurada
         print(json.dumps(diccionario, indent=2))
+        #escribir en logs.txt la visualización de documentos
+        logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+        usuario = extraer_usuario()
+        logs.write(f"{usuario} ha visualizado los documentos\n")
 
     except json.JSONDecodeError as e:
         print(f"Error al decodificar JSON: {e}")
@@ -213,49 +229,73 @@ def buscar_documento(diccionario, fragmento_nombre):
             print(json.dumps(documento_encontrado, indent=2))
     else:
         print(f"No se encontraron documentos que contengan '{fragmento_nombre}'.")
+    #escribir en logs.txt la búsqueda realizada
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    logs.write(f"{usuario} ha buscado un documento {fragmento_nombre}\n")
 
 def crear_documento(diccionario):
-    nombre_documento = input("Introduzca el nombre del documento: ")
+    tipo_documento = input("¿Qué tipo de documento desea crear? (Texto, PDF, Enlace...): ")
+    nombre_documento = input(f"Introduzca el nombre del {tipo_documento.lower()}: ")
     print('\n')
-    contenido_documento = input("Introduzca el contenido del documento: ")
+    tamaño_documento = input(f"Introduzca el tamaño del {tipo_documento.lower()}: ")
     print('\n')
-    nombre_carpeta = input("Introduzca el nombre de la carpeta donde desea crear el documento: ")
-    print('\n')
+    
+    # Si es un enlace, solicitar hipervínculo
+    if tipo_documento == "Enlace":
+        hipervinculo = input("Introduzca el hipervínculo: ")
+        print('\n')
+    else:
+        hipervinculo = None
+
     ruta_carpeta = input("Introduzca la ruta de la carpeta donde desea crear el documento: ")
     print('\n')
-    #si la ruta de la carpeta no existe volver atrás
-    if ruta_carpeta != "config":
-        if ruta_carpeta not in diccionario['config']:
-            print("La ruta de la carpeta no existe.")
-            gestor_documentos()
-    #si la carpeta no existe volver atrás
-    if nombre_carpeta not in diccionario['config']:
-        print("La carpeta no existe.")
-        gestor_documentos()
-    #si el documento ya existe volver atrás
-    for documento in diccionario['config'][ruta_carpeta]['documentos']:
-        if nombre_documento == documento['nombre']:
-            print("El documento ya existe.")
-            gestor_documentos()
-    #crear el documento
-    nuevo_documento = {'nombre': nombre_documento, 'contenido': contenido_documento}
-    diccionario['config'][ruta_carpeta]['documentos'].append(nuevo_documento)
-    #guardar el documento en el archivo json
-    with open('Ejercicio_3(Samur)/archivos.json', 'w') as archivo:
-        json.dump(diccionario, archivo, indent=4)
-    print("Documento creado con éxito.")
-    #escribir en logs.txt el inicio de sesión
-    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
-    logs.write(f"Se ha creado el documento {nombre_documento} en la carpeta {nombre_carpeta}\n")
-    logs.close()
+
+    # Crear el documento según el tipo
+    if tipo_documento != "Enlace":
+        documento = Archivo(nombre_documento, tipo_documento, tamaño_documento)
+    else:
+        documento = Enlaces(nombre_documento, tipo_documento, tamaño_documento, hipervinculo)
+
+    # Obtener la referencia a la carpeta especificada en ruta_carpeta
+    carpetas = ruta_carpeta.split('/')
+    carpeta_actual = diccionario
+    for carpeta in carpetas:
+        if "carpetas" in carpeta_actual:
+            carpeta_encontrada = None
+            for c in carpeta_actual["carpetas"]:
+                if c["nombre"] == carpeta:
+                    carpeta_encontrada = c
+                    break
+            if carpeta_encontrada:
+                carpeta_actual = carpeta_encontrada
+            else:
+                print(f"Error: La carpeta '{carpeta}' no existe en la ruta especificada.")
+                return
+        else:
+            print("Error: La ruta especificada no es válida.")
+            return
+
+    # Añadir el documento a la carpeta
+    if "documentos" in carpeta_actual:
+        carpeta_actual["documentos"].append(documento)
+    else:
+        carpeta_actual["documentos"] = [documento]
+
+    # Convertir el diccionario a JSON
+    json_resultante = json.dumps(diccionario, indent=2)
+
+    # Guardar el JSON actualizado en el archivo
+    with open("Ejercicio_3(Samur)/archivos_actualizados.json", "w") as archivo_json:
+        archivo_json.write(json_resultante)
+
+    print("Documento creado y añadido correctamente.")
 
 
 
-'''
 # Nombre del archivo JSON
 archivo_json = "Ejercicio_3(Samur)/archivos.json"
 
 # Abrir y cargar el contenido del archivo JSON en un diccionario
 with open(archivo_json, "r") as archivo:
     diccionario = json.load(archivo)
-buscar_documento(diccionario, "ter")'''
