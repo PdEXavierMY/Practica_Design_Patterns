@@ -1,5 +1,1 @@
-El usuario Prueba con id 1 ha iniciado sesi髇
 El usuario Prueba con id 1 ha iniciado sesi贸n
-El administrador PruebaAdmin con id 1 ha iniciado sesi贸n
-El usuario Prueba con id 1 ha iniciado sesi贸n
-El administrador PruebaAdmin con id 1 ha iniciado sesi贸n

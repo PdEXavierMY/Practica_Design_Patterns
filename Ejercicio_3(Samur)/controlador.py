@@ -1,4 +1,5 @@
 import pandas as pd
+import json
 
 def separador():
     print("--------------------------------------------------")
@@ -66,7 +67,7 @@ def registrarse():
         if nombre in usuarios['Usuario'].values:
             if contraseña in usuarios['Contraseña'].values:
                 print("El usuario ya existe.")
-                gestor()
+                gestor_usuarios()
         else:
             if len(ids_registrados) == 0:
                 identificador = 1
@@ -106,7 +107,7 @@ def login_usuario():
     logs.write(f"El administrador {nombre} con id {id} ha iniciado sesión\n")
     logs.close()
 
-def gestor():
+def gestor_usuarios():
     print("1. Login")
     print("2. Registrarse")
     print("3. Salir")
@@ -125,4 +126,99 @@ def gestor():
         return True
     else:
         print("\nOpción incorrecta\n")
-        gestor()
+        gestor_usuarios()
+
+def leer_json():
+    with open('Ejercicio_3(Samur)/datos.json') as json_file:
+        datos = json.load(json_file)
+        print(datos)
+
+def gestor_documentos():
+    # Nombre del archivo JSON
+    archivo_json = "Ejercicio_3(Samur)/archivos.json"
+
+    # Abrir y cargar el contenido del archivo JSON en un diccionario
+    with open(archivo_json, "r") as archivo:
+        diccionario = json.load(archivo)
+    print("¿Qué desea hacer?")
+    print("1. Visualizar los documentos")
+    print("2. Buscar un documentos")
+    print("3. Crear un documento")
+    print("4. Editar un documento")
+    print("5. Borrar un documento")
+    print("6. Buscar una carpeta")
+    print("7. Crear una carpeta")
+    print("8. Editar una carpeta")
+    print("9. Borrar una carpeta")
+    print("10. Salir")
+    separador()
+    opcion = input("Introduzca una opción: ")
+    if opcion == "1":
+        visualizar_documentos(diccionario)
+    elif opcion == "2":
+        print("¿Qué documento desea buscar?")
+        nombre_documento = input("Introduzca el nombre del documento: ")
+        buscar_documento(diccionario, nombre_documento)
+    elif opcion == "3":
+        crear_documento(diccionario)
+    elif opcion == "4":
+        editar_documento(diccionario)
+    elif opcion == "5":
+        borrar_documento(diccionario)
+    elif opcion == "6":
+        buscar_carpeta(diccionario)
+    elif opcion == "7":
+        crear_carpeta(diccionario)
+    elif opcion == "8":
+        editar_carpeta(diccionario)
+    elif opcion == "9":
+        borrar_carpeta(diccionario)
+    elif opcion == "10":
+        print("Hasta pronto")
+    else:
+        print("\nOpción incorrecta\n")
+        gestor_documentos()
+
+
+def visualizar_documentos(diccionario):
+    try:
+        # Imprimir de manera estructurada
+        print(json.dumps(diccionario, indent=2))
+
+    except json.JSONDecodeError as e:
+        print(f"Error al decodificar JSON: {e}")
+
+def buscar_documento(diccionario, fragmento_nombre):
+    def buscar_en_carpeta(carpeta, ruta_actual=""):
+        documentos_encontrados = []
+
+        for documento in carpeta.get("documentos", []):
+            if fragmento_nombre.lower() in documento["nombre"].lower():
+                documentos_encontrados.append(documento)
+
+        for subcarpeta in carpeta.get("carpetas", []):
+            nueva_ruta = f"{ruta_actual}/{subcarpeta['nombre']}" if ruta_actual else subcarpeta['nombre']
+            documentos_encontrados.extend(buscar_en_carpeta(subcarpeta, nueva_ruta))
+
+        return documentos_encontrados
+
+    documentos_encontrados = []
+
+    for carpeta_raiz in diccionario.get("config", []):
+        documentos_encontrados.extend(buscar_en_carpeta(carpeta_raiz))
+
+    if documentos_encontrados:
+        print(f"Documentos que contienen '{fragmento_nombre}':")
+        for documento_encontrado in documentos_encontrados:
+            print(json.dumps(documento_encontrado, indent=2))
+    else:
+        print(f"No se encontraron documentos que contengan '{fragmento_nombre}'.")
+
+
+# Nombre del archivo JSON
+archivo_json = "Ejercicio_3(Samur)/archivos.json"
+
+# Abrir y cargar el contenido del archivo JSON en un diccionario
+with open(archivo_json, "r") as archivo:
+    diccionario = json.load(archivo)
+buscar_documento(diccionario, "ter")

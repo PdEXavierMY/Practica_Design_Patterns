@@ -11,6 +11,6 @@ if __name__ == "__main__":
     print("Identifíquese:")
     separador()
     separador()
-    identificacion = gestor()
+    identificacion = gestor_usuarios()
     if identificacion:
-        pass
+        gestor_documentos()
