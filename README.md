@@ -722,7 +722,7 @@ Desarrollar en Python las clases y la lógica necesaria para representar y gesti
 
 Implementar funciones que faciliten la navegación, creación, modificación y eliminación de elementos en el sistema.
 
-La forma en la que he resuleto este ejercicio es simulando un "gestor de documentos" a través de un json. El ejercicio se ejecuta con el main:
+La forma en la que he resuleto este ejercicio es simulando un "gestor de documentos" a través de un json. El ejercicio se ejecuta desde el main:
 
 ```py
 from controlador import gestor_documentos
@@ -881,6 +881,7 @@ Un ejemplo del funcionamiento del proxy al crear documentos (solo pueden los adm
 <img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/proxy_denegado.png">
 
 Importante decir que para ingresar como administrador se necesita el conocimiento de un comando especial que no se muestra en la interfaz por motivos de seguridad:
+
 <img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/ingreso_admin.png">
 
 <img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/3_proxy_ok.png">
@@ -1104,3 +1105,5 @@ class Proxy(Arbol_Composite):
         logs.close()
 ```
 Finalmente añadir que dentro de logs.txt se guardan todos los movimientos del usuario o administrador, y que las pruebas realizadas y comprobadas se pueden encontrar en prueba.py y en tests.py
+
+Los códigos utilizados para la gestion de documentos o usuarios se encuentran en gestion_archivos.py y gestion_usuarios.py respectivamente. El resto de pythons son funciones varias con lógica necesaria para el ejercicio.
