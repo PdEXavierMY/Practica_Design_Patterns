@@ -215,14 +215,16 @@ def gestor_documentos():
     elif opcion == "7":
         crear_carpeta(diccionario)
     elif opcion == "8":
-        #editar_carpeta(composite, ruta, nombre_carpeta, nuevo_nombre)
         print("¿Qué carpeta desea editar?")
         nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
         nuevo_nombre = input("Introduzca el nuevo nombre de la carpeta: ")
         ruta_carpeta = input("Introduzca la ruta de la carpeta: ")
         editar_carpeta(explorador, ruta_carpeta, nombre_carpeta, nuevo_nombre)
     elif opcion == "9":
-        borrar_carpeta(diccionario)
+        print("¿Qué carpeta desea borrar?")
+        nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
+        ruta_carpeta = input("Introduzca la ruta de la carpeta: ")
+        borrar_carpeta(explorador, ruta_carpeta, nombre_carpeta)
     elif opcion == "10":
         print("Hasta pronto")
     else:
