@@ -66,7 +66,7 @@ class Proxy(Arbol_Composite):
             return False
 
     def log_access(self) -> None:
-        print("Proxy ha concedido acceso", end="")
+        print("Proxy ha concedido acceso", end="/")
         #introducir en logs.txt el acceso concedido de proxy
         logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
         logs.write(f"{extraer_usuario()} ha sido aprobado como administrador\n")
