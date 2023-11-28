@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 import re
-from composite import Component, Archivo, Enlace, Carpeta
+from composite import Archivo, Enlace, Carpeta
 
 def extraer_usuario():
     ruta_archivo_logs = 'Ejercicio_3(Samur)/logs.txt'
@@ -148,10 +148,8 @@ def leer_json():
 def gestor_documentos():
     # Nombre del archivo JSON
     archivo_json = "Ejercicio_3(Samur)/archivos.json"
+    explorador = cargar_desde_json(archivo_json)
 
-    # Abrir y cargar el contenido del archivo JSON en un diccionario
-    with open(archivo_json, "r") as archivo:
-        diccionario = json.load(archivo)
     print("¿Qué desea hacer?")
     print("1. Visualizar la estructura de documentos")
     print("2. Buscar un documento")
@@ -165,7 +163,6 @@ def gestor_documentos():
     print("10. Salir")
     separador()
     opcion = input("Introduzca una opción: ")
-    explorador = dic_to_composite(diccionario)
     if opcion == "1":
         print(explorador.visualizar())
     elif opcion == "2":
@@ -231,30 +228,15 @@ def gestor_documentos():
         print("\nOpción incorrecta\n")
         gestor_documentos()
 
-def buscar_documento(diccionario, fragmento_nombre):
-    resultados = []
-
-    # Buscar en los documentos de la carpeta actual
-    documentos = diccionario.get("documentos", [])
-    for documento in documentos:
-        if fragmento_nombre.lower() in documento["nombre"].lower():
-            resultados.append(documento)
-
-    # Buscar en las carpetas recursivamente
-    carpetas = diccionario.get("carpetas", [])
-    for carpeta in carpetas:
-        resultados.extend(buscar_documento(carpeta, fragmento_nombre))
-
-    #actualizar el logs.txt
-    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
-    usuario = extraer_usuario()
-    if usuario is not None:
-        logs.write(f"El usuario {usuario} ha buscado el documento {fragmento_nombre}\n")
-    else:
-        logs.write(f"Se ha buscado el documento {fragmento_nombre}\n")
-    logs.close()
-
-    return resultados
+def cargar_desde_json(nombre_archivo):
+    """
+    Carga la estructura desde un archivo JSON y devuelve el composite correspondiente.
+    """
+    with open(nombre_archivo, 'r') as archivo:
+        diccionario = json.load(archivo)
+    composite = dic_to_composite(diccionario)
+    print(f"La estructura se ha cargado desde '{nombre_archivo}'.")
+    return composite
 
 def dic_to_composite(diccionario):
     # Crear el composite principal (explorador de archivos)
@@ -282,6 +264,31 @@ def dic_to_composite(diccionario):
         explorador.add(documento)
 
     return explorador
+
+def buscar_documento(diccionario, fragmento_nombre):
+    resultados = []
+
+    # Buscar en los documentos de la carpeta actual
+    documentos = diccionario.get("documentos", [])
+    for documento in documentos:
+        if fragmento_nombre.lower() in documento["nombre"].lower():
+            resultados.append(documento)
+
+    # Buscar en las carpetas recursivamente
+    carpetas = diccionario.get("carpetas", [])
+    for carpeta in carpetas:
+        resultados.extend(buscar_documento(carpeta, fragmento_nombre))
+
+    #actualizar el logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    if usuario is not None:
+        logs.write(f"El usuario {usuario} ha buscado el documento {fragmento_nombre}\n")
+    else:
+        logs.write(f"Se ha buscado el documento {fragmento_nombre}\n")
+    logs.close()
+
+    return resultados
 
 def crear_documento(composite, ruta, nombre, tipo, tamano, hipervinculo=None):
     # Divide la ruta en partes
