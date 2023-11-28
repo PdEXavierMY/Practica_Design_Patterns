@@ -1,6 +1,7 @@
 from controlador import gestor_documentos
 from utils import separador
 from gestion_usuarios import gestor_usuarios
+from time import sleep
 
 if __name__ == "__main__":
     #borrar el contenido de logs.txt
@@ -14,6 +15,8 @@ if __name__ == "__main__":
     separador()
     identificacion = gestor_usuarios()
     if identificacion:
-        while True:
+        bool = True
+        while bool:
             separador()
-            gestor_documentos()
+            bool = gestor_documentos()
+            sleep(2)

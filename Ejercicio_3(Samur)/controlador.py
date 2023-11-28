@@ -85,9 +85,11 @@ def gestor_documentos():
         guardar_a_json(explorador, archivo_json)
     elif opcion == "10":
         print("Hasta pronto")
+        return False
     else:
         print("\nOpción incorrecta\n")
         gestor_documentos()
+    return True
 
 
 if __name__ == "__main__":

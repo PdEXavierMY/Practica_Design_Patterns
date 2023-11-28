@@ -7,20 +7,32 @@ def login():
     contraseña = input("Ingrese su contraseña: ")
     print('\n')
     usuarios = pd.read_csv('Ejercicio_3(Samur)/usuarios.csv', sep=';')
+    id_usuario = None  # Inicializa la variable id_usuario
+
     if nombre in usuarios['Usuario'].values:
         if contraseña in usuarios['Contraseña'].values:
             print("¡Bienvenido!")
+            id = usuarios.loc[usuarios['Usuario'] == nombre, 'ID'].values
+            if len(id) > 0:
+                id_usuario = id[0]
+                # escribir en logs.txt el inicio de sesión
+                logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+                logs.write(f"El usuario {nombre} con id {id_usuario} ha iniciado sesión\n")
+                logs.close()
+            else:
+                print("Error al obtener el ID del usuario.")
         else:
             print("Contraseña incorrecta")
             login()
     else:
         print("Nombre de usuario incorrecto")
         login()
-    id = usuarios.loc[usuarios['Usuario'] == nombre, 'ID'].values[0]
-    #escribir en logs.txt el inicio de sesión
-    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
-    logs.write(f"El usuario {nombre} con id {id} ha iniciado sesión\n")
-    logs.close()
+
+    # escribir en logs.txt el inicio de sesión (aquí no se tiene en cuenta si la autenticación fue exitosa o no)
+    if id_usuario is not None:
+        logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+        logs.write(f"El usuario {nombre} con id {id_usuario} ha iniciado sesión\n")
+        logs.close()
 
 def registrarse():
     print("Registro de usuario:\n")
@@ -40,8 +52,8 @@ def registrarse():
     print('\n')
     correo = input("Correo: ")
     #el correo no puede estar vacío, no debe tener espacios y debe tener formato de correo
-    while correo == "" or "@" not in correo or ".com" not in correo or ".es" not in correo or " " in correo or correo.count("@") > 1 or correo.count(".com") > 1 or correo.count(".es") > 1:
-        print("El correo no puede estar vacío y debe tener formato de correo (solo se admiten .com y .es)")
+    while correo == "" or ("@" not in correo) or ((".com" not in correo) and (".es" not in correo)) or " " in correo or correo.count("@") > 1 or correo.count(".com") > 1 or correo.count(".es") > 1:
+        print("El correo no puede estar vacío y debe tener formato de correo (solo se admiten .com o .es, pero no ambos)")
         correo = input("Correo: ")
     print('\n')
     contraseña = input("Contraseña: ")
