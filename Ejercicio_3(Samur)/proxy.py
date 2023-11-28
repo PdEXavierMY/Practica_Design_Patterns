@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from composite import Carpeta
-from utils import extraer_usuario
+from utils import es_admin, extraer_usuario
 
 
 class Arbol_Composite(ABC):
@@ -54,7 +54,7 @@ class Proxy(Arbol_Composite):
 
     def check_access(self) -> bool:
         print("Proxy: Comprobando acceso...")
-        if "admin" in extraer_usuario() or "Admin" in extraer_usuario() or "ADMIN" in extraer_usuario() or extraer_usuario() == "El administrador ha iniciado sesión":
+        if es_admin():
             print("Proxy: Acceso concedido.")
             return True
         else:

@@ -1,2 +1,1 @@
-El usuario Prueba con id 1 ha iniciado sesión
-El usuario Prueba con id 1 ha iniciado sesión
+El administrador PruebaAdmin con id 1 ha iniciado sesión

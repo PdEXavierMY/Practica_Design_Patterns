@@ -28,12 +28,6 @@ def login():
         print("Nombre de usuario incorrecto")
         login()
 
-    # escribir en logs.txt el inicio de sesión (aquí no se tiene en cuenta si la autenticación fue exitosa o no)
-    if id_usuario is not None:
-        logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
-        logs.write(f"El usuario {nombre} con id {id_usuario} ha iniciado sesión\n")
-        logs.close()
-
 def registrarse():
     print("Registro de usuario:\n")
     usuario = input("Usuario: ")
@@ -101,20 +95,26 @@ def login_usuario():
     contraseña = input("Ingrese su contraseña: ")
     print('\n')
     usuarios = pd.read_csv('Ejercicio_3(Samur)/admin.csv', sep=';')
+    id_usuario = None  # Inicializa la variable id_usuario
+
     if nombre in usuarios['Usuario'].values:
         if contraseña in usuarios['Contraseña'].values:
             print(f"¡Bienvenido administrador {nombre}!")
+            id = usuarios.loc[usuarios['Usuario'] == nombre, 'ID'].values
+            if len(id) > 0:
+                id_usuario = id[0]
+                #escribir en logs.txt el inicio de sesión
+                logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+                logs.write(f"El administrador {nombre} con id {id_usuario} ha iniciado sesión\n")
+                logs.close()
+            else:
+                print("Error al obtener el ID del usuario.")
         else:
             print("Contraseña incorrecta")
             login_usuario()
     else:
         print("Nombre de usuario incorrecto")
         login_usuario()
-    id = usuarios.loc[usuarios['Usuario'] == nombre, 'ID'].values[0]
-    #escribir en logs.txt el inicio de sesión
-    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
-    logs.write(f"El administrador {nombre} con id {id} ha iniciado sesión\n")
-    logs.close()
 
 def gestor_usuarios():
     print("1. Login")
