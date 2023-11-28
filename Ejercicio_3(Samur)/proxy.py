@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from composite import Carpeta
 from utils import es_admin, extraer_usuario
+from time import sleep
 
 
 class Arbol_Composite(ABC):
@@ -46,7 +47,7 @@ class Proxy(Arbol_Composite):
         """
 
         if self.check_access():
-            self._real_subject.request()
+            self._real_subject.request_access()
             self.log_access()
             return True
         else:
@@ -54,11 +55,14 @@ class Proxy(Arbol_Composite):
 
     def check_access(self) -> bool:
         print("Proxy: Comprobando acceso...")
+        sleep(1)
         if es_admin():
             print("Proxy: Acceso concedido.")
+            sleep(0.5)
             return True
         else:
             print("Proxy: Acceso denegado.")
+            sleep(0.5)
             return False
 
     def log_access(self) -> None:
