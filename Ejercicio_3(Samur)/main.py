@@ -14,4 +14,6 @@ if __name__ == "__main__":
     separador()
     identificacion = gestor_usuarios()
     if identificacion:
-        gestor_documentos()
+        while True:
+            separador()
+            gestor_documentos()

@@ -50,6 +50,8 @@ def gestor_documentos():
             hipervinculo_documento = input("Introduzca el hipervínculo del enlace: ")
 
         crear_documento(explorador, ruta_documento, nombre_documento, tipo_documento, tamano_documento, hipervinculo_documento)
+        #guardar en el json
+        guardar_a_json(explorador, archivo_json)
     elif opcion == "4":
         print("¿Qué documento desea editar?")
         nombre_documento = input("Introduzca el nombre del documento: ")
@@ -57,31 +59,43 @@ def gestor_documentos():
         nuevo_valor = input("Introduzca el nuevo valor: ")
         ruta_documento = input("Introduzca la ruta del archivo: ")
         editar_documento(explorador, ruta_documento, nombre_documento, atributo_a_modificar, nuevo_valor)
+        #guardar en el json
+        guardar_a_json(explorador, archivo_json)
     elif opcion == "5":
         print("¿Qué documento desea borrar?")
         nombre_documento = input("Introduzca el nombre del documento: ")
         ruta_documento = input("Introduzca la ruta del archivo: ")
         borrar_documento(explorador, ruta_documento, nombre_documento)
+        #guardar en el json
+        guardar_a_json(explorador, archivo_json)
     elif opcion == "6":
         print("¿Qué carpeta desea buscar?")
         nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
         buscar_carpeta(explorador, nombre_carpeta)
+        #guardar en el json
+        guardar_a_json(explorador, archivo_json)
     elif opcion == "7":
         print("¿Qué carpeta desea crear?")
         nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
         ruta_carpeta = input("Introduzca la ruta de la carpeta: ")
         crear_carpeta(explorador, ruta_carpeta, nombre_carpeta)
+        #guardar en el json
+        guardar_a_json(explorador, archivo_json)
     elif opcion == "8":
         print("¿Qué carpeta desea editar?")
         nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
         nuevo_nombre = input("Introduzca el nuevo nombre de la carpeta: ")
         ruta_carpeta = input("Introduzca la ruta de la carpeta: ")
         editar_carpeta(explorador, ruta_carpeta, nombre_carpeta, nuevo_nombre)
+        #guardar en el json
+        guardar_a_json(explorador, archivo_json)
     elif opcion == "9":
         print("¿Qué carpeta desea borrar?")
         nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
         ruta_carpeta = input("Introduzca la ruta de la carpeta: ")
         borrar_carpeta(explorador, ruta_carpeta, nombre_carpeta)
+        #guardar en el json
+        guardar_a_json(explorador, archivo_json)
     elif opcion == "10":
         print("Hasta pronto")
     else:
