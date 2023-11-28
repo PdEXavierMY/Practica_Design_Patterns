@@ -153,7 +153,7 @@ def gestor_documentos():
     with open(archivo_json, "r") as archivo:
         diccionario = json.load(archivo)
     print("¿Qué desea hacer?")
-    print("1. Visualizar los documentos")
+    print("1. Visualizar la estructura de documentos")
     print("2. Buscar un documento")
     print("3. Crear un documento")
     print("4. Editar un documento")
@@ -197,10 +197,15 @@ def gestor_documentos():
 
         crear_documento(explorador, ruta_documento, nombre_documento, tipo_documento, tamano_documento, hipervinculo_documento)
     elif opcion == "4":
-        editar_documento(diccionario)
-'''
+        print("¿Qué documento desea editar?")
+        nombre_documento = input("Introduzca el nombre del documento: ")
+        atributo_a_modificar = input("Introduzca el atributo que desea modificar: ")
+        nuevo_valor = input("Introduzca el nuevo valor: ")
+        ruta_documento = input("Introduzca la ruta del archivo: ")
+        editar_documento(explorador, ruta_documento, nombre_documento, atributo_a_modificar, nuevo_valor)
     elif opcion == "5":
         borrar_documento(diccionario)
+        '''
     elif opcion == "6":
         buscar_carpeta(diccionario)
     elif opcion == "7":
@@ -326,6 +331,41 @@ def editar_documento(composite, ruta, nombre_documento, atributo_a_modificar, nu
     else:
         print("No se puede encontrar la ubicación especificada.")
 
+def borrar_documento(composite, ruta, nombre_documento):
+    # Divide la ruta en partes
+    partes_ruta = ruta.split('/')
+
+    # Verifica si la primera carpeta en la ruta coincide con la carpeta raíz
+    if partes_ruta[0] != composite.nombre:
+        print(f"Tu carpeta raíz introducida es '{partes_ruta[0]}'.")
+        print(f"No se puede borrar el documento. La carpeta raíz debe ser '{composite.nombre}'.")
+        return
+
+    # Inicia desde el composite raíz
+    ubicacion = composite
+
+    # Recorre las partes de la ruta para encontrar la ubicación correcta
+    for carpeta_nombre in partes_ruta[1:]:
+        ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
+        if ubicacion is None or not ubicacion.is_composite():
+            # La carpeta no existe o no es una carpeta (puede ser un archivo)
+            print(f"No se puede borrar el documento. La carpeta '{carpeta_nombre}' no existe o no es una carpeta.")
+            return
+
+    # Verifica si se encontró la ubicación correcta
+    if ubicacion is not None and ubicacion.is_composite():
+        # Busca el documento por nombre
+        documento = next((c for c in ubicacion._children if c.nombre == nombre_documento), None)
+        if documento is not None:
+            # Elimina el documento
+            ubicacion.remove(documento)
+            print(f"Documento '{nombre_documento}' borrado con éxito.")
+            print(composite.visualizar())
+        else:
+            print(f"No se puede encontrar el documento '{nombre_documento}'.")
+    else:
+        print("No se puede encontrar la ubicación especificada.")
+
 
 # Nombre del archivo JSON
 archivo_json = "Ejercicio_3(Samur)/archivos.json"
@@ -338,7 +378,7 @@ explorador = dic_to_composite(diccionario)
 print(explorador.visualizar())
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 editar_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "nombre", "Documento 2")
-
+borrar_documento(explorador, "explorador de archivos/escritorio", "Documento 2")
 '''
 crear_documento(explorador, "Carpeta 1/Carpeta 2", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
