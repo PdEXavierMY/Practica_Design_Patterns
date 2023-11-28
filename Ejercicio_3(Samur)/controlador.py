@@ -292,11 +292,17 @@ def editar_documento(composite, ruta, nombre_documento, atributo_a_modificar, nu
     # Divide la ruta en partes
     partes_ruta = ruta.split('/')
 
+    # Verifica si la primera carpeta en la ruta coincide con la carpeta raíz
+    if partes_ruta[0] != composite.nombre:
+        print(f"Tu carpeta raíz introducida es '{partes_ruta[0]}'.")
+        print(f"No se puede agregar el documento. La carpeta raíz debe ser '{composite.nombre}'.")
+        return
+
     # Inicia desde el composite raíz
     ubicacion = composite
 
     # Recorre las partes de la ruta para encontrar la ubicación correcta
-    for carpeta_nombre in partes_ruta:
+    for carpeta_nombre in partes_ruta[1:]:
         ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
         if ubicacion is None or not ubicacion.is_composite():
             # La carpeta no existe o no es una carpeta (puede ser un archivo)
@@ -329,8 +335,11 @@ with open(archivo_json, "r") as archivo:
     diccionario = json.load(archivo)
 
 explorador = dic_to_composite(diccionario)
-'''
 print(explorador.visualizar())
+crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
+editar_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "nombre", "Documento 2")
+
+'''
 crear_documento(explorador, "Carpeta 1/Carpeta 2", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 '''
