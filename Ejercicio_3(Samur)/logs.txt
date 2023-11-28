@@ -33,3 +33,11 @@ El usuario El usuario Prueba con id 1 ha creado la carpeta Carpeta 1
 El usuario El usuario Prueba con id 1 ha creado el documento Documento 1
 El usuario El usuario Prueba con id 1 ha editado la carpeta Carpeta 1
 El usuario El usuario Prueba con id 1 ha borrado la carpeta Carpeta 2
+El usuario El usuario Prueba con id 1 ha creado el documento Documento 1
+El usuario El usuario Prueba con id 1 ha editado el documento Documento 1
+El usuario El usuario Prueba con id 1 ha borrado el documento Documento 2
+El usuario El usuario Prueba con id 1 ha buscado la carpeta config
+El usuario El usuario Prueba con id 1 ha creado la carpeta Carpeta 1
+El usuario El usuario Prueba con id 1 ha creado el documento Documento 1
+El usuario El usuario Prueba con id 1 ha editado la carpeta Carpeta 1
+El usuario El usuario Prueba con id 1 ha borrado la carpeta Carpeta 2
