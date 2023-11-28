@@ -71,7 +71,7 @@ class Archivo(Component):
     def operation(self) -> str:
         return "Archivo"
     
-class Enlaces(Component):
+class Enlace(Component):
     def __init__(self, nombre, tipo, tamano, hipervinculo):
         self.nombre = nombre
         self.tipo = tipo
@@ -127,12 +127,6 @@ class Carpeta(Component):
         for child in self._children:
             results.append(child.operation())
         return f"Branch({'+'.join(results)})"
-
-    def visualizar(self):
-        print("Carpeta: " + self.nombre)
-        for child in self._children:
-            print("  " + child.operation())
-
 
 '''
 if __name__ == "__main__":

@@ -24,3 +24,4 @@ El usuario Prueba con id 1 ha buscado un documento ter
 El usuario Prueba con id 1 ha buscado un documento ter
 El usuario Prueba con id 1 ha buscado un documento ter
 El usuario Prueba con id 1 ha buscado un documento ter
+El usuario Prueba con id 1 ha visualizado los documentos
