@@ -94,7 +94,7 @@ archivo_json = "Ejercicio_3(Samur)/archivos.json"
 explorador = cargar_desde_json(archivo_json)
 
 print(explorador.visualizar())
-buscar_documento(explorador, "text")
+buscar_documento(explorador, "se")
 '''
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 editar_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "nombre", "Documento 2")

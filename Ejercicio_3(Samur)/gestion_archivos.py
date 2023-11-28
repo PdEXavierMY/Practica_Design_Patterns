@@ -14,10 +14,10 @@ def buscar_documento(composite, fragmento_nombre):
             # Es un documento, verifica si el nombre contiene el fragmento
             if fragmento in component.nombre:
                 documentos_encontrados.append(component)
-
-        # Busca en las subcarpetas
-        for subcomponent in component._children:
-            buscar_recursivo(subcomponent, fragmento)
+        elif hasattr(component, '_children'):
+            # Busca en las subcarpetas si es un composite con hijos
+            for subcomponent in component._children:
+                buscar_recursivo(subcomponent, fragmento)
 
     # Inicia la búsqueda desde el composite raíz
     buscar_recursivo(composite, fragmento_nombre)
