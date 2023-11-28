@@ -53,7 +53,7 @@
       "tamano": "50 KB"
     },
     {
-      "nombre": "configLink",
+      "nombre": "configLinkprin",
       "tipo": "Enlace",
       "tamano": "0.005 KB",
       "hipervinculo": "/ConfigGeneral/settings.txt"
