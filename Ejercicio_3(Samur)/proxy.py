@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
+from composite import Carpeta
 
 
-class Subject(ABC):
+class Arbol_Composite(ABC):
+    def __init__(self, composite):
+        self.composite = composite
     """
     The Subject interface declares common operations for both RealSubject and
     the Proxy. As long as the client works with RealSubject using this
@@ -13,7 +16,9 @@ class Subject(ABC):
         pass
 
 
-class RealSubject(Subject):
+class Arbol_Composite_Real(Arbol_Composite):
+    def __init__(self, composite):
+        self.composite = composite
     """
     The RealSubject contains some core business logic. Usually, RealSubjects are
     capable of doing some useful work which may also be very slow or sensitive -
@@ -25,12 +30,12 @@ class RealSubject(Subject):
         print("RealSubject: Handling request.")
 
 
-class Proxy(Subject):
+class Proxy(Arbol_Composite):
     """
     The Proxy has an interface identical to the RealSubject.
     """
 
-    def __init__(self, real_subject: RealSubject) -> None:
+    def __init__(self, real_subject: Arbol_Composite_Real) -> None:
         self._real_subject = real_subject
 
     def request(self) -> None:
@@ -53,7 +58,7 @@ class Proxy(Subject):
         print("Proxy: Logging the time of request.", end="")
 
 
-def client_code(subject: Subject) -> None:
+def client_code(subject: Arbol_Composite) -> None:
     """
     The client code is supposed to work with all objects (both subjects and
     proxies) via the Subject interface in order to support both real subjects
@@ -71,7 +76,7 @@ def client_code(subject: Subject) -> None:
 
 if __name__ == "__main__":
     print("Client: Executing the client code with a real subject:")
-    real_subject = RealSubject()
+    real_subject = Arbol_Composite_Real()
     client_code(real_subject)
 
     print("")
