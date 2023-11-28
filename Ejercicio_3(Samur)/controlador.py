@@ -204,16 +204,17 @@ def gestor_documentos():
         ruta_documento = input("Introduzca la ruta del archivo: ")
         editar_documento(explorador, ruta_documento, nombre_documento, atributo_a_modificar, nuevo_valor)
     elif opcion == "5":
-        #borrar_documento(composite, ruta, nombre_documento)
         print("¿Qué documento desea borrar?")
         nombre_documento = input("Introduzca el nombre del documento: ")
         ruta_documento = input("Introduzca la ruta del archivo: ")
         borrar_documento(explorador, ruta_documento, nombre_documento)
     elif opcion == "6":
-        buscar_carpeta(diccionario)
-    '''
+        print("¿Qué carpeta desea buscar?")
+        nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
+        buscar_carpeta(explorador, nombre_carpeta)
     elif opcion == "7":
         crear_carpeta(diccionario)
+    '''
     elif opcion == "8":
         editar_carpeta(diccionario)
     elif opcion == "9":
@@ -398,6 +399,57 @@ def buscar_carpeta(composite, fragmento_nombre):
     else:
         print(f"No se encontraron carpetas que coincidan con '{fragmento_nombre}'.")
 
+def crear_carpeta(composite, ruta, nombre_carpeta):
+    """
+    Crea una carpeta en la ruta especificada del composite.
+    """
+    # Divide la ruta en partes
+    partes_ruta = ruta.split('/')
+
+    # Verifica si la primera carpeta en la ruta coincide con la carpeta raíz
+    if partes_ruta[0] != composite.nombre:
+        print(f"La carpeta raíz introducida es '{partes_ruta[0]}'.")
+        print(f"No se puede crear la carpeta. La carpeta raíz debe ser '{composite.nombre}'.")
+        return
+
+    # Inicia desde el composite raíz
+    ubicacion = composite
+
+    # Recorre las partes de la ruta para encontrar la ubicación correcta
+    for carpeta_nombre in partes_ruta[1:]:
+        # Busca si la carpeta ya existe
+        carpeta_existente = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
+
+        if carpeta_existente is None:
+            # La carpeta no existe, la crea y la agrega a la ubicación actual
+            nueva_carpeta = Carpeta(carpeta_nombre)
+            ubicacion.add(nueva_carpeta)
+            ubicacion = nueva_carpeta
+        elif carpeta_existente.is_composite():
+            # La carpeta ya existe y es una carpeta, avanza a la siguiente ubicación
+            ubicacion = carpeta_existente
+        else:
+            # La carpeta ya existe pero no es una carpeta (puede ser un archivo)
+            print(f"No se puede crear la carpeta. '{carpeta_nombre}' ya existe y no es una carpeta.")
+            return
+
+    # Verifica si se encontró la ubicación correcta
+    if ubicacion is not None and ubicacion.is_composite():
+        # Busca si la carpeta ya existe
+        carpeta_existente = next((c for c in ubicacion._children if c.nombre == nombre_carpeta), None)
+
+        if carpeta_existente is None:
+            # La carpeta no existe, la crea y la agrega a la ubicación actual
+            nueva_carpeta = Carpeta(nombre_carpeta)
+            ubicacion.add(nueva_carpeta)
+            print(f"Carpeta '{nombre_carpeta}' creada con éxito.")
+            print(composite.visualizar())
+        else:
+            # La carpeta ya existe
+            print(f"No se puede crear la carpeta. La carpeta '{nombre_carpeta}' ya existe en la ubicación especificada.")
+    else:
+        print("No se puede encontrar la ubicación especificada.")
+
 
 # Nombre del archivo JSON
 archivo_json = "Ejercicio_3(Samur)/archivos.json"
@@ -413,6 +465,8 @@ editar_documento(explorador, "explorador de archivos/escritorio", "Documento 1",
 borrar_documento(explorador, "explorador de archivos/escritorio", "Documento 2")
 separador()
 buscar_carpeta(explorador, "config")
+crear_carpeta(explorador, "explorador de archivos/escritorio/config", "Carpeta 1")
+crear_documento(explorador, "explorador de archivos/escritorio/config/Carpeta 1", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 '''
 crear_documento(explorador, "Carpeta 1/Carpeta 2", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
