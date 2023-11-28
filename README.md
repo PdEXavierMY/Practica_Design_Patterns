@@ -697,3 +697,174 @@ tipo_menu = 'Individual'
 El patrón Composite es adecuado para la creación de menús en la pizzería debido a su capacidad para representar tanto los elementos individuales del menú, como las composiciones complejas de esos elementos. En un menú, tenemos diferentes categorías como entrantes, pizzas, maridajes y postres, y cada una de estas categorías puede contener elementos individuales o incluso otras composiciones. El Composite permite organizar estos elementos en una estructura de árbol, donde cada componente (elemento o composición) comparte una interfaz común. Esto facilita la manipulación uniforme de elementos individuales y compuestos, lo que es esencial al construir y gestionar menús complejos.
 
 Además, el patrón Composite proporciona flexibilidad al permitir que los clientes seleccionen elementos individuales o combinaciones de elementos como parte de su pedido. La capacidad para calcular el precio total del menú en función de los elementos seleccionados también se beneficia de la estructura jerárquica del Composite. En última instancia, el patrón Composite simplifica la gestión y expansión del menú, ya que nuevos elementos o categorías pueden agregarse sin afectar la lógica existente, brindando así una solución eficiente y escalable para la pizzería.
+
+
+<h1>Ejercicio 2: Sistema Avanzado de Gestión Documental del SAMUR-Protección Civil con Composite y Proxy</h1>
+El SAMUR-Protección Civil, tras su proceso de digitalización, se enfrenta al reto de administrar una cantidad masiva de documentos digitales relacionados con sus activaciones y operaciones. Esta documentación no solo consiste en informes y registros, sino que también incluye imágenes, vídeos, audios y otros tipos de archivos multimedia. La necesidad de garantizar un acceso rápido pero seguro a esta información es esencial, especialmente cuando se trata de datos sensibles o confidenciales.
+
+Enunciado del Problema:
+
+Documentos: Estos son los archivos básicos en el sistema. Cada documento tiene un nombre, un tipo (texto, imagen, video, etc.) y un tamaño. El contenido de estos documentos puede ser accedido y modificado, pero para algunos documentos sensibles, es necesario llevar un registro de quién y cuándo se accede o modifica.
+
+Enlaces (Links): Son referencias a otros documentos o carpetas en el sistema. No poseen contenido propio, pero ofrecen una forma rápida de acceder a la información referenciada. Su tamaño es simbólico, no correspondiente al tamaño real del archivo o carpeta al que apuntan.
+
+Carpetas: Contenedores que albergan varios documentos, enlaces y otras carpetas. Su tamaño es la suma de los tamaños de todos los elementos contenidos. Se pueden expandir añadiendo más elementos en cualquier momento.
+
+Proxy de Acceso: Para garantizar la seguridad y la trazabilidad en el acceso a los documentos, se implementará un proxy que actuará como intermediario. Este proxy registrará cada acceso o modificación a los documentos, especialmente aquellos que sean sensibles o confidenciales, y solo permitirá el acceso a usuarios autorizados.
+
+Objetivos del Ejercicio:
+
+Utilizar el patrón de diseño Composite para modelar la estructura de documentos del sistema.
+
+Implementar el patrón Proxy para controlar y registrar el acceso a documentos específicos.
+
+Desarrollar en Python las clases y la lógica necesaria para representar y gestionar los documentos, enlaces y carpetas, garantizando la seguridad y trazabilidad mediante el uso del proxy.
+
+Implementar funciones que faciliten la navegación, creación, modificación y eliminación de elementos en el sistema.
+
+La forma en la que he resuleto este ejercicio es simulando un "gestor de documentos" a través de un json. El ejercicio se ejecuta con el main:
+
+```py
+from controlador import gestor_documentos
+from utils import separador
+from gestion_usuarios import gestor_usuarios
+from time import sleep
+
+if __name__ == "__main__":
+    #borrar el contenido de logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'w')
+    logs.write("")
+    logs.close()
+    print("Bienvenido al gestor de documentos")
+    separador()
+    print("Identifíquese:")
+    separador()
+    separador()
+    identificacion = gestor_usuarios()
+    if identificacion:
+        bool = True
+        while bool:
+            separador()
+            bool = gestor_documentos()
+            sleep(2)
+```
+Que se encarga de gestionar el inicio de sesion y posteriormente aplicar en bucle una funcion (gestor_documentos()) de otro archivo controlador que maneja la navegación y edición del json en cuestión:
+
+```py
+from utils import separador
+from gestion_archivos import *
+from json_functions import *
+
+def gestor_documentos():
+    # Nombre del archivo JSON
+    archivo_json = "Ejercicio_3(Samur)/archivos.json"
+    explorador = cargar_desde_json(archivo_json)
+
+    explorador_proxy = Arbol_Composite_Real(explorador)
+    proxy = Proxy(explorador_proxy)
+
+    print("¿Qué desea hacer?")
+    print("1. Visualizar la estructura de documentos")
+    print("2. Buscar un documento")
+    print("3. Crear un documento")
+    print("4. Editar un documento")
+    print("5. Borrar un documento")
+    print("6. Buscar una carpeta")
+    print("7. Crear una carpeta")
+    print("8. Editar una carpeta")
+    print("9. Borrar una carpeta")
+    print("10. Salir")
+    separador()
+    opcion = input("Introduzca una opción: ")
+    if opcion == "1":
+        print(explorador.visualizar())
+    elif opcion == "2":
+        print("¿Qué documento desea buscar?")
+        nombre_documento = input("Introduzca el nombre del documento: ")
+        buscar_documento(explorador, nombre_documento)
+    elif opcion == "3":
+        if proxy.request_access():
+            print("Acceso concedido")
+            print("¿Qué tipo de documento desea crear? (Debe introducir Enlace si va a ser un hipervínculo):")
+            tipo_documento = input("Introduzca el tipo del archivo: ")
+            
+            nombre_documento = input("Introduzca el nombre del documento: ")
+            tamano_documento = input("Introduzca el tamaño del documento: ")
+            ruta_documento = input("Introduzca la ruta del archivo: ")
+            hipervinculo_documento = None
+
+            if tipo_documento == "Enlace":
+                hipervinculo_documento = input("Introduzca el hipervínculo del enlace: ")
+
+            crear_documento(explorador, ruta_documento, nombre_documento, tipo_documento, tamano_documento, hipervinculo_documento)
+            #guardar en el json
+            guardar_a_json(explorador, archivo_json)
+        else:
+            print("Acceso denegado. No tienes los permisos requeridos para crear documentos")
+    elif opcion == "4":
+        if proxy.request_access():
+            print("Acceso concedido")
+            print("¿Qué documento desea editar?")
+            nombre_documento = input("Introduzca el nombre del documento: ")
+            atributo_a_modificar = input("Introduzca el atributo que desea modificar: ")
+            nuevo_valor = input("Introduzca el nuevo valor: ")
+            ruta_documento = input("Introduzca la ruta del archivo: ")
+            editar_documento(explorador, ruta_documento, nombre_documento, atributo_a_modificar, nuevo_valor)
+            #guardar en el json
+            guardar_a_json(explorador, archivo_json)
+        else:
+            print("Acceso denegado. No tienes los permisos requeridos para editar documentos")
+    elif opcion == "5":
+        if proxy.request_access():
+            print("Acceso concedido")
+            print("¿Qué documento desea borrar?")
+            nombre_documento = input("Introduzca el nombre del documento: ")
+            ruta_documento = input("Introduzca la ruta del archivo: ")
+            borrar_documento(explorador, ruta_documento, nombre_documento)
+            #guardar en el json
+            guardar_a_json(explorador, archivo_json)
+        else:
+            print("Acceso denegado. No tienes los permisos requeridos para borrar documentos")
+    elif opcion == "6":
+        print("¿Qué carpeta desea buscar?")
+        nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
+        buscar_carpeta(explorador, nombre_carpeta)
+    elif opcion == "7":
+        print("¿Qué carpeta desea crear?")
+        nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
+        ruta_carpeta = input("Introduzca la ruta de la carpeta: ")
+        crear_carpeta(explorador, ruta_carpeta, nombre_carpeta)
+        #guardar en el json
+        guardar_a_json(explorador, archivo_json)
+    elif opcion == "8":
+        print("¿Qué carpeta desea editar?")
+        nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
+        nuevo_nombre = input("Introduzca el nuevo nombre de la carpeta: ")
+        ruta_carpeta = input("Introduzca la ruta de la carpeta: ")
+        editar_carpeta(explorador, ruta_carpeta, nombre_carpeta, nuevo_nombre)
+        #guardar en el json
+        guardar_a_json(explorador, archivo_json)
+    elif opcion == "9":
+        if proxy.request_access():
+            print("Acceso concedido")
+            print("¿Qué carpeta desea borrar?")
+            nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
+            ruta_carpeta = input("Introduzca la ruta de la carpeta: ")
+            borrar_carpeta(explorador, ruta_carpeta, nombre_carpeta)
+            #guardar en el json
+            guardar_a_json(explorador, archivo_json)
+        else:
+            print("Acceso denegado. No tienes los permisos requeridos para borrar carpetas")
+    elif opcion == "10":
+        print("Hasta pronto")
+        return False
+    else:
+        print("\nOpción incorrecta\n")
+        gestor_documentos()
+    return True
+
+
+if __name__ == "__main__":
+    gestor_documentos()
+```
+
