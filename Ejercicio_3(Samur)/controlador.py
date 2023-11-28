@@ -204,10 +204,14 @@ def gestor_documentos():
         ruta_documento = input("Introduzca la ruta del archivo: ")
         editar_documento(explorador, ruta_documento, nombre_documento, atributo_a_modificar, nuevo_valor)
     elif opcion == "5":
-        borrar_documento(diccionario)
-        '''
+        #borrar_documento(composite, ruta, nombre_documento)
+        print("¿Qué documento desea borrar?")
+        nombre_documento = input("Introduzca el nombre del documento: ")
+        ruta_documento = input("Introduzca la ruta del archivo: ")
+        borrar_documento(explorador, ruta_documento, nombre_documento)
     elif opcion == "6":
         buscar_carpeta(diccionario)
+    '''
     elif opcion == "7":
         crear_carpeta(diccionario)
     elif opcion == "8":
@@ -366,6 +370,34 @@ def borrar_documento(composite, ruta, nombre_documento):
     else:
         print("No se puede encontrar la ubicación especificada.")
 
+def buscar_carpeta(composite, fragmento_nombre):
+    """
+    Busca carpetas en el composite cuyo nombre contiene el fragmento dado.
+    Imprime por pantalla las carpetas encontradas con su contenido.
+    """
+    carpetas_encontradas = []
+
+    # Función interna para buscar carpetas recursivamente
+    def buscar_recursivo(component, fragmento):
+        if component.is_composite():
+            # Es una carpeta, verifica si el nombre contiene el fragmento
+            if fragmento in component.nombre:
+                carpetas_encontradas.append(component)
+
+            # Busca en las subcarpetas
+            for subcomponent in component._children:
+                buscar_recursivo(subcomponent, fragmento)
+
+    # Inicia la búsqueda desde el composite raíz
+    buscar_recursivo(composite, fragmento_nombre)
+
+    # Imprime las carpetas encontradas con su contenido
+    if carpetas_encontradas:
+        for carpeta in carpetas_encontradas:
+            print(carpeta.visualizar())
+    else:
+        print(f"No se encontraron carpetas que coincidan con '{fragmento_nombre}'.")
+
 
 # Nombre del archivo JSON
 archivo_json = "Ejercicio_3(Samur)/archivos.json"
@@ -379,6 +411,8 @@ print(explorador.visualizar())
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 editar_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "nombre", "Documento 2")
 borrar_documento(explorador, "explorador de archivos/escritorio", "Documento 2")
+separador()
+buscar_carpeta(explorador, "config")
 '''
 crear_documento(explorador, "Carpeta 1/Carpeta 2", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
