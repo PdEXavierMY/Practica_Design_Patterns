@@ -868,3 +868,239 @@ if __name__ == "__main__":
     gestor_documentos()
 ```
 
+Cuando se ejecuta sale algo del estilo:
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/inicio.png">
+
+que sirve para registrar al ususario que comprueba segun el csv usuarios. Si uno accede como usuario el programa solo le permitirá navegar por documentos (sin permisos de edición) y carpetas, con la habilidad, eso sí, de editar carpetas o crearlas. Mencionar también la comprobación y mensajes de error en los login:
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/login_fallido.png">
+
+Un ejemplo del funcionamiento del proxy al crear documentos (solo pueden los administradores):
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/proxy_denegado.png">
+
+Importante decir que para ingresar como administrador se necesita el conocimiento de un comando especial que no se muestra en la interfaz por motivos de seguridad:
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/ingreso_admin.png">
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/3_proxy_ok.png">
+
+Después del inicio de sesión están las opciones que ofrece el gestor de documentos:
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/opciones_doc.png">
+
+De las cuales algunas realizadas son:
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/1.png">
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/2_Samur.png">
+
+Por último, añadir que todo cambio realizado en los documentos se verá reflejado en el json que los gestiona, de forma que al final todo acaba almacenándose. Un ejemplo del almacenaje con la opción de crear documentos:
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/antes_crear.png">
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/guardado_crear.png">
+
+<img src="https://github.com/Xavitheforce/Patrones_Creacionales/blob/main/imagenes_patronesC/despues_crear.png">
+
+El código composite y proxy del ejercicio es:
+```py
+#Composite
+from __future__ import annotations
+from abc import ABC, abstractmethod
+from typing import List
+
+class Component(ABC):
+    """
+    The base Component class declares common operations for both simple and
+    complex objects of a composition.
+    """
+
+    @property
+    def parent(self) -> Component:
+        return self._parent
+
+    @parent.setter
+    def parent(self, parent: Component):
+        """
+        Optionally, the base Component can declare an interface for setting and
+        accessing a parent of the component in a tree structure. It can also
+        provide some default implementation for these methods.
+        """
+
+        self._parent = parent
+
+    """
+    In some cases, it would be beneficial to define the child-management
+    operations right in the base Component class. This way, you won't need to
+    expose any concrete component classes to the client code, even during the
+    object tree assembly. The downside is that these methods will be empty for
+    the leaf-level components.
+    """
+
+    def add(self, component: Component) -> None:
+        pass
+
+    def remove(self, component: Component) -> None:
+        pass
+
+    def is_composite(self) -> bool:
+        """
+        You can provide a method that lets the client code figure out whether a
+        component can bear children.
+        """
+
+        return False
+
+    @abstractmethod
+    def visualizar(self, nivel: int = 0) -> str:
+        """
+        Recursively display the structure of the composite tree.
+        """
+        pass
+
+
+class Archivo(Component):
+    def __init__(self, nombre, tipo, tamano):
+        self.nombre = nombre
+        self.tipo = tipo
+        self.tamaño = tamano
+    """
+    The Leaf class represents the end objects of a composition. A leaf can't
+    have any children.
+
+    Usually, it's the Leaf objects that do the actual work, whereas Composite
+    objects only delegate to their sub-components.
+    """
+
+    def visualizar(self, nivel: int = 0) -> str:
+        return f"{'  ' * nivel}Archivo: {self.nombre}"
+    
+class Enlace(Component):
+    def __init__(self, nombre, tipo, tamano, hipervinculo):
+        self.nombre = nombre
+        self.tipo = tipo
+        self.tamaño = tamano
+        self.hipervinculo = hipervinculo
+    """
+    The Leaf class represents the end objects of a composition. A leaf can't
+    have any children.
+
+    Usually, it's the Leaf objects that do the actual work, whereas Composite
+    objects only delegate to their sub-components.
+    """
+
+    def visualizar(self, nivel: int = 0) -> str:
+        return f"{'  ' * nivel}Enlace: {self.nombre} ({self.hipervinculo})"
+
+class Carpeta(Component):
+    """
+    The Composite class represents the complex components that may have
+    children. Usually, the Composite objects delegate the actual work to their
+    children and then "sum-up" the result.
+    """
+
+    def __init__(self, nombre) -> None:
+        self.nombre = nombre
+        self._children: List[Component] = []
+
+    """
+    A composite object can add or remove other components (both simple or
+    complex) to or from its child list.
+    """
+
+    def add(self, component: Component) -> None:
+        self._children.append(component)
+        component.parent = self
+
+    def remove(self, component: Component) -> None:
+        self._children.remove(component)
+        component.parent = None
+
+    def is_composite(self) -> bool:
+        return True
+
+    def visualizar(self, nivel: int = 0) -> str:
+        results = [f"{'  ' * nivel}Carpeta: {self.nombre}"]
+        for child in self._children:
+            results.append(child.visualizar(nivel + 1))
+        return '\n'.join(results)
+```
+
+```py
+#proxy
+from abc import ABC, abstractmethod
+from composite import Carpeta
+from utils import es_admin, extraer_usuario
+from time import sleep
+
+
+class Arbol_Composite(ABC):
+    """
+    The Subject interface declares common operations for both RealSubject and
+    the Proxy. As long as the client works with RealSubject using this
+    interface, you'll be able to pass it a proxy instead of a real subject.
+    """
+
+    @abstractmethod
+    def request_access(self) -> None:
+        pass
+
+
+class Arbol_Composite_Real(Arbol_Composite):
+    def __init__(self, composite):
+        self.composite = composite
+    """
+    The RealSubject contains some core business logic. Usually, RealSubjects are
+    capable of doing some useful work which may also be very slow or sensitive -
+    e.g. correcting input data. A Proxy can solve these issues without any
+    changes to the RealSubject's code.
+    """
+
+    def request_access(self) -> None:
+        print("Gestionando accesos...")
+
+
+class Proxy(Arbol_Composite):
+    """
+    The Proxy has an interface identical to the RealSubject.
+    """
+
+    def __init__(self, real_subject: Arbol_Composite_Real) -> None:
+        self._real_subject = real_subject
+
+    def request_access(self) -> None:
+        """
+        The most common applications of the Proxy pattern are lazy loading,
+        caching, controlling the access, logging, etc. A Proxy can perform one
+        of these things and then, depending on the result, pass the execution to
+        the same method in a linked RealSubject object.
+        """
+
+        if self.check_access():
+            self._real_subject.request_access()
+            self.log_access()
+            return True
+        else:
+            return False
+
+    def check_access(self) -> bool:
+        print("Proxy: Comprobando acceso...")
+        sleep(1)
+        if es_admin():
+            print("Proxy: Acceso concedido.")
+            sleep(0.5)
+            return True
+        else:
+            print("Proxy: Acceso denegado.")
+            sleep(0.5)
+            return False
+
+    def log_access(self) -> None:
+        print("Proxy ha concedido acceso", end="/")
+        #introducir en logs.txt el acceso concedido de proxy
+        logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+        logs.write(f"{extraer_usuario()} ha sido aprobado como administrador\n")
+        logs.close()
+```
+Finalmente añadir que dentro de logs.txt se guardan todos los movimientos del usuario o administrador, y que las pruebas realizadas y comprobadas se pueden encontrar en prueba.py y en tests.py
