@@ -1,5 +1,4 @@
 import re
-import json
 
 def extraer_usuario():
     ruta_archivo_logs = 'Ejercicio_3(Samur)/logs.txt'
@@ -13,8 +12,3 @@ def extraer_usuario():
 
 def separador():
     print("--------------------------------------------------")
-
-def leer_json():
-    with open('Ejercicio_3(Samur)/datos.json') as json_file:
-        datos = json.load(json_file)
-        print(datos)

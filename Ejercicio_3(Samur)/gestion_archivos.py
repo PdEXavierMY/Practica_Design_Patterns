@@ -1,5 +1,6 @@
 from composite import Carpeta, Archivo, Enlace
 from utils import extraer_usuario
+from proxy import *
 
 def buscar_documento(composite, fragmento_nombre):
     """

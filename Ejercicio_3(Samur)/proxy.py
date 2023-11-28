@@ -1,10 +1,9 @@
 from abc import ABC, abstractmethod
 from composite import Carpeta
+from utils import extraer_usuario
 
 
 class Arbol_Composite(ABC):
-    def __init__(self, composite):
-        self.composite = composite
     """
     The Subject interface declares common operations for both RealSubject and
     the Proxy. As long as the client works with RealSubject using this
@@ -12,7 +11,7 @@ class Arbol_Composite(ABC):
     """
 
     @abstractmethod
-    def request(self) -> None:
+    def request_access(self) -> None:
         pass
 
 
@@ -26,8 +25,8 @@ class Arbol_Composite_Real(Arbol_Composite):
     changes to the RealSubject's code.
     """
 
-    def request(self) -> None:
-        print("RealSubject: Handling request.")
+    def request_access(self) -> None:
+        print("Gestionando accesos...")
 
 
 class Proxy(Arbol_Composite):
@@ -38,7 +37,7 @@ class Proxy(Arbol_Composite):
     def __init__(self, real_subject: Arbol_Composite_Real) -> None:
         self._real_subject = real_subject
 
-    def request(self) -> None:
+    def request_access(self) -> None:
         """
         The most common applications of the Proxy pattern are lazy loading,
         caching, controlling the access, logging, etc. A Proxy can perform one
@@ -49,38 +48,22 @@ class Proxy(Arbol_Composite):
         if self.check_access():
             self._real_subject.request()
             self.log_access()
+            return True
+        else:
+            return False
 
     def check_access(self) -> bool:
-        print("Proxy: Checking access prior to firing a real request.")
-        return True
+        print("Proxy: Comprobando acceso...")
+        if "admin" in extraer_usuario() or "Admin" in extraer_usuario() or "ADMIN" in extraer_usuario() or extraer_usuario() == "El administrador ha iniciado sesión":
+            print("Proxy: Acceso concedido.")
+            return True
+        else:
+            print("Proxy: Acceso denegado.")
+            return False
 
     def log_access(self) -> None:
-        print("Proxy: Logging the time of request.", end="")
-
-
-def client_code(subject: Arbol_Composite) -> None:
-    """
-    The client code is supposed to work with all objects (both subjects and
-    proxies) via the Subject interface in order to support both real subjects
-    and proxies. In real life, however, clients mostly work with their real
-    subjects directly. In this case, to implement the pattern more easily, you
-    can extend your proxy from the real subject's class.
-    """
-
-    # ...
-
-    subject.request()
-
-    # ...
-
-
-if __name__ == "__main__":
-    print("Client: Executing the client code with a real subject:")
-    real_subject = Arbol_Composite_Real()
-    client_code(real_subject)
-
-    print("")
-
-    print("Client: Executing the same client code with a proxy:")
-    proxy = Proxy(real_subject)
-    client_code(proxy)
+        print("Proxy ha concedido acceso", end="")
+        #introducir en logs.txt el acceso concedido de proxy
+        logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+        logs.write(f"{extraer_usuario()} ha sido aprobado como administrador\n")
+        logs.close()
