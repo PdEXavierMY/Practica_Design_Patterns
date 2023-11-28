@@ -1,1 +1,4 @@
-El usuario Prueba con id 1 ha iniciado sesión
+El administrador PruebaAdmin con id 1 ha iniciado sesión
+El administrador PruebaAdmin con id 1 ha sido aprobado como administrador
+El administrador PruebaAdmin con id 1 ha sido aprobado como administrador
+El usuario El administrador PruebaAdmin con id 1 ha creado el documento text.docx

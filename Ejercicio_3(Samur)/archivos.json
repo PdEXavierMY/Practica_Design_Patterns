@@ -37,6 +37,11 @@
           "tipo": "Enlace",
           "tamano": "0.005 KB",
           "hipervinculo": "/userconfig/escritorio/terms.pdf"
+        },
+        {
+          "nombre": "text.docx",
+          "tipo": "Word",
+          "tamano": "100 MG"
         }
       ]
     }
