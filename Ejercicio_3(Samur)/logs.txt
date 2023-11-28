@@ -115,3 +115,24 @@ El usuario El usuario Prueba con id 1 ha creado la carpeta Carpeta 1
 El usuario El usuario Prueba con id 1 ha creado la carpeta Carpeta 2
 El usuario El usuario Prueba con id 1 ha creado el documento Documento Prueba
 El usuario El usuario Prueba con id 1 ha creado la carpeta Prueba
+El usuario El usuario Prueba con id 1 ha buscado el documento se
+El usuario El usuario Prueba con id 1 ha creado el documento Prueba
+El usuario El usuario Prueba con id 1 ha editado el documento Prueba
+El usuario El usuario Prueba con id 1 ha borrado el documento Prueba
+El usuario El usuario Prueba con id 1 ha borrado el documento Prueba.txt
+El usuario El usuario Prueba con id 1 ha buscado la carpeta es
+El usuario El usuario Prueba con id 1 ha buscado la carpeta config
+El usuario El usuario Prueba con id 1 ha buscado la carpeta as
+El usuario El usuario Prueba con id 1 ha creado la carpeta Hola
+El usuario El usuario Prueba con id 1 ha editado la carpeta ""
+El usuario El usuario Prueba con id 1 ha editado la carpeta 
+El usuario El usuario Prueba con id 1 ha editado la carpeta Hola
+El usuario El usuario Prueba con id 1 ha editado la carpeta Hola
+El usuario El usuario Prueba con id 1 ha borrado la carpeta Hola2
+El usuario El usuario Prueba con id 1 ha borrado la carpeta 
+El usuario El usuario Prueba con id 1 ha creado la carpeta Hola
+El usuario El usuario Prueba con id 1 ha editado la carpeta Hola
+El usuario El usuario Prueba con id 1 ha borrado la carpeta Hola2
+El usuario El usuario Prueba con id 1 ha creado la carpeta Hola
+El usuario El usuario Prueba con id 1 ha editado la carpeta Hola
+El usuario El usuario Prueba con id 1 ha borrado la carpeta Hola1

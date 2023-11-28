@@ -1,9 +1,9 @@
 {
   "nombre": "explorador de archivos",
-  "carpetas" : [
+  "carpetas": [
     {
       "nombre": "escritorio",
-      "carpetas" : [
+      "carpetas": [
         {
           "nombre": "config",
           "documentos": [

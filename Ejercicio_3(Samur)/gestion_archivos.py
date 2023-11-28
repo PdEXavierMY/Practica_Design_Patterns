@@ -56,6 +56,10 @@ def crear_documento(composite, ruta, nombre, tipo, tamano, hipervinculo=None):
 
     # Recorre las partes de la ruta para encontrar la ubicación correcta
     for carpeta_nombre in partes_ruta[1:]:
+        # Añade un condicional para manejar la situación de una ruta vacía
+        if carpeta_nombre == '':
+            ubicacion = composite
+            break
         ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
         if ubicacion is None:
             # La carpeta no existe
@@ -71,7 +75,7 @@ def crear_documento(composite, ruta, nombre, tipo, tamano, hipervinculo=None):
     print(f"Documento '{nombre}' creado con éxito en la carpeta '{ubicacion.nombre}'.")
     print(composite.visualizar())
 
-    #actualizar el logs.txt
+    # Actualizar el logs.txt
     logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
     usuario = extraer_usuario()
     if usuario is not None:
@@ -95,6 +99,9 @@ def editar_documento(composite, ruta, nombre_documento, atributo_a_modificar, nu
 
     # Recorre las partes de la ruta para encontrar la ubicación correcta
     for carpeta_nombre in partes_ruta[1:]:
+        if carpeta_nombre == '':
+            ubicacion = composite
+            break
         ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
         if ubicacion is None or not ubicacion.is_composite():
             # La carpeta no existe o no es una carpeta (puede ser un archivo)
@@ -142,6 +149,9 @@ def borrar_documento(composite, ruta, nombre_documento):
 
     # Recorre las partes de la ruta para encontrar la ubicación correcta
     for carpeta_nombre in partes_ruta[1:]:
+        if carpeta_nombre == '':
+            ubicacion = composite
+            break
         ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
         if ubicacion is None or not ubicacion.is_composite():
             # La carpeta no existe o no es una carpeta (puede ser un archivo)
@@ -226,6 +236,9 @@ def crear_carpeta(composite, ruta, nombre_carpeta):
 
     # Recorre las partes de la ruta para encontrar la ubicación correcta
     for carpeta_nombre in partes_ruta[1:]:
+        # Añade un condicional para manejar la situación de una ruta vacía
+        if carpeta_nombre == '':
+            break
         # Busca si la carpeta ya existe
         carpeta_existente = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
 
@@ -259,7 +272,7 @@ def crear_carpeta(composite, ruta, nombre_carpeta):
     else:
         print("No se puede encontrar la ubicación especificada.")
 
-    #actualizar el logs.txt
+    # Actualizar el logs.txt
     logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
     usuario = extraer_usuario()
     if usuario is not None:
@@ -283,6 +296,9 @@ def editar_carpeta(composite, ruta, nombre_carpeta, nuevo_nombre):
 
     # Recorre las partes de la ruta para encontrar la ubicación correcta
     for carpeta_nombre in partes_ruta[1:]:
+        if carpeta_nombre == '':
+            ubicacion = composite
+            break
         ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
         if ubicacion is None or not ubicacion.is_composite():
             # La carpeta no existe o no es una carpeta (puede ser un archivo)
@@ -327,6 +343,9 @@ def borrar_carpeta(composite, ruta, nombre_carpeta):
 
     # Recorre las partes de la ruta para encontrar la ubicación correcta
     for carpeta_nombre in partes_ruta[1:]:
+        if carpeta_nombre == '':
+            ubicacion = composite
+            break
         ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
         if ubicacion is None or not ubicacion.is_composite():
             # La carpeta no existe o no es una carpeta (puede ser un archivo)

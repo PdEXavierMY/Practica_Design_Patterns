@@ -25,18 +25,7 @@ def gestor_documentos():
     elif opcion == "2":
         print("¿Qué documento desea buscar?")
         nombre_documento = input("Introduzca el nombre del documento: ")
-        resultado = buscar_documento(explorador, nombre_documento)
-        if len(resultado) > 0:
-            print(f"Se han encontrado {len(resultado)} resultados:")
-            for documento in resultado:
-                print(f"Nombre: {documento['nombre']}")
-                print(f"Tipo: {documento['tipo']}")
-                print(f"Tamaño: {documento['tamano']}")
-                #si el documento tiene la clave hipervinculo, imprimir el hipervinculo
-                if "hipervinculo" in documento:
-                    print(f"Hipervínculo: {documento['hipervinculo']}")
-        else:
-            print("No se han encontrado resultados")
+        buscar_documento(explorador, nombre_documento)
     elif opcion == "3":
         print("¿Qué tipo de documento desea crear? (Debe introducir Enlace si va a ser un hipervínculo):")
         tipo_documento = input("Introduzca el tipo del archivo: ")
@@ -72,8 +61,6 @@ def gestor_documentos():
         print("¿Qué carpeta desea buscar?")
         nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
         buscar_carpeta(explorador, nombre_carpeta)
-        #guardar en el json
-        guardar_a_json(explorador, archivo_json)
     elif opcion == "7":
         print("¿Qué carpeta desea crear?")
         nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
@@ -103,30 +90,5 @@ def gestor_documentos():
         gestor_documentos()
 
 
-# Nombre del archivo JSON
-archivo_json = "Ejercicio_3(Samur)/archivos.json"
-archivo_json_prueba = "Ejercicio_3(Samur)/archivos2.json"
-explorador = cargar_desde_json(archivo_json)
-
-print(explorador.visualizar())
-buscar_documento(explorador, "se")
-crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
-editar_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "nombre", "Documento 2")
-borrar_documento(explorador, "explorador de archivos/escritorio", "Documento 2")
-separador()
-buscar_carpeta(explorador, "config")
-crear_carpeta(explorador, "explorador de archivos/escritorio/config", "Carpeta 1")
-crear_documento(explorador, "explorador de archivos/escritorio/config/Carpeta 1", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
-editar_carpeta(explorador, "explorador de archivos/escritorio/config", "Carpeta 1", "Carpeta 2")
-borrar_carpeta(explorador, "explorador de archivos/escritorio/config", "Carpeta 2")
-crear_documento(explorador, "Carpeta 1/Carpeta 2", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
-crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
-crear_carpeta(explorador, "explorador de archivos/escritorio", "Carpeta 1")
-crear_carpeta(explorador, "explorador de archivos/escritorio", "Carpeta 2")
-crear_documento(explorador, "explorador de archivos/escritorio/Carpeta 2", "Documento Prueba", "Texto", "20 KB")
-crear_carpeta(explorador, "explorador de archivos/escritorio/Carpeta 1", "Prueba")
-
-guardar_a_json(explorador, archivo_json_prueba)
-
-explrador2 = cargar_desde_json(archivo_json_prueba)
-print(explrador2.visualizar())
+if __name__ == "__main__":
+    gestor_documentos()
