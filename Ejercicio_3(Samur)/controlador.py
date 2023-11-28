@@ -214,9 +214,9 @@ def gestor_documentos():
         buscar_carpeta(explorador, nombre_carpeta)
     elif opcion == "7":
         crear_carpeta(diccionario)
-    '''
     elif opcion == "8":
         editar_carpeta(diccionario)
+    '''
     elif opcion == "9":
         borrar_carpeta(diccionario)
     elif opcion == "10":
@@ -450,6 +450,40 @@ def crear_carpeta(composite, ruta, nombre_carpeta):
     else:
         print("No se puede encontrar la ubicación especificada.")
 
+def editar_carpeta(composite, ruta, nombre_carpeta, nuevo_nombre):
+    # Divide la ruta en partes
+    partes_ruta = ruta.split('/')
+
+    # Verifica si la primera carpeta en la ruta coincide con la carpeta raíz
+    if partes_ruta[0] != composite.nombre:
+        print(f"Tu carpeta raíz introducida es '{partes_ruta[0]}'.")
+        print(f"No se puede editar la carpeta. La carpeta raíz debe ser '{composite.nombre}'.")
+        return
+
+    # Inicia desde el composite raíz
+    ubicacion = composite
+
+    # Recorre las partes de la ruta para encontrar la ubicación correcta
+    for carpeta_nombre in partes_ruta[1:]:
+        ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
+        if ubicacion is None or not ubicacion.is_composite():
+            # La carpeta no existe o no es una carpeta (puede ser un archivo)
+            print(f"No se puede editar la carpeta. La carpeta '{carpeta_nombre}' no existe o no es una carpeta.")
+            return
+
+    # Verifica si se encontró la ubicación correcta
+    if ubicacion is not None and ubicacion.is_composite():
+        # Busca la carpeta por nombre
+        carpeta = next((c for c in ubicacion._children if c.nombre == nombre_carpeta), None)
+        if carpeta is not None and carpeta.is_composite():
+            # Modifica el nombre de la carpeta
+            carpeta.nombre = nuevo_nombre
+            print(f"Carpeta '{nombre_carpeta}' modificada con éxito.")
+            print(composite.visualizar())
+        else:
+            print(f"No se puede encontrar la carpeta '{nombre_carpeta}'.")
+    else:
+        print("No se puede encontrar la ubicación especificada.")
 
 # Nombre del archivo JSON
 archivo_json = "Ejercicio_3(Samur)/archivos.json"
@@ -467,6 +501,7 @@ separador()
 buscar_carpeta(explorador, "config")
 crear_carpeta(explorador, "explorador de archivos/escritorio/config", "Carpeta 1")
 crear_documento(explorador, "explorador de archivos/escritorio/config/Carpeta 1", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
+editar_carpeta(explorador, "explorador de archivos/escritorio/config", "Carpeta 1", "Carpeta 2")
 '''
 crear_documento(explorador, "Carpeta 1/Carpeta 2", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
