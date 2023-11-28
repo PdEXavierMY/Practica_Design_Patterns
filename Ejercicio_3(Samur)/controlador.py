@@ -198,6 +198,7 @@ def gestor_documentos():
         crear_documento(explorador, ruta_documento, nombre_documento, tipo_documento, tamano_documento, hipervinculo_documento)
         print("Documento creado con éxito")
         print(explorador.visualizar())
+    '''
     elif opcion == "4":
         editar_documento(diccionario)
     elif opcion == "5":
@@ -214,7 +215,7 @@ def gestor_documentos():
         print("Hasta pronto")
     else:
         print("\nOpción incorrecta\n")
-        gestor_documentos()
+        gestor_documentos()'''
 
 def buscar_documento(diccionario, fragmento_nombre):
     resultados = []
@@ -260,24 +261,34 @@ def dic_to_composite(diccionario):
     return explorador
 
 def crear_documento(composite, ruta, nombre, tipo, tamano, hipervinculo=None):
-    # Dividir la ruta en carpetas
-    carpetas = ruta.split('/')
+    # Divide la ruta en partes
+    partes_ruta = ruta.split('/')
 
-    # Encontrar la ubicación en el composite
+    # Verifica si la primera carpeta en la ruta coincide con la carpeta raíz
+    if partes_ruta[0] != composite.nombre:
+        print(f"Tu carpeta raíz introducida es '{partes_ruta[0]}'.")
+        print(f"No se puede agregar el documento. La carpeta raíz debe ser '{composite.nombre}'.")
+        return
+
+    # Inicia desde el composite raíz
     ubicacion = composite
-    for carpeta_nombre in carpetas:
-        ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
-        if ubicacion is None or not ubicacion.is_composite():
-            raise ValueError(f"No se pudo encontrar la carpeta {carpeta_nombre} en la ruta {ruta}")
 
-    # Crear el documento
+    # Recorre las partes de la ruta para encontrar la ubicación correcta
+    for carpeta_nombre in partes_ruta[1:]:
+        ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
+        if ubicacion is None:
+            # La carpeta no existe
+            print(f"No se puede agregar el documento. La carpeta '{carpeta_nombre}' no existe.")
+            return
+
+    # Crea el documento y agrégalo a la ubicación correcta
     if tipo == "Enlace":
         documento = Enlace(nombre, tipo, tamano, hipervinculo)
     else:
         documento = Archivo(nombre, tipo, tamano)
-
-    # Agregar el documento al composite
     ubicacion.add(documento)
+    print(f"Documento '{nombre}' creado con éxito en la carpeta '{ubicacion.nombre}'.")
+    print(composite.visualizar())
 
 
 
@@ -287,3 +298,10 @@ archivo_json = "Ejercicio_3(Samur)/archivos.json"
 # Abrir y cargar el contenido del archivo JSON en un diccionario
 with open(archivo_json, "r") as archivo:
     diccionario = json.load(archivo)
+
+explorador = dic_to_composite(diccionario)
+'''
+print(explorador.visualizar())
+crear_documento(explorador, "Carpeta 1/Carpeta 2", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
+crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
+'''
