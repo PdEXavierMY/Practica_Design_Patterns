@@ -1,21 +1,38 @@
 from composite import Carpeta, Archivo, Enlace
 from utils import extraer_usuario
 
-def buscar_documento(diccionario, fragmento_nombre):
-    resultados = []
+def buscar_documento(composite, fragmento_nombre):
+    """
+    Busca documentos en el composite cuyo nombre contiene el fragmento dado.
+    Imprime por pantalla la información de los documentos encontrados.
+    """
+    documentos_encontrados = []
 
-    # Buscar en los documentos de la carpeta actual
-    documentos = diccionario.get("documentos", [])
-    for documento in documentos:
-        if fragmento_nombre.lower() in documento["nombre"].lower():
-            resultados.append(documento)
+    # Función interna para buscar documentos recursivamente
+    def buscar_recursivo(component, fragmento):
+        if not component.is_composite():
+            # Es un documento, verifica si el nombre contiene el fragmento
+            if fragmento in component.nombre:
+                documentos_encontrados.append(component)
 
-    # Buscar en las carpetas recursivamente
-    carpetas = diccionario.get("carpetas", [])
-    for carpeta in carpetas:
-        resultados.extend(buscar_documento(carpeta, fragmento_nombre))
+        # Busca en las subcarpetas
+        for subcomponent in component._children:
+            buscar_recursivo(subcomponent, fragmento)
 
-    #actualizar el logs.txt
+    # Inicia la búsqueda desde el composite raíz
+    buscar_recursivo(composite, fragmento_nombre)
+
+    # Imprime la información de los documentos encontrados
+    if documentos_encontrados:
+        for documento in documentos_encontrados:
+            if hasattr(documento, 'hipervinculo'):
+                print(f"Documento: {documento.nombre}, Tipo: {documento.tipo}, Tamaño: {documento.tamaño}, Hipervínculo: {documento.hipervinculo}")
+            else:
+                print(f"Documento: {documento.nombre}, Tipo: {documento.tipo}, Tamaño: {documento.tamaño}")
+    else:
+        print(f"No se encontraron documentos que coincidan con '{fragmento_nombre}'.")
+
+    # Actualizar el logs.txt
     logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
     usuario = extraer_usuario()
     if usuario is not None:
@@ -23,8 +40,6 @@ def buscar_documento(diccionario, fragmento_nombre):
     else:
         logs.write(f"Se ha buscado el documento {fragmento_nombre}\n")
     logs.close()
-
-    return resultados
 
 def crear_documento(composite, ruta, nombre, tipo, tamano, hipervinculo=None):
     # Divide la ruta en partes

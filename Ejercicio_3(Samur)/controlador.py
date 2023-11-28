@@ -25,7 +25,7 @@ def gestor_documentos():
     elif opcion == "2":
         print("¿Qué documento desea buscar?")
         nombre_documento = input("Introduzca el nombre del documento: ")
-        resultado = buscar_documento(diccionario, nombre_documento)
+        resultado = buscar_documento(explorador, nombre_documento)
         if len(resultado) > 0:
             print(f"Se han encontrado {len(resultado)} resultados:")
             for documento in resultado:
@@ -67,7 +67,10 @@ def gestor_documentos():
         nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
         buscar_carpeta(explorador, nombre_carpeta)
     elif opcion == "7":
-        crear_carpeta(diccionario)
+        print("¿Qué carpeta desea crear?")
+        nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
+        ruta_carpeta = input("Introduzca la ruta de la carpeta: ")
+        crear_carpeta(explorador, ruta_carpeta, nombre_carpeta)
     elif opcion == "8":
         print("¿Qué carpeta desea editar?")
         nombre_carpeta = input("Introduzca el nombre de la carpeta: ")
@@ -91,6 +94,8 @@ archivo_json = "Ejercicio_3(Samur)/archivos.json"
 explorador = cargar_desde_json(archivo_json)
 
 print(explorador.visualizar())
+buscar_documento(explorador, "text")
+'''
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 editar_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "nombre", "Documento 2")
 borrar_documento(explorador, "explorador de archivos/escritorio", "Documento 2")
@@ -100,6 +105,7 @@ crear_carpeta(explorador, "explorador de archivos/escritorio/config", "Carpeta 1
 crear_documento(explorador, "explorador de archivos/escritorio/config/Carpeta 1", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 editar_carpeta(explorador, "explorador de archivos/escritorio/config", "Carpeta 1", "Carpeta 2")
 borrar_carpeta(explorador, "explorador de archivos/escritorio/config", "Carpeta 2")
+'''
 '''
 crear_documento(explorador, "Carpeta 1/Carpeta 2", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
 crear_documento(explorador, "explorador de archivos/escritorio", "Documento 1", "Enlace", "0.001 KB", "https://www.google.com")
