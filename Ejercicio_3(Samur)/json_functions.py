@@ -16,6 +16,15 @@ def cargar_desde_json(nombre_archivo):
     print(f"La estructura se ha cargado desde '{nombre_archivo}'.")
     return composite
 
+def guardar_a_json(composite, nombre_archivo):
+    """
+    Guarda la estructura del composite en un archivo JSON.
+    """
+    diccionario = composite_to_dic(composite)
+    with open(nombre_archivo, 'w') as archivo:
+        json.dump(diccionario, archivo, indent=2)
+    print(f"La estructura se ha guardado en '{nombre_archivo}'.")
+
 def dic_to_composite(diccionario):
     # Crear el composite principal (explorador de archivos)
     explorador = Carpeta(diccionario["nombre"])
@@ -42,3 +51,38 @@ def dic_to_composite(diccionario):
         explorador.add(documento)
 
     return explorador
+
+def composite_to_dic(composite):
+    """
+    Convierte un composite en un diccionario.
+    """
+    diccionario = {"nombre": composite.nombre}
+
+    carpetas = []
+    documentos = []
+
+    for child in composite._children:
+        if child.is_composite():
+            carpetas.append(composite_to_dic(child))
+        else:
+            if isinstance(child, Archivo):
+                documento = {
+                    "nombre": child.nombre,
+                    "tipo": child.tipo,
+                    "tamano": child.tamaño
+                }
+            elif isinstance(child, Enlace):
+                documento = {
+                    "nombre": child.nombre,
+                    "tipo": child.tipo,
+                    "tamano": child.tamaño,
+                    "hipervinculo": child.hipervinculo
+                }
+            documentos.append(documento)
+
+    if carpetas:
+        diccionario["carpetas"] = carpetas
+    if documentos:
+        diccionario["documentos"] = documentos
+
+    return diccionario
