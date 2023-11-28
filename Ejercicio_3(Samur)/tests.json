@@ -1,0 +1,62 @@
+{
+    "nombre": "explorador de archivos",
+    "carpetas" : [
+      {
+        "nombre": "escritorio",
+        "carpetas" : [
+          {
+            "nombre": "config",
+            "documentos": [
+              {
+                "nombre": "settings.txt",
+                "tipo": "Texto",
+                "tamano": "10 KB"
+              },
+              {
+                "nombre": "settings_wheel.jpg",
+                "tipo": "Imagen",
+                "tamano": "50 KB"
+              },
+              {
+                "nombre": "configLink",
+                "tipo": "Enlace",
+                "tamano": "0.005 KB",
+                "hipervinculo": "/ConfigGeneral/settings.txt"
+              }
+            ]
+          }
+        ],
+        "documentos": [
+          {
+            "nombre": "terms.pdf",
+            "tipo": "PDF",
+            "tamano": "30 KB"
+          },
+          {
+            "nombre": "termsLink",
+            "tipo": "Enlace",
+            "tamano": "0.005 KB",
+            "hipervinculo": "/userconfig/escritorio/terms.pdf"
+          }
+        ]
+      }
+    ],
+    "documentos": [
+      {
+        "nombre": "settings.txt",
+        "tipo": "Texto",
+        "tamano": "10 KB"
+      },
+      {
+        "nombre": "settings_wheel.jpg",
+        "tipo": "Imagen",
+        "tamano": "50 KB"
+      },
+      {
+        "nombre": "configLinkprin",
+        "tipo": "Enlace",
+        "tamano": "0.005 KB",
+        "hipervinculo": "/ConfigGeneral/settings.txt"
+      }
+    ]
+  }

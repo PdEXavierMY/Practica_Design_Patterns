@@ -1,2 +1,5 @@
-El administrador PruebaAdmin con id 1 ha iniciado sesión
-El administrador PruebaAdmin con id 1 ha sido aprobado como administrador
+El usuario Prueba con id 1 ha iniciado sesión
+El usuario El usuario Prueba con id 1 ha buscado la carpeta userconfig
+El usuario El usuario Prueba con id 1 ha buscado la carpeta config
+El usuario El usuario Prueba con id 1 ha buscado la carpeta config
+El usuario El usuario Prueba con id 1 ha buscado el documento se
