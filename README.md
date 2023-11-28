@@ -1,6 +1,6 @@
 # Patrones_de_Diseño
 
-Pincha [aquí](https://github.com/Xavitheforce/Patrones_Creacionales/) para dirigirte a mi repositorio.
+Pincha [aquí](https://github.com/Xavitheforce/Practica_Design_Patterns) para dirigirte a mi repositorio.
 
 <h1>Ejercicio 1: Análisis Modular de las Activaciones del SAMUR-Protección Civil en Madrid con Abstract Factory</h1>
 
