@@ -45,13 +45,10 @@ class Component(ABC):
         return False
 
     @abstractmethod
-    def operation(self) -> str:
+    def visualizar(self, nivel: int = 0) -> str:
         """
-        The base Component may implement some default behavior or leave it to
-        concrete classes (by declaring the method containing the behavior as
-        "abstract").
+        Recursively display the structure of the composite tree.
         """
-
         pass
 
 
@@ -68,8 +65,8 @@ class Archivo(Component):
     objects only delegate to their sub-components.
     """
 
-    def operation(self) -> str:
-        return "Archivo"
+    def visualizar(self, nivel: int = 0) -> str:
+        return f"{'  ' * nivel}Archivo: {self.nombre}"
     
 class Enlace(Component):
     def __init__(self, nombre, tipo, tamano, hipervinculo):
@@ -85,8 +82,8 @@ class Enlace(Component):
     objects only delegate to their sub-components.
     """
 
-    def operation(self) -> str:
-        return "Enlace"
+    def visualizar(self, nivel: int = 0) -> str:
+        return f"{'  ' * nivel}Enlace: {self.nombre} ({self.hipervinculo})"
 
 class Carpeta(Component):
     """
@@ -115,18 +112,11 @@ class Carpeta(Component):
     def is_composite(self) -> bool:
         return True
 
-    def operation(self) -> str:
-        """
-        The Composite executes its primary logic in a particular way. It
-        traverses recursively through all its children, collecting and summing
-        their results. Since the composite's children pass these calls to their
-        children and so forth, the whole object tree is traversed as a result.
-        """
-
-        results = []
+    def visualizar(self, nivel: int = 0) -> str:
+        results = [f"{'  ' * nivel}Carpeta: {self.nombre}"]
         for child in self._children:
-            results.append(child.operation())
-        return f"Branch({'+'.join(results)})"
+            results.append(child.visualizar(nivel + 1))
+        return '\n'.join(results)
 
 '''
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 import re
-from composite import Component, Archivo, Enlaces, Carpeta
+from composite import Component, Archivo, Enlace, Carpeta
 
 def extraer_usuario():
     ruta_archivo_logs = 'Ejercicio_3(Samur)/logs.txt'
@@ -165,8 +165,9 @@ def gestor_documentos():
     print("10. Salir")
     separador()
     opcion = input("Introduzca una opción: ")
+    explorador = dic_to_composite(diccionario)
     if opcion == "1":
-        visualizar_documentos(diccionario)
+        print(explorador.visualizar())
     elif opcion == "2":
         print("¿Qué documento desea buscar?")
         nombre_documento = input("Introduzca el nombre del documento: ")
@@ -183,7 +184,20 @@ def gestor_documentos():
         else:
             print("No se han encontrado resultados")
     elif opcion == "3":
-        crear_documento(diccionario)
+        print("¿Qué tipo de documento desea crear? (Debe introducir Enlace si va a ser un hipervínculo):")
+        tipo_documento = input("Introduzca el tipo del archivo: ")
+        
+        nombre_documento = input("Introduzca el nombre del documento: ")
+        tamano_documento = input("Introduzca el tamaño del documento: ")
+        ruta_documento = input("Introduzca la ruta del archivo: ")
+        hipervinculo_documento = None
+
+        if tipo_documento == "Enlace":
+            hipervinculo_documento = input("Introduzca el hipervínculo del enlace: ")
+
+        crear_documento(explorador, ruta_documento, nombre_documento, tipo_documento, tamano_documento, hipervinculo_documento)
+        print("Documento creado con éxito")
+        print(explorador.visualizar())
     elif opcion == "4":
         editar_documento(diccionario)
     elif opcion == "5":
@@ -201,19 +215,6 @@ def gestor_documentos():
     else:
         print("\nOpción incorrecta\n")
         gestor_documentos()
-
-
-def visualizar_documentos(diccionario):
-    try:
-        # Imprimir de manera estructurada
-        print(json.dumps(diccionario, indent=2))
-        #escribir en logs.txt la visualización de documentos
-        logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
-        usuario = extraer_usuario()
-        logs.write(f"{usuario} ha visualizado los documentos\n")
-
-    except json.JSONDecodeError as e:
-        print(f"Error al decodificar JSON: {e}")
 
 def buscar_documento(diccionario, fragmento_nombre):
     resultados = []
@@ -257,6 +258,26 @@ def dic_to_composite(diccionario):
         explorador.add(documento)
 
     return explorador
+
+def crear_documento(composite, ruta, nombre, tipo, tamano, hipervinculo=None):
+    # Dividir la ruta en carpetas
+    carpetas = ruta.split('/')
+
+    # Encontrar la ubicación en el composite
+    ubicacion = composite
+    for carpeta_nombre in carpetas:
+        ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
+        if ubicacion is None or not ubicacion.is_composite():
+            raise ValueError(f"No se pudo encontrar la carpeta {carpeta_nombre} en la ruta {ruta}")
+
+    # Crear el documento
+    if tipo == "Enlace":
+        documento = Enlace(nombre, tipo, tamano, hipervinculo)
+    else:
+        documento = Archivo(nombre, tipo, tamano)
+
+    # Agregar el documento al composite
+    ubicacion.add(documento)
 
 
 
