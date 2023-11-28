@@ -13,7 +13,6 @@ def cargar_desde_json(nombre_archivo):
     with open(nombre_archivo, 'r') as archivo:
         diccionario = json.load(archivo)
     composite = dic_to_composite(diccionario)
-    print(f"La estructura se ha cargado desde '{nombre_archivo}'.")
     return composite
 
 def guardar_a_json(composite, nombre_archivo):
