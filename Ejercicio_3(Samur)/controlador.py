@@ -245,6 +245,15 @@ def buscar_documento(diccionario, fragmento_nombre):
     for carpeta in carpetas:
         resultados.extend(buscar_documento(carpeta, fragmento_nombre))
 
+    #actualizar el logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    if usuario is not None:
+        logs.write(f"El usuario {usuario} ha buscado el documento {fragmento_nombre}\n")
+    else:
+        logs.write(f"Se ha buscado el documento {fragmento_nombre}\n")
+    logs.close()
+
     return resultados
 
 def dic_to_composite(diccionario):
@@ -304,6 +313,15 @@ def crear_documento(composite, ruta, nombre, tipo, tamano, hipervinculo=None):
     print(f"Documento '{nombre}' creado con éxito en la carpeta '{ubicacion.nombre}'.")
     print(composite.visualizar())
 
+    #actualizar el logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    if usuario is not None:
+        logs.write(f"El usuario {usuario} ha creado el documento {nombre}\n")
+    else:
+        logs.write(f"Se ha creado el documento {nombre}\n")
+    logs.close()
+
 def editar_documento(composite, ruta, nombre_documento, atributo_a_modificar, nuevo_valor):
     # Divide la ruta en partes
     partes_ruta = ruta.split('/')
@@ -341,6 +359,15 @@ def editar_documento(composite, ruta, nombre_documento, atributo_a_modificar, nu
             print(f"No se puede encontrar el documento '{nombre_documento}'.")
     else:
         print("No se puede encontrar la ubicación especificada.")
+    
+    #actualizar el logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    if usuario is not None:
+        logs.write(f"El usuario {usuario} ha editado el documento {nombre_documento}\n")
+    else:
+        logs.write(f"Se ha editado el documento {nombre_documento}\n")
+    logs.close()
 
 def borrar_documento(composite, ruta, nombre_documento):
     # Divide la ruta en partes
@@ -377,6 +404,15 @@ def borrar_documento(composite, ruta, nombre_documento):
     else:
         print("No se puede encontrar la ubicación especificada.")
 
+    #actualizar el logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    if usuario is not None:
+        logs.write(f"El usuario {usuario} ha borrado el documento {nombre_documento}\n")
+    else:
+        logs.write(f"Se ha borrado el documento {nombre_documento}\n")
+    logs.close()
+
 def buscar_carpeta(composite, fragmento_nombre):
     """
     Busca carpetas en el composite cuyo nombre contiene el fragmento dado.
@@ -404,6 +440,15 @@ def buscar_carpeta(composite, fragmento_nombre):
             print(carpeta.visualizar())
     else:
         print(f"No se encontraron carpetas que coincidan con '{fragmento_nombre}'.")
+
+    #actualizar el logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    if usuario is not None:
+        logs.write(f"El usuario {usuario} ha buscado la carpeta {fragmento_nombre}\n")
+    else:
+        logs.write(f"Se ha buscado la carpeta {fragmento_nombre}\n")
+    logs.close()
 
 def crear_carpeta(composite, ruta, nombre_carpeta):
     """
@@ -456,6 +501,15 @@ def crear_carpeta(composite, ruta, nombre_carpeta):
     else:
         print("No se puede encontrar la ubicación especificada.")
 
+    #actualizar el logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    if usuario is not None:
+        logs.write(f"El usuario {usuario} ha creado la carpeta {nombre_carpeta}\n")
+    else:
+        logs.write(f"Se ha creado la carpeta {nombre_carpeta}\n")
+    logs.close()
+
 def editar_carpeta(composite, ruta, nombre_carpeta, nuevo_nombre):
     # Divide la ruta en partes
     partes_ruta = ruta.split('/')
@@ -491,6 +545,15 @@ def editar_carpeta(composite, ruta, nombre_carpeta, nuevo_nombre):
     else:
         print("No se puede encontrar la ubicación especificada.")
 
+    #actualizar el logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    if usuario is not None:
+        logs.write(f"El usuario {usuario} ha editado la carpeta {nombre_carpeta}\n")
+    else:
+        logs.write(f"Se ha editado la carpeta {nombre_carpeta}\n")
+    logs.close()
+
 def borrar_carpeta(composite, ruta, nombre_carpeta):
     # Divide la ruta en partes
     partes_ruta = ruta.split('/')
@@ -525,6 +588,15 @@ def borrar_carpeta(composite, ruta, nombre_carpeta):
             print(f"No se puede encontrar la carpeta '{nombre_carpeta}'.")
     else:
         print("No se puede encontrar la ubicación especificada.")
+
+    #actualizar el logs.txt
+    logs = open('Ejercicio_3(Samur)/logs.txt', 'a', encoding='utf-8')
+    usuario = extraer_usuario()
+    if usuario is not None:
+        logs.write(f"El usuario {usuario} ha borrado la carpeta {nombre_carpeta}\n")
+    else:
+        logs.write(f"Se ha borrado la carpeta {nombre_carpeta}\n")
+    logs.close()
 
 # Nombre del archivo JSON
 archivo_json = "Ejercicio_3(Samur)/archivos.json"
