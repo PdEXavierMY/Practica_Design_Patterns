@@ -196,11 +196,9 @@ def gestor_documentos():
             hipervinculo_documento = input("Introduzca el hipervínculo del enlace: ")
 
         crear_documento(explorador, ruta_documento, nombre_documento, tipo_documento, tamano_documento, hipervinculo_documento)
-        print("Documento creado con éxito")
-        print(explorador.visualizar())
-    '''
     elif opcion == "4":
         editar_documento(diccionario)
+'''
     elif opcion == "5":
         borrar_documento(diccionario)
     elif opcion == "6":
@@ -290,6 +288,37 @@ def crear_documento(composite, ruta, nombre, tipo, tamano, hipervinculo=None):
     print(f"Documento '{nombre}' creado con éxito en la carpeta '{ubicacion.nombre}'.")
     print(composite.visualizar())
 
+def editar_documento(composite, ruta, nombre_documento, atributo_a_modificar, nuevo_valor):
+    # Divide la ruta en partes
+    partes_ruta = ruta.split('/')
+
+    # Inicia desde el composite raíz
+    ubicacion = composite
+
+    # Recorre las partes de la ruta para encontrar la ubicación correcta
+    for carpeta_nombre in partes_ruta:
+        ubicacion = next((c for c in ubicacion._children if c.nombre == carpeta_nombre), None)
+        if ubicacion is None or not ubicacion.is_composite():
+            # La carpeta no existe o no es una carpeta (puede ser un archivo)
+            print(f"No se puede editar el documento. La carpeta '{carpeta_nombre}' no existe o no es una carpeta.")
+            return
+
+    # Verifica si se encontró la ubicación correcta
+    if ubicacion is not None and ubicacion.is_composite():
+        # Busca el documento por nombre
+        documento = next((c for c in ubicacion._children if c.nombre == nombre_documento), None)
+        if documento is not None:
+            # Modifica el atributo especificado
+            if hasattr(documento, atributo_a_modificar):
+                setattr(documento, atributo_a_modificar, nuevo_valor)
+                print(f"Documento '{nombre_documento}' modificado con éxito.")
+                print(composite.visualizar())
+            else:
+                print(f"No se puede editar el atributo. '{atributo_a_modificar}' no es un atributo válido.")
+        else:
+            print(f"No se puede encontrar el documento '{nombre_documento}'.")
+    else:
+        print("No se puede encontrar la ubicación especificada.")
 
 
 # Nombre del archivo JSON
